@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:44:56 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/10 14:50:06 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/09/22 00:22:39 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,42 @@ size_t	len(const char *str)
 	while (str[i])
 		++i;
 	return (i);
+}
+
+int		len_x(char const *str, char c)
+{
+	int				i;
+	
+	i = 0;
+	while (str[i] && str[i] != c)
+		++i;
+	return (i);
+}
+
+char 	*str_x(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == ' ')
+			str[i] = '\0';
+		++i;
+	}
+	return (str);
+}
+
+int empty_str(char *str)
+{
+	int i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		++i;
+	}
+	return (1);
 }

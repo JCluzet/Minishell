@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/21 20:31:25 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/21 21:08:36 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_cmd_lst	*fill_multi_cmds(char *cmd)
 
 void	fill_cmds(t_cmd_lst *cmds, char *cmd)
 {
-	// cmds->argv = stock_arg(cmd); // doit stocker les arguments apres l'arg X
 	cmds->argv = str_to_word_arr(cmd, ' ');       // store l arg apres l'espace
 	if (cmds->argv)
 		cmds->cmd = ft_strdup_free(cmds->argv[0], 0); // store la cmd

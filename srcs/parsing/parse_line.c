@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/21 20:34:20 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/22 00:13:53 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 	i = 0;
 	if (!line)
 		return (NULL);
-	// quotes_check(); >> Verifier les doubles et simple quotes
+	if (quotes_check(line) == -1)
+	// {
+		// write(1, "minishell: unexpected EOF while looking for matching `\"'", 57);
+		return(NULL);
+	// }
+	replace_dollars(line, sdata);
 	cmd = fill_multi_cmds(line);
 	// cmd = fill_cmds(line);
 	while (i < nb_of_cmds(line))
@@ -83,6 +88,119 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 	i++;
 	}
 	return (cmd);
+}
+
+int		strlen_pathcmd(t_sdata *t_sdata, char *str)
+{
+	int i;
+	int count;
+
+	count = 0;
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == '$' && ( i == 0 || str[i - 1] != '\\'))
+		{
+			// printf("\n\n HERRE >> %s", get_env_var_from_name(t_sdata->env_lst, str_x(str + i + 1)));
+			if(get_env_var_from_name(t_sdata->env_lst, str_x(str + i + 1)) == NULL)
+				return(-1);
+			count += len(get_env_var_from_name(t_sdata->env_lst, str_x(str + i + 1)));
+			i += len_x(str + i, ' ') - 1;
+		}
+		else
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+char 	*replace_dollars(char *str, t_sdata *sdata)
+{
+	int i;
+	char *newcmd;
+	char *tmp;
+	int card;
+	int j;
+	int u;
+
+	u = 0;
+	j = 0;
+	i = 0;
+	card = strlen_pathcmd(sdata, str);
+	if (card == -1)
+		return (NULL);
+	newcmd = malloc(sizeof(char) * (card + 1));
+	printf("\n\nMalloc de %d\n", card);
+	while (j < card)
+	{
+		if (str[i] == '$' && ( i == 0 || (str[i-1] != '\\') ))
+		{
+			tmp = get_env_var_from_name(sdata->env_lst, str_x(str + i + 1));
+			while (tmp[u])
+			{
+				newcmd[j] = tmp[u];
+				j++;
+				u++;
+			}
+			u = 0;
+			i += len_x(str + i, ' ') - 1;
+		}
+		else
+		{
+			newcmd[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	newcmd[j] = '\0';
+	printf("\n\n>>%s<<\n", newcmd);
+	return(newcmd);
+}
+
+int		quotes_check(char *str)
+{
+	t_quote qt;
+	qt.double_q = 0;
+	qt.simple_q = 0;
+	int i;
+	
+
+	i = 0;
+	while (str[i])
+	{
+		checkquotes(str[i], &qt);
+		i++;
+	}
+	if (qt.simple_q % 2 != 0)
+	{
+		printf("minishell: unexpected EOF while looking for matching '\''\n");
+		return(-1);
+	}
+	if (qt.double_q % 2 != 0)
+	{
+		printf("minishell: unexpected EOF while looking for matching '\"'\n");
+		return(-1);
+	}
+	return(0);
+}	
+
+int		checkquotes(char c, t_quote *qt)
+{
+	if (c == '\"')
+	{
+		if (qt->simple_q % 2 == 0)
+			qt->double_q++;
+		else
+			qt->double_q_insimple++;
+	}
+	if (c == '\'')
+	{
+		if (qt->double_q % 2 == 0)	
+			qt->simple_q++;
+		else
+			qt->simple_q_indouble++;
+	}
+	return(0);
 }
 
 int		check_error(t_cmd_lst *cmds)

@@ -99,7 +99,8 @@ Return with the argument value
 If first argument is not a number return 255 "bash: exit: qw: numeric argument required"
 If first argument is a number and is followed with another arg, print "bash: exit: too many arguments"
 
-
+ECHO :
+if $ refferenced argument doesnt exist, just display \n
 
 Invalid indentifier for Environement variable :
 

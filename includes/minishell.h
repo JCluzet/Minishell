@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/21 20:20:32 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/22 00:23:39 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,23 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <libc.h>
 #include <fcntl.h>
 # include <sys/wait.h>
 
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_="
 # define BUFFER_SIZE 4096
+
+
+typedef struct  s_quote
+{
+		int simple_q;
+		int simple_q_indouble;
+		int double_q;
+		int double_q_insimple;
+					
+}				t_quote;
 
 typedef struct	s_command_list
 {
@@ -71,6 +82,10 @@ int	shell_loop(t_sdata *sdata);
 t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
 int		check_error(t_cmd_lst *cmd);
 int	is_builtin(char *cmd);
+int		quotes_check(char *str);
+int		checkquotes(char c, t_quote *qt);
+char 	*replace_dollars(char *str, t_sdata *sdata);
+
 //	check_cmd_executable.c
 char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
@@ -145,6 +160,9 @@ int		nb_of_cmds(char *cmd);
 int	ft_isdigit(int c);
 int	is_number(char const *str, int i);
 int	is_in_set(char c, char const *set);
+char 	*str_x(char *str);
+int		len_x(char const *str, char c);
+int empty_str(char *str);
 size_t	len(const char *str);
 //	ft_atoi.c
 int	ft_atoi(const char *str);
