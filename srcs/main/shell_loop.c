@@ -31,6 +31,8 @@ int	shell_loop(t_sdata *sdata)
 	{
 		line = readline("\033[33m$ ➜\033[00m ");
 		add_history(line);
+		if (line[0] == 0)
+			continue ;
 		sdata->cmds = parse_line(sdata, line);
 		if (check_error(sdata->cmds) == 0)
 			execution_dispatcher(sdata);
