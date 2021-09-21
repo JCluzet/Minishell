@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/21 00:16:21 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/21 20:34:20 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,22 @@ char	*find_cmd_path(t_cmd_lst *cmd, char **paths)
 t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 {
 	t_cmd_lst *cmd;
+	int i;
 
+	i = 0;
 	if (!line)
 		return (NULL);
+	// quotes_check(); >> Verifier les doubles et simple quotes
 	cmd = fill_multi_cmds(line);
 	// cmd = fill_cmds(line);
-	if (cmd->builtin_idx > 6)
-		cmd->cmd_path = find_cmd_path(cmd, sdata->bin_paths);
+	while (i < nb_of_cmds(line))
+	{
+		if (cmd[i].builtin_idx > 6 || cmd[i].builtin_idx == -1) // parse toutes les cmds
+			cmd[i].cmd_path = is_cmd_executable(cmd[i].cmd, sdata);
+		else
+			printf("\n"); // a enlever 
+	i++;
+	}
 	return (cmd);
 }
 

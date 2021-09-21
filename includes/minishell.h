@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/21 00:15:44 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/21 20:20:32 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ typedef struct	s_command_list
 	char		**argv;//	Null terminated arg of cmd                           >> arguments que prennent la commande ou NULL si sans argument
 	char		*cmd_path;// Valid bath to executable file, set to NULL if none  >> path vers l'executable (si existant)
 	int			builtin_idx; // if > 7 is a builtin, if == 7 is not              >> le numero du builtin ( 7 si non existant )
-	char		redir; //-2 - '<<' | -1 - '<' | 0 none | 1 - '>' | 2 - '>>'      >> une eventuel redirection trouvé apres la commande
-	int			fdi;//	fd of infile, set to -1 if no reddir, dup with stdin
-	int			fdo;//	fd of outfile, set to -1 if no reddir, dup with stdout
+	char		**redir_in;       // gerer les in et les out dans un double tab (< f1 < f2 cat > f3 > f4) >> in tab (f1 | f2) >> out tab (f3 | f4)
+	char		**redir_out;
 	char		*reff_arg;//	$ refference arguments are stored here
 	// struct s_command_list	*next;
 }				t_cmd_lst;
@@ -54,6 +53,8 @@ typedef struct	s_shell_data                   // structure envoyé a chaque fonc
 	t_env_lst	*env_lst;
 	char		**bin_paths;//	Path to all binary folder from ENV
 	char		lrval;// Last return value of launched cmd
+	int			cmd_idx;
+	int			cmd_nbr;
 }				t_sdata;
 
 
@@ -70,11 +71,14 @@ int	shell_loop(t_sdata *sdata);
 t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
 int		check_error(t_cmd_lst *cmd);
 int	is_builtin(char *cmd);
+//	check_cmd_executable.c
+char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
 void	fill_cmds(t_cmd_lst *cmds, char *cmd);
 t_cmd_lst	*fill_multi_cmds(char *cmd);
+
 //		Execution
-//	dispatcher
+//	dispatcher.c
 void	execution_dispatcher(t_sdata *sdata);
 
 //		Environement
