@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/20 22:54:57 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/22 00:54:34 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void		execution_dispatcher(t_sdata *sdata)
 	{
 		pid = fork();                          // Quest ce que c'est que ca ? 
 		if (!pid)
+		{
 			execve(sdata->cmds->cmd_path, sdata->cmds->argv, sdata->env);
+		}
 		else
 		{
 			waitpid(-1, NULL, 0);

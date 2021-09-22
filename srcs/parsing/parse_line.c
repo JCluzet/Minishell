@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 00:13:53 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/22 03:14:27 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,20 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 	int i;
 
 	i = 0;
-	if (!line)
-		return (NULL);
-	if (quotes_check(line) == -1)
+	if (quotes_check(line) == -1 || !line)
 	// {
 		// write(1, "minishell: unexpected EOF while looking for matching `\"'", 57);
 		return(NULL);
 	// }
-	replace_dollars(line, sdata);
+	// replace_dollars(line, sdata);
 	cmd = fill_multi_cmds(line);
 	// cmd = fill_cmds(line);
 	while (i < nb_of_cmds(line))
 	{
 		if (cmd[i].builtin_idx > 6 || cmd[i].builtin_idx == -1) // parse toutes les cmds
 			cmd[i].cmd_path = is_cmd_executable(cmd[i].cmd, sdata);
-		else
-			printf("\n"); // a enlever 
+		// else
+			//printf("\n"); // a enlever 
 	i++;
 	}
 	return (cmd);
@@ -130,7 +128,7 @@ char 	*replace_dollars(char *str, t_sdata *sdata)
 	if (card == -1)
 		return (NULL);
 	newcmd = malloc(sizeof(char) * (card + 1));
-	printf("\n\nMalloc de %d\n", card);
+	//printf("\n\nMalloc de %d\n", card);
 	while (j < card)
 	{
 		if (str[i] == '$' && ( i == 0 || (str[i-1] != '\\') ))
@@ -153,7 +151,7 @@ char 	*replace_dollars(char *str, t_sdata *sdata)
 		i++;
 	}
 	newcmd[j] = '\0';
-	printf("\n\n>>%s<<\n", newcmd);
+	//printf("\n\n>>%s<<\n", newcmd);
 	return(newcmd);
 }
 
