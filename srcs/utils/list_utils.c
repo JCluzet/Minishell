@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 14:55:59 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/20 05:00:42 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/09/22 14:41:45 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,10 @@ t_env_lst	*remove_first_elem(t_env_lst *list, char *arg)
 	return (tmp);
 }
 
-void	remove_last_elem(t_env_lst *list, char *arg)
+void	remove_last_elem(t_env_lst *list, t_env_lst *tmp, char *arg)
 {
-	t_env_lst	*tmp;
-
-	tmp = list->next;
-	list->next = NULL;
-	deallocate_env_lst_elem(tmp);
+	tmp->next = NULL;
+	deallocate_env_lst_elem(list);
 }
 
 t_env_lst	*remove_elem(t_env_lst *list, char *arg)
@@ -86,7 +83,7 @@ t_env_lst	*remove_elem(t_env_lst *list, char *arg)
 		list = list->next;
 	}
 	if (!list->next)
-		remove_last_elem(list, arg);
+		remove_last_elem(list, tmp, arg);
 	else
 	{
 		list = list->next;

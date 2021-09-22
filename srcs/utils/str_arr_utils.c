@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_arr_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/19 23:43:53 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:17:05 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,12 @@ char	**dup_arr(char **arr)
 	int		i;
 
 	len = tablen(arr);
-
 	n_arr = malloc(sizeof(char *) * (1 + len));
 	while (i < len)
 	{
 		n_arr[i] = ft_strdup_free(arr[i], 0);
 		++i;
 	}
-	//n_arr[i] = NULL;                    //    >> Pose probleme sur mon mac
+	n_arr[i] = NULL;
 	return (n_arr);
 }

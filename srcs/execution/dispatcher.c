@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 00:54:34 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:46:29 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		execution_dispatcher(t_sdata *sdata)
 		(builtins_array)[sdata->cmds->builtin_idx](sdata);
 	else if (sdata->cmds->cmd_path)
 	{
-		pid = fork();                          // Quest ce que c'est que ca ? 
+		pid = fork();
 		if (!pid)
 		{
 			execve(sdata->cmds->cmd_path, sdata->cmds->argv, sdata->env);
