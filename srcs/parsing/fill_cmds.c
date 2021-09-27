@@ -6,13 +6,13 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 01:44:50 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/28 00:05:24 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_cmd_lst	*fill_multi_cmds(char *cmd)
+t_cmd_lst	*split_cmds(char *cmd)
 {
 	t_cmd_lst *cmds;
 	char **mul_cmd;

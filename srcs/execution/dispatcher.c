@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 15:08:00 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/09/27 23:36:55 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void		execution_dispatcher(t_sdata *sdata)
 	int		i;
 
 	i = 0;
-	while (i < sdata->cmd_nbr)
-	{
+	// while (i < sdata->cmd_nbr)
+	// {
 		if (sdata->cmds->builtin_idx < 7 && sdata->cmds->builtin_idx != -1)
 			(builtins_array)[sdata->cmds->builtin_idx](sdata);
 		else if (sdata->cmds->cmd_path)
 		{
-			manage_fd_dups();
+			// manage_fd_dups();
 			pid = fork();
 			if (!pid)
 			{
@@ -46,6 +46,6 @@ void		execution_dispatcher(t_sdata *sdata)
 			{
 				waitpid(-1, NULL, 0);
 			}
-		}
+		// }
 	}
 }

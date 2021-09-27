@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 03:14:27 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/28 00:06:13 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 		return(NULL);
 	// }
 	// replace_dollars(line, sdata);
-	cmd = fill_multi_cmds(line);
+	cmd = split_cmds(line);
 	// cmd = fill_cmds(line);
 	while (i < nb_of_cmds(line))
 	{

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 00:23:39 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/09/28 00:06:31 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char 	*replace_dollars(char *str, t_sdata *sdata);
 char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
 void	fill_cmds(t_cmd_lst *cmds, char *cmd);
-t_cmd_lst	*fill_multi_cmds(char *cmd);
+t_cmd_lst	*split_cmds(char *cmd);
 
 //		Execution
 //	dispatcher.c

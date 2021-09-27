@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_arr_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 14:17:05 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/09/27 23:34:11 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char	**dup_arr(char **arr)
 	char	**n_arr;
 	int		len;
 	int		i;
+	i = 0;
 
 	len = tablen(arr);
 	n_arr = malloc(sizeof(char *) * (1 + len));
