@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 04:34:37 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/03 05:29:52 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ static char	*word_dup(const char *str, int start, int finish);
 int issep(char c);
 int is_double_redir(char c, char c1);
 int	isspace_behind(char *str, int i);
-char	*cut_first_redir(char *line);
+char	*cut_first_redir(char *line, t_cmd_lst *cmd);
 int		redir_check(char *str);
+void	initredir(t_cmd_lst *cmd, int i);
 char	*initfirstredir(char *cmd, t_cmd_lst *cmds);
 
 

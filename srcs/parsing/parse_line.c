@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 05:04:43 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/03 05:40:24 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 		return (NULL);
 	}
 	// replace_dollars(line, sdata);
-	line = cut_first_redir(line);
+	cmd = malloc(sizeof(t_cmd_lst));
+	cmd->cmd = NULL;
+	cmd->next = NULL;
+	line = cut_first_redir(line, cmd);
 	//printf("line > %s", line);
 	cmd = split_cmds(line, cmd);
 	printf_linked_list(cmd);
@@ -100,7 +103,7 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 	return (cmd);
 }
 
-char	*cut_first_redir(char *line)
+char	*cut_first_redir(char *line, t_cmd_lst *cmd)
 {
 	int i;
 
@@ -108,12 +111,42 @@ char	*cut_first_redir(char *line)
 	while ((line[i] == ' ' || line[i] == '\t') && line[i] != '\0')
 		++i;
 	if (line[i] == '<' && line[i + 1] == '<')
+	{
+		initredir(cmd, 4);
 		return (line + i + 2);
+	}
 	if (line[i] == '>' && line[i + 1] == '>')
+	{
+		initredir(cmd, 3);
 		return (line + i + 2);
-	if (line[i] == '<' || line[i] == '>')
+	}
+	if (line[i] == '<')
+	{
+		initredir(cmd, 2);
 		return (line + i + 1);
+	}
+	if (line[i] == '>')
+	{
+		initredir(cmd, 1);
+		return (line + i + 1);
+	}
 	return(line);
+}
+
+void	initredir(t_cmd_lst *cmd, int i)
+{
+	cmd->d_redir_in = 0;
+	cmd->d_redir_out = 0;
+	cmd->s_redir_in = 0;
+	cmd->s_redir_out = 0;
+	if (i == 1)
+		cmd->s_redir_in = 1;
+	if (i == 2)
+		cmd->s_redir_out = 1;
+	if (i == 3)
+		cmd->d_redir_in = 1;
+	if (i == 4)
+		cmd->d_redir_out = 1;
 }
 
 int		redir_check(char *str)
@@ -121,7 +154,7 @@ int		redir_check(char *str)
 	int i;
 	int blank;
 	
-	i = len(str) - 1;
+	i = len(str) - 2;
 	if (str[i] == '<' || str[i] == '>')
 		return(-1);
 	i = 0;

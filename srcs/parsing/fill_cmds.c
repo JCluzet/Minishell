@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 04:53:28 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/03 05:34:29 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds)
 	char **mul_cmd;
 	int i;
 	
-	cmds = init_linkedlist();
+
 	firstcmds = cmds;
 	mul_cmd = split_thepipe(cmd, '|');
 	//mul_cmd = str_to_word_arr(cmd, '|');          // separe la ligne cmd en plusieurs commandes avec ; MAIS aussi si il ya des quotes genre echo ";" :/
@@ -90,7 +90,18 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 	}
 	if (v == 0 && cmds->argv[1] == NULL)
 		printf("argv > (null)\n");
-	printf("builtin_idx > %d\n\n", cmds->builtin_idx);
+	printf("builtin_idx > %d\n", cmds->builtin_idx);
+	if (cmds->s_redir_in == 1)
+		printf("s_redir_in > %d\n", cmds->s_redir_in);
+	else if (cmds->s_redir_out == 1)
+		printf("s_redir_out > %d\n", cmds->s_redir_out);
+	else if (cmds->d_redir_in == 1)
+		printf("d_redir_in > %d\n", cmds ->d_redir_in);
+	else if (cmds->d_redir_out == 1)
+		printf("d_redir_out > %d\n", cmds->d_redir_out);
+	else
+		printf("redir > (null)\n");
+	printf("\n");
 }
 
 int		nb_of_cmds(char *cmd)
