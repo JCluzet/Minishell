@@ -138,3 +138,34 @@ DAY 3 : Unset and export Working, also added replacement of exported value alrea
 
 DAY 4 : CD seems to be good, with PWD and OLDPWD updating with each call
 	also unset and export got some fixes
+
+
+ To dO (amine) : 
+
+-  regler le echo qui affiche le dernier guillemet
+
+- regler le CD qui indiqe no files sur un dossier avec un espace (la tabulation le fait comme ca )
+    ex : cd /Library/Caches    (fonctionne)
+	puis : cd Desktop Pictures/   (erreur > alors que la tab le conmplete come ca)
+
+-  regler CD qui indique no such files sur > cd ~/Desktop (relative path ?)
+
+- regler le $ (la fonction replace dollars le fait deja)
+
+-  regler le EXPORT qui ne fonctionne pas quand on fait /usr/bin/env ? (le env est different du binaire)
+
+-  regler UNSET qui crash
+
+- regler les pipes et les redirections
+
+to DO (jo) :
+
+-  separer les cmds dans une list chainees >> GOOD
+
+- separer les cmds en tenant en compte le bon pipe >> GOOD
+
+- instaurer les detections et stock de redirections 
+
+- gerer les double pipe ou fin de commande avec pipe cas d'erreur >> GOOD
+
+- gerer le echo avec un argument si ya des quotes >> GOOD

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/28 00:06:31 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/03 02:24:40 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_command_list
 	char		**redir_in;       // gerer les in et les out dans un double tab (< f1 < f2 cat > f3 > f4) >> in tab (f1 | f2) >> out tab (f3 | f4)
 	char		**redir_out;
 	char		*reff_arg;//	$ refference arguments are stored here
-	// struct s_command_list	*next;
+	struct s_command_list	*next;
 }				t_cmd_lst;
 
 typedef struct s_environement_list
@@ -71,7 +71,7 @@ typedef struct	s_shell_data                   // structure envoyé a chaque fonc
 
 // Testing
 
-void	print_cmds(t_cmd_lst *cmds, char *cmd, int v);
+void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i);
 
 //		Main
 //	shell_loop.c
@@ -79,7 +79,16 @@ int	shell_loop(t_sdata *sdata);
 
 //		Parsing
 //	parse_line
+int		pipe_check(char *str);
+char		**split_thepipe(char const *s, char c);
+static char	*word_dup(const char *str, int start, int finish);
+static int	count_words(const char *str, char c);
+
 t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
+t_cmd_lst	*init_linkedlist(void);
+
+t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds);
+void			printf_linked_list(t_cmd_lst *cmd);
 int		check_error(t_cmd_lst *cmd);
 int	is_builtin(char *cmd);
 int		quotes_check(char *str);

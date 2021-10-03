@@ -1,0 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   linklist.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
+/*   Updated: 2021/10/03 02:23:55 by jo               ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# include "../../includes/minishell.h"
+
+// malloc and init linked list for cmds and return it
+
+t_cmd_lst	*init_linkedlist(void)
+{
+	t_cmd_lst *cmds;
+	
+	cmds = malloc(sizeof(t_cmd_lst));
+	cmds->cmd = NULL;
+	cmds->next = NULL;
+	return(cmds);
+}
+
+// insert a new node in the linked list and return it
+
+t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
+{
+	t_cmd_lst *new;
+	
+	new = malloc(sizeof(t_cmd_lst));
+	new->cmd = NULL;
+	new->next = NULL;
+	cmds->next = new;
+	return(new);
+}
+
+// print linked list
+void			printf_linked_list(t_cmd_lst *cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd->next != NULL) 
+	{
+		if (cmd->argv)
+			print_cmds(cmd, cmd->argv[0], 0, i);
+		else
+			print_cmds(cmd, cmd->argv[0], 1, i);
+		cmd = cmd->next;
+		i++;
+	}
+	if (cmd->argv)
+		print_cmds(cmd, cmd->argv[0], 0, i);
+	else
+		print_cmds(cmd, cmd->argv[0], 1, i);
+}

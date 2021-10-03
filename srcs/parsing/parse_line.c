@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/28 00:06:13 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/03 02:17:29 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,51 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 
 	i = 0;
 	if (quotes_check(line) == -1 || !line)
-	// {
-		// write(1, "minishell: unexpected EOF while looking for matching `\"'", 57);
 		return(NULL);
-	// }
+	if (pipe_check(line) == -1)
+	{
+		printf("minishell: parse error near '|'\n");
+		return (NULL);
+	}
 	// replace_dollars(line, sdata);
 	cmd = split_cmds(line);
+	printf_linked_list(cmd);
 	// cmd = fill_cmds(line);
 	while (i < nb_of_cmds(line))
 	{
-		if (cmd[i].builtin_idx > 6 || cmd[i].builtin_idx == -1) // parse toutes les cmds
-			cmd[i].cmd_path = is_cmd_executable(cmd[i].cmd, sdata);
-		// else
-			//printf("\n"); // a enlever 
+		if (cmd->builtin_idx > 6 || cmd->builtin_idx == -1) // parse toutes les cmds
+			cmd->cmd_path = is_cmd_executable(cmd->cmd, sdata);
+		if (cmd->next != NULL)
+			cmd = cmd->next;
 	i++;
 	}
 	return (cmd);
+}
+
+int		pipe_check(char *str)
+{
+	int i;
+	int blank;
+
+	blank = -1;
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == '|')
+		{
+			if (i == len(str) - 1)
+				return (-1);
+			if (i == 0)
+				return (-1);
+			if (blank == -1)
+				return (-1);
+			blank = -1;
+		}
+		if (str[i] != ' ' && str[i] != '\t')
+			blank = 0;
+		i++;
+	}
+	return(0);
 }
 
 int		strlen_pathcmd(t_sdata *t_sdata, char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/28 00:05:24 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/03 02:26:08 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,50 @@
 t_cmd_lst	*split_cmds(char *cmd)
 {
 	t_cmd_lst *cmds;
+	t_cmd_lst *firstcmds;
 	char **mul_cmd;
 	int i;
 	
-	mul_cmd = str_to_word_arr(cmd, '|');          // separe la ligne cmd en plusieurs commandes avec ; MAIS aussi si il ya des quotes genre echo ";" :/
+	cmds = init_linkedlist();
+	firstcmds = cmds;
+	mul_cmd = split_thepipe(cmd, '|');
+	//mul_cmd = str_to_word_arr(cmd, '|');          // separe la ligne cmd en plusieurs commandes avec ; MAIS aussi si il ya des quotes genre echo ";" :/
 	i = 0;
-	cmds = malloc(sizeof(t_cmd_lst) * nb_of_cmds(cmd));
+	//cmds = malloc(sizeof(t_cmd_lst) * nb_of_cmds(cmd));
 	while (i < nb_of_cmds(cmd))
 	{
-		fill_cmds(&cmds[i], mul_cmd[i]);
+		if (i != 0)
+		{
+			cmds = insertion_linklist(cmds);
+		}
+		fill_cmds(cmds, mul_cmd[i]);
 		i++;
 	}
-	return(cmds);
+	return(firstcmds);
 }
+
 
 void	fill_cmds(t_cmd_lst *cmds, char *cmd)
 {
-	cmds->argv = str_to_word_arr(cmd, ' ');       // store l arg apres l'espace
+	cmds->argv = split_thepipe(cmd, ' ');       // store l arg apres l'espace
 	if (cmds->argv)
 		cmds->cmd = ft_strdup_free(cmds->argv[0], 0); // store la cmd
 	cmds->cmd_path = NULL;
 	if (cmds->argv)
-	{
 		cmds->builtin_idx = is_builtin(cmds->argv[0]); 
-		//print_cmds(cmds, cmd, 0);// changer pour stock
-	}
 	else
-	{
 		cmds->builtin_idx = -1;
-		//print_cmds(cmds, cmd, 1);
-	}
 	cmds->reff_arg = NULL;
-	// Place holder
 }
 
-void	print_cmds(t_cmd_lst *cmds, char *cmd, int v)
+void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 {
 	int u;
+	i++;
 
 	u = 1;
 	//printf("nb of cmd = %d\n\n", nb_of_cmds(cmd));
-	printf("\n-- COMMAND DETECTED --\n");
+	printf("-- COMMAND %d DETECTED --\n", i);
 	if (v == 0)
 		printf("cmd > %s\n", cmds->cmd);
 	else 
@@ -67,7 +70,7 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v)
 	}
 	if (v == 0 && cmds->argv[1] == NULL)
 		printf("argv > (null)\n");
-	printf("builtin_idx > %d\n", cmds->builtin_idx);
+	printf("builtin_idx > %d\n\n", cmds->builtin_idx);
 }
 
 int		nb_of_cmds(char *cmd)
