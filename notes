@@ -164,7 +164,7 @@ to DO (jo) :
 
 - separer les cmds en tenant en compte le bon pipe >> GOOD
 
-- instaurer les detections et stock de redirections 
+- instaurer les detections et stock de redirections >> GOOD (reporte moi des bugs si t'en trouve (ca metonnerait pas il est 7h du mat))
 
 - gerer les double pipe ou fin de commande avec pipe cas d'erreur >> GOOD
 
