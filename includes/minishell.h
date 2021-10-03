@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 05:29:52 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/03 06:18:47 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ typedef struct  s_quote
 		int double_q_insimple;
 					
 }				t_quote;
+
+typedef struct	s_redir
+{
+	int			redir[100];
+}				t_redir;
 
 typedef struct	s_command_list
 {
@@ -84,7 +89,8 @@ int	shell_loop(t_sdata *sdata);
 //		Parsing
 //	parse_line
 int		pipe_check(char *str);
-char		**split_thepipe(char const *s, char c);
+char		**split_thepipe(char const *s, char c, t_redir *redir);
+int		stock_redir(const char *s, int i, int v, t_redir *rdr);
 static char	*word_dup(const char *str, int start, int finish);
 int issep(char c);
 int is_double_redir(char c, char c1);
@@ -112,7 +118,7 @@ char 	*replace_dollars(char *str, t_sdata *sdata);
 //	check_cmd_executable.c
 char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
-void	fill_cmds(t_cmd_lst *cmds, char *cmd);
+void	fill_cmds(t_cmd_lst *cmds, char *cmd, int rdr);
 char		**split_thespace(char const *s, char c);
 static int	count_words_space(const char *str, char c);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);

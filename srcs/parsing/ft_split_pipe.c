@@ -60,7 +60,7 @@ static char	*word_dup(const char *str, int start, int finish)
 	return (word);
 }
 
-char		**split_thepipe(char const *s, char c)
+char		**split_thepipe(char const *s, char c, t_redir *redir)
 {
 	size_t	i;
 	size_t	j;
@@ -87,10 +87,33 @@ char		**split_thepipe(char const *s, char c)
 		else if (((issep(s[i]) && (s_quotes % 2 == 0 && d_quotes % 2 == 0)) || i == len(s)) && index >= 0)
 		{
 			split[j++] = word_dup(s, index, i);
+			i += stock_redir(s, i, j, redir); // ??
 			index = -1;
 		}
 		i++;
 	}
 	split[j] = 0;
 	return (split);
+}
+
+int		stock_redir(const char *s, int i, int v, t_redir *rdr)
+{
+	if (s[i] == '<' && s[i + 1] == '<')
+	{
+		rdr->redir[v] = 1;
+		return(1);
+	}
+	else if (s[i] == '>' && s[i + 1] == '>')
+	{
+		rdr->redir[v] = 2;
+		return(1);
+	}
+	else if (s[i] == '<')
+		rdr->redir[v] = 3;
+	else if (s[i] == '>')
+		rdr->redir[v] = 4;
+	else
+		rdr->redir[v] = 0;
+	//printf("\n\nredir n%d est %d", v, rdr->redir[v]);
+	return(0);
 }

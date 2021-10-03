@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 05:40:24 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/03 06:36:54 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,7 +346,7 @@ int		check_error(t_cmd_lst *cmds)
 {
 	if (!cmds)
 		return(-1);
-	if ((((cmds->builtin_idx > 6) && !cmds->cmd_path) || (cmds->builtin_idx == -1 && !cmds->cmd_path)) && cmds->argv)
+	if (((((cmds->builtin_idx > 6) && !cmds->cmd_path) || (cmds->builtin_idx == -1 && !cmds->cmd_path)) && cmds->argv) && cmds->d_redir_out != 1)
 	{
 		write(1, "minishell: command not found: ", 31);
 		write(1, cmds->cmd, len(cmds->cmd));

@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 05:34:29 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/03 06:23:24 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds)
 	t_cmd_lst *firstcmds;
 	char **mul_cmd;
 	int i;
+	t_redir *rdr;
 	
-
+	rdr = malloc(sizeof(t_redir));
 	firstcmds = cmds;
-	mul_cmd = split_thepipe(cmd, '|');
+	mul_cmd = split_thepipe(cmd, '|', rdr);
 	//mul_cmd = str_to_word_arr(cmd, '|');          // separe la ligne cmd en plusieurs commandes avec ; MAIS aussi si il ya des quotes genre echo ";" :/
 	i = 0;
 	//cmds = malloc(sizeof(t_cmd_lst) * nb_of_cmds(cmd));
@@ -31,7 +32,7 @@ t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds)
 		{
 			cmds = insertion_linklist(cmds);
 		}
-		fill_cmds(cmds, mul_cmd[i]);
+		fill_cmds(cmds, mul_cmd[i], rdr->redir[i]);
 		i++;
 	}
 	return(firstcmds);
@@ -58,7 +59,7 @@ char	*initfirstredir(char *cmd, t_cmd_lst *cmds)
 }
 
 
-void	fill_cmds(t_cmd_lst *cmds, char *cmd)
+void	fill_cmds(t_cmd_lst *cmds, char *cmd, int rdr)
 {
 	cmds->argv = split_thespace(cmd, ' ');       // store l arg apres l'espace
 	if (cmds->argv)
@@ -68,7 +69,7 @@ void	fill_cmds(t_cmd_lst *cmds, char *cmd)
 		cmds->builtin_idx = is_builtin(cmds->argv[0]); 
 	else
 		cmds->builtin_idx = -1;
-	cmds->reff_arg = NULL;
+	initredir(cmds, rdr);
 }
 
 void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
@@ -100,7 +101,7 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 	else if (cmds->d_redir_out == 1)
 		printf("d_redir_out > %d\n", cmds->d_redir_out);
 	else
-		printf("redir > (null)\n");
+		printf("redir > 0\n");
 	printf("\n");
 }
 

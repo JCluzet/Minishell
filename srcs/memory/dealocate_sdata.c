@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dealocate_sdata.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/20 23:40:26 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/03 06:19:56 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	deallocate_cmd_elem(t_cmd_lst *cmd)
 	free(cmd->cmd);
 	free_arr(cmd->argv);
 	free(cmd->cmd_path);
-	free(cmd->reff_arg);
+	//free(cmd->reff_arg);
 	free(cmd);
 }
 
