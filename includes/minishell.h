@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 02:24:40 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/03 04:34:37 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ typedef struct	s_command_list
 	char		**argv;//	Null terminated arg of cmd                           >> arguments que prennent la commande ou NULL si sans argument
 	char		*cmd_path;// Valid bath to executable file, set to NULL if none  >> path vers l'executable (si existant)
 	int			builtin_idx; // if > 7 is a builtin, if == 7 is not              >> le numero du builtin ( 7 si non existant )
-	char		**redir_in;       // gerer les in et les out dans un double tab (< f1 < f2 cat > f3 > f4) >> in tab (f1 | f2) >> out tab (f3 | f4)
-	char		**redir_out;
+	//char		**redir_in;       // gerer les in et les out dans un double tab (< f1 < f2 cat > f3 > f4) >> in tab (f1 | f2) >> out tab (f3 | f4)
+	//char		**redir_out;
+	int			s_redir_out;
+	int			s_redir_in;
+	int			d_redir_out;
+	int			d_redir_in;
 	char		*reff_arg;//	$ refference arguments are stored here
 	struct s_command_list	*next;
 }				t_cmd_lst;
@@ -82,6 +86,15 @@ int	shell_loop(t_sdata *sdata);
 int		pipe_check(char *str);
 char		**split_thepipe(char const *s, char c);
 static char	*word_dup(const char *str, int start, int finish);
+int issep(char c);
+int is_double_redir(char c, char c1);
+int	isspace_behind(char *str, int i);
+char	*cut_first_redir(char *line);
+int		redir_check(char *str);
+char	*initfirstredir(char *cmd, t_cmd_lst *cmds);
+
+
+static char	*word_dup(const char *str, int start, int finish);
 static int	count_words(const char *str, char c);
 
 t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
@@ -99,7 +112,9 @@ char 	*replace_dollars(char *str, t_sdata *sdata);
 char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
 void	fill_cmds(t_cmd_lst *cmds, char *cmd);
-t_cmd_lst	*split_cmds(char *cmd);
+char		**split_thespace(char const *s, char c);
+static int	count_words_space(const char *str, char c);
+t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
 
 //		Execution
 //	dispatcher.c

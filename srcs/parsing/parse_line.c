@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 02:17:29 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/03 05:04:43 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,24 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 	int i;
 
 	i = 0;
+
 	if (quotes_check(line) == -1 || !line)
 		return(NULL);
 	if (pipe_check(line) == -1)
 	{
 		printf("minishell: parse error near '|'\n");
 		return (NULL);
+	}	
+	
+	if (redir_check(line) == -1)
+	{
+		printf("minishell: parse error near '\\n'\n");
+		return (NULL);
 	}
 	// replace_dollars(line, sdata);
-	cmd = split_cmds(line);
+	line = cut_first_redir(line);
+	//printf("line > %s", line);
+	cmd = split_cmds(line, cmd);
 	printf_linked_list(cmd);
 	// cmd = fill_cmds(line);
 	while (i < nb_of_cmds(line))
@@ -91,6 +100,74 @@ t_cmd_lst		*parse_line(t_sdata *sdata, char *line)
 	return (cmd);
 }
 
+char	*cut_first_redir(char *line)
+{
+	int i;
+
+	i = 0;
+	while ((line[i] == ' ' || line[i] == '\t') && line[i] != '\0')
+		++i;
+	if (line[i] == '<' && line[i + 1] == '<')
+		return (line + i + 2);
+	if (line[i] == '>' && line[i + 1] == '>')
+		return (line + i + 2);
+	if (line[i] == '<' || line[i] == '>')
+		return (line + i + 1);
+	return(line);
+}
+
+int		redir_check(char *str)
+{
+	int i;
+	int blank;
+	
+	i = len(str) - 1;
+	if (str[i] == '<' || str[i] == '>')
+		return(-1);
+	i = 0;
+	blank = -1;
+	while(str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			i = find_quotes(str, i, str[i]);
+		if (str[i] == '<' || str[i] == '>')
+		{
+			if ((str[i + 1] == '<' && str[i] == '<') || (str[i + 1] == '>' && str[i] == '>'))
+			{
+				if (i == len(str) - 3)
+					return (-1);
+				i++;
+			}
+			if (i == len(str) - 1)
+				return (-1);
+			if (blank == -1 && isspace_behind(str, i))
+				return (-1);
+			blank = -1;
+		}
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '|')
+			blank = 0;
+		i++;
+	}
+	return(0);
+}
+
+int	isspace_behind(char *str, int i)
+{
+	int u;
+
+	u = 0;
+	if (i == 0)
+		return (0);
+	i--;
+	while (i != 0)
+	{
+		if (str[i] != ' ' && str[i] != '\t')
+			u = -1;
+		i--;
+	}
+	return(u);
+}
+
 int		pipe_check(char *str)
 {
 	int i;
@@ -100,6 +177,8 @@ int		pipe_check(char *str)
 	i = 0;
 	while(str[i])
 	{
+		if (str[i] == '\'' || str[i] == '\"')
+			i = find_quotes(str, i, str[i]);
 		if (str[i] == '|')
 		{
 			if (i == len(str) - 1)
@@ -110,11 +189,11 @@ int		pipe_check(char *str)
 				return (-1);
 			blank = -1;
 		}
-		if (str[i] != ' ' && str[i] != '\t')
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '|')
 			blank = 0;
 		i++;
 	}
-	return(0);
+	return(blank);
 }
 
 int		strlen_pathcmd(t_sdata *t_sdata, char *str)

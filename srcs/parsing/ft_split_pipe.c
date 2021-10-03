@@ -17,16 +17,34 @@ static int	count_words(const char *str, char c)
 			s_quotes++;
 		if (*str == '\"')
 			d_quotes++;
-		if (*str != c && trigger == 0)
+		if (!issep(*str) && trigger == 0)
 		{
 			trigger = 1;
 			i++;
 		}
-		else if (*str == c && (s_quotes % 2 == 0 && d_quotes % 2 == 0))
+		else if (issep(*str) && (s_quotes % 2 == 0 && d_quotes % 2 == 0))
+		{
 			trigger = 0;
+			if (is_double_redir(*str, *str+1))
+				str++;
+		}
 		str++;
 	}
 	return (i);
+}
+
+int is_double_redir(char c, char c1)
+{
+	if ((c == '<' && c1 == '<') || (c == '>' && c1 == '>'))
+		return (1);
+	return(0);
+}
+
+int issep(char c)
+{
+	if (c == '|' || c == '<' || c == '>')
+		return (1);
+	return(0);
 }
 
 static char	*word_dup(const char *str, int start, int finish)
@@ -66,7 +84,7 @@ char		**split_thepipe(char const *s, char c)
 			d_quotes++;
 		if (s[i] != c && index < 0)
 			index = i;
-		else if (((s[i] == c && (s_quotes % 2 == 0 && d_quotes % 2 == 0))|| i == len(s)) && index >= 0)
+		else if (((issep(s[i]) && (s_quotes % 2 == 0 && d_quotes % 2 == 0)) || i == len(s)) && index >= 0)
 		{
 			split[j++] = word_dup(s, index, i);
 			index = -1;

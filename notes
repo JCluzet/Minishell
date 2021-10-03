@@ -142,8 +142,6 @@ DAY 4 : CD seems to be good, with PWD and OLDPWD updating with each call
 
  To dO (amine) : 
 
--  regler le echo qui affiche le dernier guillemet
-
 - regler le CD qui indiqe no files sur un dossier avec un espace (la tabulation le fait comme ca )
     ex : cd /Library/Caches    (fonctionne)
 	puis : cd Desktop Pictures/   (erreur > alors que la tab le conmplete come ca)
@@ -156,7 +154,9 @@ DAY 4 : CD seems to be good, with PWD and OLDPWD updating with each call
 
 -  regler UNSET qui crash
 
-- regler les pipes et les redirections
+- regler les pipes
+
+- Instaurer les redirections
 
 to DO (jo) :
 
