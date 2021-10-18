@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:44:56 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/19 00:27:40 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/19 01:14:20 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int is_double_redir(char c, char c1)
 
 int issep(char c)
 {
-	if (c == '|' || c == '<' || c == '>')
+	if (c == '|')
 		return (1);
 	return(0);
 }

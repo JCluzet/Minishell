@@ -25,8 +25,6 @@ static int	count_words(const char *str, char c)
 		else if (issep(*str) && (s_quotes % 2 == 0 && d_quotes % 2 == 0))
 		{
 			trigger = 0;
-			if (is_double_redir(*str, *str+1))
-				str++;
 		}
 		str++;
 	}
