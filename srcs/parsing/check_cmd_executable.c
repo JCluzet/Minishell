@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 03:14:48 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/19 00:26:57 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,55 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata)
 	free_arr(paths);
 	//printf("cmd_path : %s\n\n", abs_cmd);
 	return (abs_cmd);
+}
+
+void (*builtins[7])(t_sdata *) = {display_env, shell_export, shell_unset, pwd,
+	echo , shell_cd, shell_exit};
+
+static const char *g_builtins_mask[7] = {"env", "export", "unset", "pwd", "echo", "cd", "exit"};
+
+
+int	is_builtin(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (!cmd)
+		return(-1);
+	while (i < 7)
+	{
+		if (!ft_strncmp(g_builtins_mask[i], cmd, len(g_builtins_mask[i])))
+			return (i);
+		++i;
+	}
+	if (i == 7)
+		return (-1);
+	return (i);
+}
+
+char	*find_cmd_path(t_cmd_lst *cmd, char **paths)
+{
+	int		i;
+	char	*path;
+	int		fd;
+
+	i = 0;
+	if (!cmd)
+		return (NULL);
+	while (paths[i])
+	{
+		if (cmd->cmd[0] != '/')
+			path = cncat(cncat(paths[i], "/", 0, 0), cmd->cmd, 0, 0);
+		else
+			path = ft_strdup_free(cmd->cmd, 0);
+		fd = open(path, O_RDONLY);
+		if (fd != -1)
+		{
+			close(fd);
+			return (path);
+		}
+		free(path);
+		++i;
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:44:56 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 00:22:39 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/19 00:27:40 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,59 @@ int empty_str(char *str)
 		++i;
 	}
 	return (1);
+}
+
+int is_double_redir(char c, char c1)
+{
+	if ((c == '<' && c1 == '<') || (c == '>' && c1 == '>'))
+		return (1);
+	return(0);
+}
+
+int issep(char c)
+{
+	if (c == '|' || c == '<' || c == '>')
+		return (1);
+	return(0);
+}
+
+int	isspace_behind(char *str, int i)
+{
+	int u;
+
+	u = 0;
+	if (i == 0)
+		return (0);
+	i--;
+	while (i != 0)
+	{
+		if (str[i] != ' ' && str[i] != '\t')
+			u = -1;
+		i--;
+	}
+	return(u);
+}
+
+int		strlen_pathcmd(t_sdata *t_sdata, char *str)
+{
+	int i;
+	int count;
+
+	count = 0;
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == '$' && ( i == 0 || str[i - 1] != '\\'))
+		{
+			// printf("\n\n HERRE >> %s", get_env_var_from_name(t_sdata->env_lst, str_x(str + i + 1)));
+			if(get_env_var_from_name(t_sdata->env_lst, str_x(str + i + 1)) == NULL)
+				return(-1);
+			count += len(get_env_var_from_name(t_sdata->env_lst, str_x(str + i + 1)));
+			i += len_x(str + i, ' ') - 1;
+		}
+		else
+			count++;
+		i++;
+	}
+	return (count);
 }

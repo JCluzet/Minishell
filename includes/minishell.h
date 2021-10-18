@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 06:18:47 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/19 00:29:17 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct	s_shell_data                   // structure envoyé a chaque fonc
 	char		**bin_paths;//	Path to all binary folder from ENV
 	char		lrval;// Last return value of launched cmd
 	int			cmd_idx;
+	int			nb_of_cmds;
 	int			cmd_nbr;
 }				t_sdata;
 
@@ -89,11 +90,13 @@ int	shell_loop(t_sdata *sdata);
 //		Parsing
 //	parse_line
 int		pipe_check(char *str);
-char		**split_thepipe(char const *s, char c, t_redir *redir);
-int		stock_redir(const char *s, int i, int v, t_redir *rdr);
+char		**split_thepipe(char const *s, char c);
+int		stock_redir(const char *s, int i, int v);
 static char	*word_dup(const char *str, int start, int finish);
 int issep(char c);
+int		check_line(char *line);
 int is_double_redir(char c, char c1);
+int		strlen_pathcmd(t_sdata *t_sdata, char *str);
 int	isspace_behind(char *str, int i);
 char	*cut_first_redir(char *line, t_cmd_lst *cmd);
 int		redir_check(char *str);
@@ -108,7 +111,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
 t_cmd_lst	*init_linkedlist(void);
 
 t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds);
-void			printf_linked_list(t_cmd_lst *cmd);
+void			printf_linked_list(t_cmd_lst *cmd, int nb);
 int		check_error(t_cmd_lst *cmd);
 int	is_builtin(char *cmd);
 int		quotes_check(char *str);
@@ -118,7 +121,7 @@ char 	*replace_dollars(char *str, t_sdata *sdata);
 //	check_cmd_executable.c
 char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
-void	fill_cmds(t_cmd_lst *cmds, char *cmd, int rdr);
+void	fill_cmds(t_cmd_lst *cmds, char *cmd);
 char		**split_thespace(char const *s, char c);
 static int	count_words_space(const char *str, char c);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);

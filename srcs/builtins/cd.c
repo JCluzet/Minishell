@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 16:32:53 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/20 03:15:09 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/09/29 23:04:14 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	update_env_cd(t_sdata *sdata, char *old_pwd)
 
 	if (does_env_var_exist(sdata->env_lst, "OLDPWD"))
 		usage_export_replace_var(sdata, cncat("OLDPWD=", old_pwd, 0, 1));
-	write(1, "here\n", 5);
+	// write(1, "here\n", 5);
 	if (does_env_var_exist(sdata->env_lst, "PWD"))
 		usage_export_replace_var(sdata, cncat("PWD=", getcwd(NULL, 0), 0, 1));
 }
@@ -33,7 +33,7 @@ char	*get_abs_path(char *path, int free_path)
 		return (path);
 	if (path[0] == '/')
 		return (path);
-	printf("getcwd : %s\n", getcwd(NULL, 0));
+	// printf("getcwd : %s\n", getcwd(NULL, 0));
 	return (cncat(getcwd(NULL, 0), cncat("/", path, 0, free_path), 1, 1));
 }
 

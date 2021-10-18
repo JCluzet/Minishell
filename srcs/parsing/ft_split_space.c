@@ -1,6 +1,5 @@
 #include "../../includes/minishell.h"
 
-
 static int	count_words_space(const char *str, char c)
 {
 	int i;

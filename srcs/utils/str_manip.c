@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_manip.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:48:50 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/10 14:50:06 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/19 00:28:06 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,55 @@ char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree)
 	if (ifree)
 		free(s);
 	return (str);
+}
+
+char 	*replace_dollars(char *str, t_sdata *sdata)
+{
+	int i;
+	char *newcmd;
+	char *tmp;
+	int card;
+	int j;
+	int u;
+
+	u = 0;
+	j = 0;
+	i = 0;
+	card = strlen_pathcmd(sdata, str);
+	if (card == -1)
+		return (NULL);
+	newcmd = malloc(sizeof(char) * (card + 1));
+	//printf("\n\nMalloc de %d\n", card);
+	while (j < card)
+	{
+		if (str[i] == '$' && ( i == 0 || (str[i-1] != '\\') ))
+		{
+			tmp = get_env_var_from_name(sdata->env_lst, str_x(str + i + 1));
+			while (tmp[u])
+			{
+				newcmd[j] = tmp[u];
+				j++;
+				u++;
+			}
+			u = 0;
+			i += len_x(str + i, ' ') - 1;
+		}
+		else
+		{
+			newcmd[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	newcmd[j] = '\0';
+	//printf("\n\n>>%s<<\n", newcmd);
+	return(newcmd);
+}
+
+int		find_quotes(char *cmd, int i, char c)
+{
+	i++;
+	while (cmd[i] != c)
+		i++;
+	return(i);
 }
