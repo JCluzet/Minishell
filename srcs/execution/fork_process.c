@@ -6,11 +6,11 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 18:30:59 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/22 12:36:55 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/22 14:38:07 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../includes/minishell.h"
+// i#nclude "../../includes/minishell.h"
 
 
 // void	execute_cmd(int ac, char **av, t_piped pdata, int i)
