@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dealocate_sdata.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/03 06:19:56 by jo               ###   ########.fr       */
+/*   Updated: 2021/10/22 13:34:17 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,19 @@ void	free_arr(char **arr)
 	free(arr);
 }
 
-void	deallocate_cmd_elem(t_cmd_lst *cmd)
+void	deallocate_cmd_list(t_cmd_lst *cmd)
 {
-	if (!cmd || !cmd->argv)
-		return ;
-	free(cmd->cmd);
-	free_arr(cmd->argv);
-	free(cmd->cmd_path);
-	//free(cmd->reff_arg);
-	free(cmd);
+	t_cmd_lst	*tmp;
+	
+	while (cmd)
+	{
+		free(cmd->cmd);
+		free_arr(cmd->argv);
+		free(cmd->cmd_path);
+		tmp = cmd;
+		cmd = cmd->next;
+		free(tmp);
+	}
 }
 
 void	deallocate_env_lst_elem(t_env_lst *elem)
@@ -49,7 +53,7 @@ void	deallocate_sdata(t_sdata *sdata)
 {
 	t_cmd_lst *tmp;
 
-	deallocate_cmd_elem(sdata->cmds);
+	deallocate_cmd_list(sdata->cmds);
 	// FREE CMD LIST
 	// tmp = sdata->cmds;
 	// while (sdata->cmds)

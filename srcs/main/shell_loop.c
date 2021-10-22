@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/19 00:30:33 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/22 13:37:08 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	shell_loop(t_sdata *sdata)
 			continue ;
 		sdata->nb_of_cmds = check_line(line);
 		sdata->cmds = parse_line(sdata, line);
-		if (check_error(sdata->cmds) == 0)
-			execution_dispatcher(sdata);
-		deallocate_cmd_elem(sdata->cmds);
+//		if (check_error(sdata->cmds) == 0) C'est a moi de check si il y a des erreur lors de l'execution
+		execution_dispatcher(sdata, sdata->cmds);
+		deallocate_cmd_list(sdata->cmds);
 		sdata->cmds = NULL;
 		if (is_close_cmd(sdata, line))
 			break;
@@ -59,5 +59,5 @@ int		check_line(char *line)
 	// 	printf("minishell: parse error near '\\n'\n");
 	// 	return (-1);
 	// }
-	return(pipe_check(line));
+	return (pipe_check(line));
 }

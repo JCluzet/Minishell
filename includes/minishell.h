@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/19 00:29:17 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/22 13:12:26 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
 
 //		Execution
 //	dispatcher.c
-void	execution_dispatcher(t_sdata *sdata);
+void	execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds);
 
 //		Environement
 //	env_parsing.c
@@ -169,7 +169,7 @@ t_env_lst	*allocate_env_lst_elem(char **line);
 void	deallocate_env_lst_elem(t_env_lst *elem);
 void	free_arr(char **arr);
 void	deallocate_sdata(t_sdata *sdata);
-void	deallocate_cmd_elem(t_cmd_lst *cmd);
+void	deallocate_cmd_list(t_cmd_lst *cmd);
 
 //		Utils
 //	general_utils.c
