@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/22 13:12:26 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/25 16:45:15 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,21 @@ typedef struct	s_command_list
 	int			s_redir_in;
 	int			d_redir_out;
 	int			d_redir_in;
+
+	char	**redir_ins; // REDIR_IN c'est les redirections a gauche '<'
+	char	**redir_outs; // REDIR_OUT c'est les redirections a droite '>'
+	char	**reddir_append; // APPEND c'est les double redir a droite '>>'
+	char	**reddir_heredoc; // HEREDOC c'est les double redir a gauche '<<'
+/*
+	VU que chaque redirections est un fichier, si tu me fais une liste des nom de ficher 
+	que je dois ouvrir/cree puis ecrire dedans, mon taff est vraiment simple a partir de la
+
+	La commande type que tu recevra auras cette forme
+
+	(pipe) [reddir_ins]/[reddir_heredoc]cmd(argv)[reddir_outs]/[reddir_append] (pipe)
+*/
+
+
 	char		*reff_arg;//	$ refference arguments are stored here
 	struct s_command_list	*next;
 }				t_cmd_lst;

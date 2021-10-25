@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:39:08 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/20 03:56:08 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/25 16:01:49 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		usage_unset(char ***env, char *var)
 	char	**n_env;
 	int		i;
 
-	if (!is_env_var_valid(var))
+	if (!is_env_var_valid(var) || lenequal(var) != len(var))
 		return (1);
 	if (get_idx_var_in_env(*env, var) == -1)
 		return (0);

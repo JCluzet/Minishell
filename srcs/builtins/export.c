@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:38:55 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/20 03:27:09 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/25 15:41:56 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	usage_export_replace_var(t_sdata *sdata, char *arg)
 	sdata->env = remove_str_from_arr(sdata->env, arg);
 	sdata->env = cncat_arr(sdata->env, arg);
 }
-
 
 void	export_replace_var(t_sdata *sdata)
 {

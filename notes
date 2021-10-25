@@ -76,30 +76,30 @@ Command structure (Linked list contain in the Control structure)
 
 
 
-PWD :
+PWD : DONE
 - if pwd env variable is deleted, dont recreate it
 - Function getcwd will do the job
 
-CD :
+CD : DONE
 - After CD, if PWD/OLDPWD exists, update them
 
-EXPORT :
+EXPORT : DONE
 - Replace variable if variable name already exists
 - Beware of unseting variable who is first or last on the list
 - Without arg dislay env exhaustively (with env variable without =)
 
-ENV :
+ENV : DONE
 If exported variable doesnt have a value (just title) doesnt display with env only with export without arg
 create/update SHLVL Variable at the beginning of process, aswell as PWD if it doesnt exists
 ++SHLVL on creation
 
-EXIT :
+EXIT : DONE
 Basic usage : exit (nbr)
 Return with the argument value
 If first argument is not a number return 255 "bash: exit: qw: numeric argument required"
 If first argument is a number and is followed with another arg, print "bash: exit: too many arguments"
 
-ECHO :
+ECHO : DONE
 if $ refferenced argument doesnt exist, just display \n
 
 Invalid indentifier for Environement variable :
@@ -140,32 +140,38 @@ DAY 4 : CD seems to be good, with PWD and OLDPWD updating with each call
 	also unset and export got some fixes
 
 
- To dO (amine) : 
+
+
+TODO : (Amine) 
 
 - regler le CD qui indiqe no files sur un dossier avec un espace (la tabulation le fait comme ca )
     ex : cd /Library/Caches    (fonctionne)
 	puis : cd Desktop Pictures/   (erreur > alors que la tab le conmplete come ca)
+Je comprend pas de quoi tu parle, si y'a un espace dans la commande avec un echo normale que sa marche pas
 
 -  regler CD qui indique no such files sur > cd ~/Desktop (relative path ?)
+Techniquement j'ai pas a gerer sa, just cd qui go sur Home je pense que sa suffir
 
 - regler le $ (la fonction replace dollars le fait deja)
 
 -  regler le EXPORT qui ne fonctionne pas quand on fait /usr/bin/env ? (le env est different du binaire)
+Ouai, le env c'est un builtins, on est pas sense utilise le binaire
 
 -  regler UNSET qui crash
+A quel moment ?
 
-- regler les pipes
+- Executer avec redirections
 
-- Instaurer les redirections
+- Implementer '>>' et '<<'
 
-to DO (jo) :
 
--  separer les cmds dans une list chainees >> GOOD
+
+TODO : (Jojo)
+
+- Parse Errors completement gerer selon POSIX, incomplet/pas tester entierement
+
+- separer les cmds dans une list chainees, manque les redirections
 
 - separer les cmds en tenant en compte le bon pipe >> GOOD
 
-- instaurer les detections et stock de redirections >> GOOD (reporte moi des bugs si t'en trouve (ca metonnerait pas il est 7h du mat))
-
-- gerer les double pipe ou fin de commande avec pipe cas d'erreur >> GOOD
-
-- gerer le echo avec un argument si ya des quotes >> GOOD
+- instaurer les detections et stock de redirections, elles sont traiter comme arguments

@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:29:46 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/22 14:10:19 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/25 14:40:14 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,41 @@
 
 // write tout les arguments de la cmd >>  pas seulement le 1
 
+void	putstr_skipquotes(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '"')
+			write(1, &str[i], 1);
+		++i;
+	}
+}
+
 void	putstr_quoteless(char *str)
 {
-	write(1, str + 1, len(str) - 2);
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			++j;
+		++i;
+	}
+	if (j > 2)
+	{
+		putstr_skipquotes(str);
+		return ;
+	}
+	if (str[len(str) - 1] == '"')
+		write(1, str + 1, len(str) - 2);
+	else
+		write(1, str + 1, len(str) - 1);
 }
 
 void	display_every_arg(char **argv, int start)

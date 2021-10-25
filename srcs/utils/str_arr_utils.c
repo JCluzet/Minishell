@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_arr_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/27 23:34:11 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/25 15:52:31 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**new_arr(char *str)
 	char	**arr;
 
 	arr = malloc(sizeof(char *) * 2);
-	arr[0] = str;
+	arr[0] = ft_strdup_free(str, 1);
 	arr[1] = NULL;
 	return (arr);
 }
@@ -34,7 +34,7 @@ char	**extend_arr(char **arr, char *str)
 		n_arr[i] = arr[i];
 		++i;
 	}
-	n_arr[i] = str;
+	n_arr[i] = ft_strdup_free(str, 0);
 	n_arr[i + 1] = NULL;
 	free(arr);
 	return (n_arr);

@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/25 14:18:37 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/25 16:45:43 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@ void	manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 			close(fd[0]);
 			dup2(fd[1], 1);
 		}
-}
-
-int		manage_builtin_dup(t_cmd_lst *cmds, int *fd)
-{
 }
 
 void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)

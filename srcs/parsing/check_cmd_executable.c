@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_executable.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/19 00:26:57 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/25 14:26:16 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ char	*does_binary_file_exists(char *cmd)
 {
 	int	fd;
 
-	fd = open(cmd + 2, O_RDONLY);
+	if (!ft_strncmp(cmd, "./", 2))
+		fd = open(cmd + 2, O_RDONLY);
+	else
+		fd = open(cmd + 1, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
 	else
@@ -64,7 +67,7 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata)
 	char	**paths;
 	char	*abs_cmd;
 
-	if (!ft_strncmp(cmd, "./", 2))
+	if (!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1))
 		return (does_binary_file_exists(cmd));
 	paths = get_paths_from_env(sdata->env_lst);
 	if (!paths)
