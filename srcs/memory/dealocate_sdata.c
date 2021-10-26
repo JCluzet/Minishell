@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/22 13:34:17 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 15:32:24 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,25 @@ void	deallocate_cmd_list(t_cmd_lst *cmd)
 
 void	deallocate_env_lst_elem(t_env_lst *elem)
 {
+	if (!elem)
+		return ;
 	free(elem->name);
 	free(elem->var);
 	free(elem);
+}
+
+void	deallocate_env_lst(t_env_lst *list)
+{
+	t_env_lst *tmp;
+
+	tmp = list;
+	while (list->next)
+	{
+		list = list->next;
+		deallocate_env_lst_elem(tmp);
+		tmp = list;
+	}
+	deallocate_env_lst_elem(list);
 }
 
 void	deallocate_sdata(t_sdata *sdata)
@@ -54,14 +70,8 @@ void	deallocate_sdata(t_sdata *sdata)
 	t_cmd_lst *tmp;
 
 	deallocate_cmd_list(sdata->cmds);
-	// FREE CMD LIST
-	// tmp = sdata->cmds;
-	// while (sdata->cmds)
-	// {
-	// 	if (sdata->cmds)
-	// 		tmp = sdata->cmds->next;
-	// 	sdata->cmds = tmp;
-	// }
 	free_arr(sdata->env);
 	free_arr(sdata->bin_paths);
+	deallocate_env_lst(sdata->env_lst);
+	free(sdata);
 }

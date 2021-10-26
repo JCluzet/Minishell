@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:39:17 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/12 18:39:49 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 14:09:08 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	shell_exit(t_sdata *sdata)
 	if (is_number(sdata->cmds->argv[1], 0))
 	{
 		if (tablen(sdata->cmds->argv) == 2)
-			exit(ft_atoi(sdata->cmds->argv[0]));
+			exit(ft_atoi(sdata->cmds->argv[1]));
 		else
 		{
 			printf("exit\nexit: too many arguments\n");
@@ -51,7 +51,7 @@ int 	usage_exit(char **argv)
 	if (is_number(argv[1], 0))
 	{
 		if (tablen(argv) == 1)
-			exit(ft_atoi(argv[0]));
+			exit(ft_atoi(argv[1]));
 		else
 		{
 			printf("exit\nexit: too many arguments\n");

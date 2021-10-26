@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 12:52:12 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 15:08:45 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct  s_quote
 		int simple_q_indouble;
 		int double_q;
 		int double_q_insimple;
-					
 }				t_quote;
 
 typedef struct	s_redir

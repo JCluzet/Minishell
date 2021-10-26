@@ -175,3 +175,5 @@ TODO : (Jojo)
 - separer les cmds en tenant en compte le bon pipe >> GOOD
 
 - instaurer les detections et stock de redirections, elles sont traiter comme arguments
+
+- Les signaux CTRL + D / CTRL + C / CTRL + \

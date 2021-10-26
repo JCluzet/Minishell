@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/25 14:26:16 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 14:14:59 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata)
 		return (NULL);
 	abs_cmd = is_cmd_in_path(cmd, paths);
 	free_arr(paths);
-	//printf("cmd_path : %s\n\n", abs_cmd);
 	return (abs_cmd);
 }
 
