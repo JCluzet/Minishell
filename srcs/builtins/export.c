@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:38:55 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/25 15:41:56 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 12:54:27 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	shell_export(t_sdata *sdata)
 		sdata->lrval = 0;
 		return ;
 	}
-	if (is_env_var_valid(sdata->cmds->argv[1]))
+	if (is_env_var_valid(sdata->cmds->argv[1], 0))
 	{
 		sdata->lrval = 1;
 		return ;

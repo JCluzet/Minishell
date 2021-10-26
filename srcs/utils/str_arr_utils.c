@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/25 15:52:31 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:07:26 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	**cncat_arr(char **arr, char *str)
 		return (extend_arr(arr, str));
 }
 
-// a refaire
 char	**remove_str_from_arr(char **arr, char *str)
 {
 	char	**n_arr;

@@ -6,13 +6,13 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:52:22 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/18 15:10:28 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:07:42 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	env_var_additional_parsing(char *arg)
+int		env_var_additional_parsing(char *arg, int is_unset)
 {
 	int	i;
 	int	counter;
@@ -23,6 +23,8 @@ int	env_var_additional_parsing(char *arg)
 	{
 		if (arg[i] == '=')
 			++counter;
+		if (counter > 0 && is_unset)
+			return (0);
 		if (counter > 1)
 			return (0);
 		++i;
@@ -30,7 +32,7 @@ int	env_var_additional_parsing(char *arg)
 	return (1);
 }
 
-int	is_env_var_valid(char *arg)
+int		is_env_var_valid(char *arg, int is_unset)
 {
 	int	i;
 
@@ -50,7 +52,7 @@ int	is_env_var_valid(char *arg)
 			return (1);
 		}
 	}
-	if (!env_var_additional_parsing(arg))
+	if (!env_var_additional_parsing(arg, is_unset))
 	{
 		printf("'%s': not a valid identifier\n", arg);
 		return (1);
@@ -58,7 +60,7 @@ int	is_env_var_valid(char *arg)
 	return (0);
 }
 
-int	does_env_var_exist(t_env_lst *env, char *var)
+int		does_env_var_exist(t_env_lst *env, char *var)
 {
 	char	*name;
 

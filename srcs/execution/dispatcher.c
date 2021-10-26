@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/25 16:45:43 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 13:03:50 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 {
 	int		fd[2];
 	pid_t	pid;
-	int		i;
 	int		save_stdin;
 	int		save_stdout;
 
 	save_stdin = dup(0);
 	save_stdout = dup(1);
-	i = 0;
 	while (cmds)
 	{
 		if (cmds->next)

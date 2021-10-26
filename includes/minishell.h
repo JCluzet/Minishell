@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/25 16:45:15 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/26 12:52:12 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds);
 char	*get_env_var_from_name(t_env_lst *list, char *name);
 int	does_env_var_exist(t_env_lst *env, char *var);
 char	*get_env_var_name_from_arg(char *arg);
-int	is_env_var_valid(char *arg);
+int	is_env_var_valid(char *arg, int is_unset);
 int	get_idx_var_in_env(char **env, char *var);
 char	*get_var_in_env(char **env, char *var);
 
