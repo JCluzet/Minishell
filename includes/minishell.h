@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/29 22:46:31 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/29 23:24:01 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_command_list
 	char		**argv;//	Null terminated arg of cmd                           >> arguments que prennent la commande ou NULL si sans argument
 	char		*cmd_path;// Valid bath to executable file, set to NULL if none  >> path vers l'executable (si existant)
 	int			builtin_idx; // if > 7 is a builtin, if == 7 is not              >> le numero du builtin ( 7 si non existant )
-
+	t_redir		*rdr;
 	char	**redir_ins; // REDIR_IN c'est les redirections a gauche '<' pour une cmd qui va contenir genre les nom des fichiers in 
 	char	**redir_outs; // REDIR_OUT c'est les redirections a droite '>'
 	char	**reddir_append; // APPEND c'est les double redir a droite '>>'

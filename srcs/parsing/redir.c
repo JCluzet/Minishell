@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/29 23:10:26 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/29 23:33:12 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd)
 	char	**tab;
 	t_redir	rdr;
 
+	cmds->rdr = &rdr;
 	rdr = get_size_redir(cmds, cmd);
 	cmds->redir_ins = malloc_redir_next(cmd, rdr.nb_redir_in, 1);
 	cmds->redir_outs = malloc_redir_next(cmd, rdr.nb_redir_out, 2);
@@ -32,16 +33,12 @@ char	**malloc_redir_next(char *cmd, int size, int type)
 
 	i = 0;
 	tab = malloc(sizeof(char *) * size);
-	if (size != 0)
-		printf("\n\n-- MALLOC REDIR TEST TYPE %d -- \n",type);
 	while (i < size)
 	{
 		tab[i] = malloc(sizeof(char) * find_size_rdr(cmd, i+1, type) + 1);
 		fill_file_rdr(cmd, i+1, type, tab[i]);
-        printf("%d = %s\n", i, tab[i]);
 		i++;
 	}
-	printf("\n");
 	return (tab);
 }
 
