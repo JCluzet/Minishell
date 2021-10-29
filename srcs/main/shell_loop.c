@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/22 16:23:00 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/29 18:52:28 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	shell_loop(t_sdata *sdata)
 			continue ;
 		sdata->nb_of_cmds = check_line(line);
 		sdata->cmds = parse_line(sdata, line);
-//		if (check_error(sdata->cmds) == 0) C'est a moi de check si il y a des erreur lors de l'execution
+		//if (check_error(sdata->cmds) == 0) C'est a moi de check si il y a des erreur lors de l'execution
 		execution_dispatcher(sdata, sdata->cmds);
 		deallocate_cmd_list(sdata->cmds);
 		sdata->cmds = NULL;
@@ -47,17 +47,41 @@ int	shell_loop(t_sdata *sdata)
 
 int		check_line(char *line)
 {
-	if (quotes_check(line) == -1 || !line)
+	if (quotes_check(line) == -1 || !line || redir_check(line) == -1)
 		return(-1);
 	if (pipe_check(line) == -1)
 	{
 		printf("minishell: parse error near '|'\n");
 		return (-1);
 	}
-	// if (redir_check(line) == -1)
-	// {
-	// 	printf("minishell: parse error near '\\n'\n");
-	// 	return (-1);
-	// }
 	return (pipe_check(line));
+}
+
+int		redir_check(char *cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		i = find_quotes(cmd, i, cmd[i]);
+		if (cmd[i] == '<' && cmd[i + 1] == '<')
+		{
+			if (!cmd[i + 1] || cmd[i + 2] == '<')
+			{
+				printf("minishell: parse error near '<'\n");
+				return (-1);
+			}
+		}
+		if (cmd[i] == '>' && cmd[i + 1] == '>')
+		{
+			if (!cmd[i + 1] || cmd[i + 2] == '>')
+			{
+				printf("minishell: parse error near '>'\n");
+				return (-1);
+			}
+		}
+		i++;
+	}
+	return(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 15:08:45 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/29 19:51:32 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,20 @@ typedef struct  s_quote
 
 typedef struct	s_redir
 {
-	int			redir[100];
+	int			nb_redir_in; // 1    >
+	int			nb_redir_out; // 2   <
+	int			nb_redir_app; // 3   >>
+	int			nb_redir_hdoc; // 4  <<
 }				t_redir;
 
 typedef struct	s_command_list
 {
-
 	char		*cmd;//		trimmed cmd name                                     >> nom de la commande tapé
 	char		**argv;//	Null terminated arg of cmd                           >> arguments que prennent la commande ou NULL si sans argument
 	char		*cmd_path;// Valid bath to executable file, set to NULL if none  >> path vers l'executable (si existant)
 	int			builtin_idx; // if > 7 is a builtin, if == 7 is not              >> le numero du builtin ( 7 si non existant )
-	//char		**redir_in;       // gerer les in et les out dans un double tab (< f1 < f2 cat > f3 > f4) >> in tab (f1 | f2) >> out tab (f3 | f4)
-	//char		**redir_out;
-	int			s_redir_out;
-	int			s_redir_in;
-	int			d_redir_out;
-	int			d_redir_in;
 
-	char	**redir_ins; // REDIR_IN c'est les redirections a gauche '<'
+	char	**redir_ins; // REDIR_IN c'est les redirections a gauche '<' pour une cmd qui va contenir genre les nom des fichiers in 
 	char	**redir_outs; // REDIR_OUT c'est les redirections a droite '>'
 	char	**reddir_append; // APPEND c'est les double redir a droite '>>'
 	char	**reddir_heredoc; // HEREDOC c'est les double redir a gauche '<<'
@@ -104,18 +100,15 @@ int	shell_loop(t_sdata *sdata);
 //		Parsing
 //	parse_line
 int		pipe_check(char *str);
+int		stock_redir(t_cmd_lst *cmds, char *cmd);
 char		**split_thepipe(char const *s, char c);
-int		stock_redir(const char *s, int i, int v);
+int		stock_redir(t_cmd_lst *cmds, char *cmd);
 static char	*word_dup(const char *str, int start, int finish);
 int issep(char c);
 int		check_line(char *line);
 int is_double_redir(char c, char c1);
 int		strlen_pathcmd(t_sdata *t_sdata, char *str);
 int	isspace_behind(char *str, int i);
-char	*cut_first_redir(char *line, t_cmd_lst *cmd);
-int		redir_check(char *str);
-void	initredir(t_cmd_lst *cmd, int i);
-char	*initfirstredir(char *cmd, t_cmd_lst *cmds);
 
 
 static char	*word_dup(const char *str, int start, int finish);
@@ -219,5 +212,20 @@ int	lenequal(char *str);
 t_env_lst	*remove_elem(t_env_lst *list, char *arg);
 t_env_lst	*add_elem(t_env_lst *list, char *arg);
 char	**list_to_arr(t_env_lst *list);
+
+
+// REDIR TESTING
+
+t_redir	initrdr(void);
+t_redir		get_size_redir(t_cmd_lst *cmds, char *cmd);
+int		fill_file_rdr(char *cmd, int nb, int type, char *file);
+int	get_file_redir(char *cmd, char *file);
+int		skip_blank(char *cmd);
+int		find_lenght_file(char *cmd);
+int		find_size_rdr(char *cmd, int nb, int type);
+char	**malloc_redir_next(char *cmd, int size, int type);
+int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd);
+int		stock_redir(t_cmd_lst *cmds, char *cmd);
+int		redir_check(char *cmd);
 
 #endif

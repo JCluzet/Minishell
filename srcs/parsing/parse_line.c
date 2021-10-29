@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 12:47:58 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/29 15:51:51 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 			cmd->cmd_path = is_cmd_executable(cmd->cmd, sdata);
 		i++;
 	}
-//	printf_linked_list(firstcmd, sdata->nb_of_cmds);
+printf_linked_list(firstcmd, sdata->nb_of_cmds);
 	return (firstcmd);
 }
 
@@ -47,8 +47,7 @@ int		pipe_check(char *str)
 	i = 0;
 	while(str[i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
-			i = find_quotes(str, i, str[i]);
+		i = find_quotes(str, i, str[i]);
 		if (str[i] == '|')
 		{
 			cmd++;
@@ -118,7 +117,7 @@ int		check_error(t_cmd_lst *cmds)
 {
 	if (!cmds)
 		return(-1);
-	if (((((cmds->builtin_idx > 6) && !cmds->cmd_path) || (cmds->builtin_idx == -1 && !cmds->cmd_path)) && cmds->argv) && cmds->d_redir_out != 1)
+	if (((((cmds->builtin_idx > 6) && !cmds->cmd_path) || (cmds->builtin_idx == -1 && !cmds->cmd_path)) && cmds->argv))
 	{
 		write(1, "minishell: command not found: ", 31);
 		write(1, cmds->cmd, len(cmds->cmd));

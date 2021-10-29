@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:48:50 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/19 00:28:06 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/29 15:51:40 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ char 	*replace_dollars(char *str, t_sdata *sdata)
 
 int		find_quotes(char *cmd, int i, char c)
 {
+	if (!(cmd[i] == '\'' || cmd[i] == '\"'))
+		return(i);
 	i++;
 	while (cmd[i] != c)
 		i++;

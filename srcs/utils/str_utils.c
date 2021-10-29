@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:44:56 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/19 01:14:20 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/29 19:53:08 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,6 @@ int empty_str(char *str)
 	return (1);
 }
 
-int is_double_redir(char c, char c1)
-{
-	if ((c == '<' && c1 == '<') || (c == '>' && c1 == '>'))
-		return (1);
-	return(0);
-}
-
 int issep(char c)
 {
 	if (c == '|')
@@ -160,4 +153,33 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 		i++;
 	}
 	return (count);
+}
+
+int		skip_blank(char *cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
+		i++;
+	return(i);
+}
+
+int	get_file_redir(char *cmd, char *file)
+{
+	int i;
+	int size;
+
+	size = 0;
+	i = 0;
+	i = skip_blank(cmd);
+	while ((cmd[i+size] != ' ' && cmd[i+size] != '\t') && cmd[i+size])
+	{
+		file[size] = cmd[size + i];
+		size++;
+	}
+	file[size] = '\0';
+	if (size == 0)
+		file = NULL;
+	return(0);
 }
