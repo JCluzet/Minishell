@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/29 19:51:02 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/29 23:10:26 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	**malloc_redir_next(char *cmd, int size, int type)
 
 	i = 0;
 	tab = malloc(sizeof(char *) * size);
-	printf("\n\n-- MALLOC REDIR TEST TYPE %d -- \n",type);
+	if (size != 0)
+		printf("\n\n-- MALLOC REDIR TEST TYPE %d -- \n",type);
 	while (i < size)
 	{
 		tab[i] = malloc(sizeof(char) * find_size_rdr(cmd, i+1, type) + 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linklist.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/10/22 12:51:11 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/29 23:10:39 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,41 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 	}
 	if (v == 0 && cmds->argv[1] == NULL)
 		printf("argv > (null)\n");
+	i = 0;
+	// if (cmds->redir_ins[0] != NULL)
+	// {
+		
+	// 	while (cmds->redir_ins[i] != NULL)
+	// 	{
+	// 		printf("%d redir_ins = %s\n",i , cmds->redir_ins[i]);
+	// 		i++;
+	// 	}
+	// }
+	// if (cmds->redir_outs[0] != NULL)
+	// {
+		
+	// 	while (cmds->redir_outs[i] != NULL)
+	// 	{
+	// 		printf("%d redir_ins = %s\n",i , cmds->redir_outs[i]);
+	// 		i++;
+	// 	}
+	// }
+	// if (cmds->reddir_append[0] != NULL)
+	// {
+	// 	while (cmds->reddir_append[i] != NULL)
+	// 	{
+	// 		printf("%d redir_ins = %s\n",i , cmds->reddir_append[i]);
+	// 		i++;
+	// 	}
+	// }
+	// if (cmds->reddir_heredoc[0] != NULL)
+	// {
+	// 	while (cmds->reddir_heredoc[i] != NULL)
+	// 	{
+	// 		printf("%d redir_ins = %s\n",i , cmds->reddir_heredoc[i]);
+	// 		i++;
+	// 	}
+	// }
 	printf("builtin_idx > %d\n", cmds->builtin_idx);
 	printf("\n");
 }
