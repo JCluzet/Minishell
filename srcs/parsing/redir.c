@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/30 22:21:32 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 22:32:58 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd)
 	char	**tab;
 
 	cmds->last_rdr = initrdr2();
-	cmds->rdr_nb = 0;
 	get_size_redir(cmds, cmd);
 	cmds->redir_ins = malloc_redir_next(cmds, cmd, cmds->rdr->nb_redir_in, 1);
 	cmds->redir_outs = malloc_redir_next(cmds, cmd, cmds->rdr->nb_redir_out, 2);
@@ -158,25 +157,25 @@ void get_size_redir(t_cmd_lst *cmds, char *cmd)
 		i = find_quotes(cmd, i, cmd[i]);
 		if (cmd[i] == '<' && cmd[i + 1] == '<')
 		{
-			cmds->type_last_rdr = 4;
+			cmds->type_last_rdr_in = 2;
 			cmds->rdr->nb_redir_hdoc++;
 			i++;
 		}
 		else if (cmd[i] == '>' && cmd[i + 1] == '>')
 		{
-			cmds->type_last_rdr = 3;
+			cmds->type_last_rdr_out = 2;
 			cmds->rdr->nb_redir_app++;
 			i++;
 		}
 		else if (cmd[i] == '<')
 		{
 			cmds->rdr->nb_redir_out++;
-			cmds->type_last_rdr = 2;
+			cmds->type_last_rdr_in = 1;
 		}
 		else if (cmd[i] == '>')
 		{
 			cmds->rdr->nb_redir_in++;
-			cmds->type_last_rdr = 1;
+			cmds->type_last_rdr_out = 1;
 		}
 		i++;
 	}

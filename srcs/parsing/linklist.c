@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/10/30 22:07:03 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 22:35:32 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_cmd_lst	*init_linkedlist(void)
 	cmds->cmd = NULL;
 	cmds->argv = NULL;
 	cmds->cmd_path = NULL;
-	cmds->type_last_rdr = 0;
+	cmds->type_last_rdr_out = 0;
+	cmds->type_last_rdr_in = 0;
 	cmds->next = NULL;
 	return(cmds);
 }
@@ -103,14 +104,10 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 	i = -1;
 	while (cmds->reddir_heredoc[++i])
 		printf("%d redir_heredoc = %s\n",i +1, cmds->reddir_heredoc[i]);
-	if (cmds->type_last_rdr == 1)
-		printf("last_rdr_in detected\n");
-	if (cmds->type_last_rdr == 2)
-		printf("last_rdr_out detected\n");
-	if (cmds->type_last_rdr == 3)
-		printf("last_rdr_append detected\n");
-	if (cmds->type_last_rdr == 4)
-		printf("last_rdr_heredoc detected\n");
+	if (cmds->type_last_rdr_in != 0)
+		printf("last_rdr_in detected = %d\n", cmds->type_last_rdr_in);
+	if (cmds->type_last_rdr_out != 0)
+		printf("last_rdr_in detected = %d\n", cmds->type_last_rdr_out);
 	
 	printf("\n");
 }
