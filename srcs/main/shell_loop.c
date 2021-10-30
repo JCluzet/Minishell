@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/29 18:52:28 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 02:09:34 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		redir_check(char *cmd)
 		i = find_quotes(cmd, i, cmd[i]);
 		if (cmd[i] == '<' && cmd[i + 1] == '<')
 		{
-			if (!cmd[i + 1] || cmd[i + 2] == '<')
+			if (!cmd[i + 2] || cmd[i + 2] == '<' || cmd[i + 2] == '<')
 			{
 				printf("minishell: parse error near '<'\n");
 				return (-1);
@@ -75,7 +75,7 @@ int		redir_check(char *cmd)
 		}
 		if (cmd[i] == '>' && cmd[i + 1] == '>')
 		{
-			if (!cmd[i + 1] || cmd[i + 2] == '>')
+			if (!cmd[i + 2] || cmd[i + 2] == '>' || cmd[i + 2] == '<' )
 			{
 				printf("minishell: parse error near '>'\n");
 				return (-1);

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/29 23:33:12 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 02:02:32 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,18 @@ char	**malloc_redir_next(char *cmd, int size, int type)
 	char	**tab;
 
 	i = 0;
-	tab = malloc(sizeof(char *) * size);
+	tab = malloc(sizeof(char *) * (size + 1));
 	while (i < size)
 	{
 		tab[i] = malloc(sizeof(char) * find_size_rdr(cmd, i+1, type) + 1);
-		fill_file_rdr(cmd, i+1, type, tab[i]);
+		tab[i] = fill_file_rdr(cmd, i+1, type, tab[i]);
 		i++;
 	}
+	tab[i] = NULL;
 	return (tab);
 }
 
-int		fill_file_rdr(char *cmd, int nb, int type, char *file)
+char		*fill_file_rdr(char *cmd, int nb, int type, char *file)
 {
 	int i;
 
@@ -80,7 +81,7 @@ int		fill_file_rdr(char *cmd, int nb, int type, char *file)
 		}
 		i++;
 	}
-	return(0);
+	return NULL;
 }
 
 int		find_size_rdr(char *cmd, int nb, int type) // retourne la taille du files apres le redir

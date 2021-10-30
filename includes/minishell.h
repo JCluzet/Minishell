@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/29 23:24:01 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 02:01:29 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,14 +218,14 @@ char	**list_to_arr(t_env_lst *list);
 
 t_redir	initrdr(void);
 t_redir		get_size_redir(t_cmd_lst *cmds, char *cmd);
-int		fill_file_rdr(char *cmd, int nb, int type, char *file);
+char		*fill_file_rdr(char *cmd, int nb, int type, char *file);
 int		get_first_rdr_idx(char *cmd);
 int		get_last_rdr_idx(char *cmd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*rmv_rdr_from_cmd(char *cmd);
 int		is_cmd_after_file(char *cmd, int nb);
 char	*ft_strdup(char *src);
-int	get_file_redir(char *cmd, char *file);
+char*	get_file_redir(char *cmd, char *file);
 int		skip_blank(char *cmd);
 int		find_lenght_file(char *cmd);
 int		find_size_rdr(char *cmd, int nb, int type);
