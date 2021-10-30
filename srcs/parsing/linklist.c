@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/10/29 23:32:41 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 03:09:05 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,16 @@ void			printf_linked_list(t_cmd_lst *cmd, int nb)
 	int i;
 
 	i = 0;
+	if (cmd->first_rdr->nb_redir_app == 1)
+		printf("\nFIRST REDIR \">>\" DETECTED\n\n");
+	if (cmd->first_rdr->nb_redir_hdoc == 1)
+		printf("\nFIRST REDIR \"<<\" DETECTED\n\n");
+	if (cmd->first_rdr->nb_redir_out == 1)
+		printf("\nFIRST REDIR \"<\" DETECTED\n\n");
+	if (cmd->first_rdr->nb_redir_in == 1)
+		printf("\nFIRST REDIR \">\" DETECTED\n\n");
 	while (cmd->next != NULL) 
 	{
-		printf("%s", cmd->argv[0]);
 		if (cmd->argv)
 			print_cmds(cmd, cmd->argv[0], 0, i);
 		else

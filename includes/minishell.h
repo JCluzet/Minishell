@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 02:01:29 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 03:05:19 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,8 @@ typedef struct	s_command_list
 	char	**redir_outs; // REDIR_OUT c'est les redirections a droite '>'
 	char	**reddir_append; // APPEND c'est les double redir a droite '>>'
 	char	**reddir_heredoc; // HEREDOC c'est les double redir a gauche '<<'
-/*
-	VU que chaque redirections est un fichier, si tu me fais une liste des nom de ficher 
-	que je dois ouvrir/cree puis ecrire dedans, mon taff est vraiment simple a partir de la
 
-	La commande type que tu recevra auras cette forme
-
-	(pipe) [reddir_ins]/[reddir_heredoc]cmd(argv)[reddir_outs]/[reddir_append] (pipe)
-*/
-
+	t_redir *first_rdr;
 
 	char		*reff_arg;//	$ refference arguments are stored here
 	struct s_command_list	*next;
@@ -217,7 +210,7 @@ char	**list_to_arr(t_env_lst *list);
 // REDIR TESTING
 
 t_redir	initrdr(void);
-t_redir		get_size_redir(t_cmd_lst *cmds, char *cmd);
+void get_size_redir(t_cmd_lst *cmds, char *cmd);
 char		*fill_file_rdr(char *cmd, int nb, int type, char *file);
 int		get_first_rdr_idx(char *cmd);
 int		get_last_rdr_idx(char *cmd);
@@ -225,7 +218,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*rmv_rdr_from_cmd(char *cmd);
 int		is_cmd_after_file(char *cmd, int nb);
 char	*ft_strdup(char *src);
+int		cut_first_redir(char *line, t_cmd_lst *cmd);
 char*	get_file_redir(char *cmd, char *file);
+t_redir	*initrdr2(void);
 int		skip_blank(char *cmd);
 int		find_lenght_file(char *cmd);
 int		find_size_rdr(char *cmd, int nb, int type);

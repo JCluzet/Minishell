@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/29 15:51:51 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 02:42:56 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 	i = 0;
 	cmd = init_linkedlist();
 	firstcmd = cmd;
+	line = line + cut_first_redir(line, cmd);
 	mul_cmd = split_thepipe(line, '|');
 	while (i < sdata->nb_of_cmds)
 	{
@@ -32,9 +33,39 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 			cmd->cmd_path = is_cmd_executable(cmd->cmd, sdata);
 		i++;
 	}
-printf_linked_list(firstcmd, sdata->nb_of_cmds);
+	printf_linked_list(firstcmd, sdata->nb_of_cmds);
 	return (firstcmd);
 }
+
+int		cut_first_redir(char *line, t_cmd_lst *cmd)
+{
+	int i;
+
+	i = skip_blank(line);
+	cmd->first_rdr = initrdr2();
+	if (line[i] == '<' && line[i + 1] == '<')
+	{
+		cmd->first_rdr->nb_redir_hdoc = 1;
+		return (i + 2);
+	}
+	if (line[i] == '>' && line[i + 1] == '>')
+	{
+		cmd->first_rdr->nb_redir_app = 1;
+		return (i + 2);
+	}
+	if (line[i] == '<')
+	{
+		cmd->first_rdr->nb_redir_out = 1;
+		return (i + 1);
+	}
+	if (line[i] == '>')
+	{
+		cmd->first_rdr->nb_redir_in = 1;
+		return (i + 1);
+	}
+	return(0);
+}
+
 
 int		pipe_check(char *str)
 {
