@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 02:25:07 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 20:21:22 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ int		redir_check(char *cmd)
 				printf("minishell: parse error near '>'\n");
 				return (-1);
 			}
+		}
+		if ((cmd[i] == '>' || cmd[i] == '<') && (cmd[i + 1] == '|' || !cmd[i + 1]))
+		{
+			printf("minishell: parse error near '%c'\n", cmd[i]);
+			return (-1);
 		}
 		i++;
 	}

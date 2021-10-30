@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/30 19:47:37 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 20:13:01 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd)
 {
 	char	**tab;
-	t_redir	rdr;
 
+	cmds->last_rdr = initrdr2();
 	cmds->rdr_nb = 0;
-	cmds->last_rdr_out = 0;
-	cmds->last_rdr_in = 0;
 	get_size_redir(cmds, cmd);
 	cmds->redir_ins = malloc_redir_next(cmds, cmd, cmds->rdr->nb_redir_in, 1);
 	cmds->redir_outs = malloc_redir_next(cmds, cmd, cmds->rdr->nb_redir_out, 2);
@@ -37,13 +35,17 @@ char	**malloc_redir_next(t_cmd_lst *cmds,char *cmd, int size, int type)
 	tab = malloc(sizeof(char *) * (size + 1));
 	while (i < size)
 	{
-		tab[i] = malloc(sizeof(char) * find_size_rdr(cmd, i+1, type) + 1);
+		tab[i] = malloc(sizeof(char) * (find_size_rdr(cmd, i+1, type) + 1));
 		tab[i] = fill_file_rdr(cmd, i+1, type, tab[i]);
 		cmds->rdr_nb++;
-		if (type == 1 || type == 3)
-			cmds->last_rdr_in = cmds->rdr_nb;
+		if (type == 1)
+			cmds->rdr->nb_redir_in = cmds->rdr_nb;
+		else if (type == 2)
+			cmds->rdr->nb_redir_out = cmds->rdr_nb;
+		else if (type == 3)
+			cmds->rdr->nb_redir_app = cmds->rdr_nb;
 		else
-			cmds->last_rdr_out = cmds->rdr_nb;
+			cmds->rdr->nb_redir_hdoc = cmds->rdr_nb;
 		i++;
 	}
 	tab[i] = NULL;

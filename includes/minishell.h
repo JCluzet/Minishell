@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 19:41:00 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 20:01:43 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ typedef struct	s_command_list
 	char	**reddir_append; // APPEND c'est les double redir a droite '>>'
 	char	**reddir_heredoc; // HEREDOC c'est les double redir a gauche '<<'
 
-	int		last_rdr_in;
-	int		last_rdr_out;
+	t_redir		*last_rdr;
 	int		rdr_nb;
 
 	t_redir *first_rdr;
