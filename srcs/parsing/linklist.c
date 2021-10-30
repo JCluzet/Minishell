@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/10/30 20:16:29 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 22:00:02 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,16 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 	if (v == 0 && cmds->argv[1] == NULL)
 		printf("argv > (null)\n");
 	i = -1;
-	while (cmds->redir_ins[i++])
+	while (cmds->redir_ins[++i])
 		printf("%d redir_in = %s\n",i+1 , cmds->redir_ins[i]);
 	i = -1;
-	while (cmds->redir_outs[i++])
+	while (cmds->redir_outs[++i])
 		printf("%d redir_out = %s\n",i+1 , cmds->redir_outs[i]);
 	i = -1;
-	while (cmds->reddir_append[i++])
+	while (cmds->reddir_append[++i])
 		printf("%d redir_append = %s\n",i+1 , cmds->reddir_append[i]);
 	i = -1;
-	while (cmds->reddir_heredoc[i++])
+	while (cmds->reddir_heredoc[++i])
 		printf("%d redir_heredoc = %s\n",i +1, cmds->reddir_heredoc[i]);
 
 
