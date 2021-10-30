@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/10/30 22:35:32 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 23:02:23 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void			printf_linked_list(t_cmd_lst *cmd, int nb)
 	int i;
 
 	i = 0;
-	if (cmd->first_rdr->nb_redir_app == 1)
-		printf("\nFIRST REDIR \">>\" DETECTED\n\n");
-	if (cmd->first_rdr->nb_redir_hdoc == 1)
-		printf("\nFIRST REDIR \"<<\" DETECTED\n\n");
-	if (cmd->first_rdr->nb_redir_out == 1)
-		printf("\nFIRST REDIR \"<\" DETECTED\n\n");
-	if (cmd->first_rdr->nb_redir_in == 1)
-		printf("\nFIRST REDIR \">\" DETECTED\n\n");
+	// if (cmd->first_rdr->nb_redir_app == 1)
+	// 	printf("\nFIRST REDIR \">>\" DETECTED\n\n");
+	// if (cmd->first_rdr->nb_redir_hdoc == 1)
+	// 	printf("\nFIRST REDIR \"<<\" DETECTED\n\n");
+	// if (cmd->first_rdr->nb_redir_out == 1)
+	// 	printf("\nFIRST REDIR \"<\" DETECTED\n\n");
+	// if (cmd->first_rdr->nb_redir_in == 1)
+	// 	printf("\nFIRST REDIR \">\" DETECTED\n\n");
 	while (cmd->next != NULL) 
 	{
 		if (cmd->argv)
@@ -84,13 +84,13 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 		printf("cmd > %s\n", cmds->cmd);
 	else 
 		printf("cmd > (null)\n");
-	while (v == 0 && cmds->argv[u] != NULL)
+	while (cmds->argv[0] && v == 0 && cmds->argv[u] != NULL)
 	{
 		printf("argv %d > %s\n", u, cmds->argv[u]);
 		u++;
 	}
 	printf("builtin_idx > %d\n\n", cmds->builtin_idx);
-	if (v == 0 && cmds->argv[1] == NULL)
+	if (cmds->argv[0] && v == 0 && cmds->argv[1] == NULL)
 		printf("argv > (null)\n");
 	i = -1;
 	while (cmds->redir_ins[++i])
