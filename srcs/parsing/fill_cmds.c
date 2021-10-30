@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 23:03:23 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 23:41:36 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		end_first_rdr(char *cmd)
 			tot = find_lenght_file(cmd + i + 1) + i + 1;
 		i++;
 	}
-	return (tot+1);
+	return (tot);
 }
 
 char	*rmv_rdr_from_cmd(char *cmd)
