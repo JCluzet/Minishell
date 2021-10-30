@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 15:27:04 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/30 16:51:06 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 			close(fd[0]);
 			dup2(fd[1], 1);
 		}
+	dispatch_redir_types(cmds);
 }
 
 void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds, int save_stdout)
@@ -50,6 +51,7 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 		{	
 			if (cmds->next)
 				dup2(fd[1], 1);
+			dispatch_redir_types(cmds);
 			(builtins_array)[cmds->builtin_idx](sdata);
 			dup2(save_stdout, 1);
 			sdata->lrval = 0;
@@ -66,7 +68,7 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 			else
 				waitpid(-1, NULL, 0);
 		}
-		else
+		else // Invalid cmd path error management
 		{
 			if (cmds->argv[0][0] == '.' || cmds->argv[0][0] == '/')
 				printf("no such file or directory: %s\n", cmds->argv[0]);

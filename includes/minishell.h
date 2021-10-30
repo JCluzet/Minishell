@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 03:05:19 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 16:49:03 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct	s_command_list
 
 	t_redir *first_rdr;
 
-	char		*reff_arg;//	$ refference arguments are stored here
 	struct s_command_list	*next;
 }				t_cmd_lst;
 
@@ -188,6 +187,8 @@ char	*ft_strncat(char *dest, char *src, unsigned int nb);
 char	*cncat(char *str1, char *str2, int ifree1, int ifree2);
 char	*ft_strdup_free(char *src, int ifree);
 char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree);
+//	get_next_line.c
+int	get_next_line(int fd, char **line);
 //	str_utils
 int	tablen(char **tab);
 int		nb_of_cmds(char *cmd);
@@ -229,4 +230,6 @@ int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
 int		redir_check(char *cmd);
 
+
+int			dispatch_redir_types(t_cmd_lst *cmds);
 #endif
