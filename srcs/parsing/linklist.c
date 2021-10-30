@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linklist.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/10/30 16:51:37 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/30 19:49:02 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 		printf("%d redir_heredoc = %s\n",i +1, cmds->reddir_heredoc[i]);
 		i++;
 	}
+	if (cmds->last_rdr_in != 0)
+		printf("last_rdr_in detected and is the %d redir\n", cmds->last_rdr_in);
+	if (cmds->last_rdr_out != 0)
+		printf("last_rdr_out detected and is the %d redir\n", cmds->last_rdr_out);
+	
 	printf("builtin_idx > %d\n", cmds->builtin_idx);
 	printf("\n");
 }

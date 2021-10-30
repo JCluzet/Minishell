@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 16:49:03 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/10/30 19:41:00 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ typedef struct	s_command_list
 	char	**redir_outs; // REDIR_OUT c'est les redirections a droite '>'
 	char	**reddir_append; // APPEND c'est les double redir a droite '>>'
 	char	**reddir_heredoc; // HEREDOC c'est les double redir a gauche '<<'
+
+	int		last_rdr_in;
+	int		last_rdr_out;
+	int		rdr_nb;
 
 	t_redir *first_rdr;
 
@@ -225,7 +229,7 @@ t_redir	*initrdr2(void);
 int		skip_blank(char *cmd);
 int		find_lenght_file(char *cmd);
 int		find_size_rdr(char *cmd, int nb, int type);
-char	**malloc_redir_next(char *cmd, int size, int type);
+char	**malloc_redir_next(t_cmd_lst *cmds,char *cmd, int size, int type);
 int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
 int		redir_check(char *cmd);
