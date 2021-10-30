@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/10/30 22:00:02 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 22:07:03 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_cmd_lst	*init_linkedlist(void)
 	cmds->cmd = NULL;
 	cmds->argv = NULL;
 	cmds->cmd_path = NULL;
+	cmds->type_last_rdr = 0;
 	cmds->next = NULL;
 	return(cmds);
 }
@@ -87,6 +88,7 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 		printf("argv %d > %s\n", u, cmds->argv[u]);
 		u++;
 	}
+	printf("builtin_idx > %d\n\n", cmds->builtin_idx);
 	if (v == 0 && cmds->argv[1] == NULL)
 		printf("argv > (null)\n");
 	i = -1;
@@ -101,18 +103,14 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 	i = -1;
 	while (cmds->reddir_heredoc[++i])
 		printf("%d redir_heredoc = %s\n",i +1, cmds->reddir_heredoc[i]);
-
-
-
-	if (cmds->last_rdr->nb_redir_in != 0)
-		printf("last_rdr_in detected and is the %d redir\n", cmds->rdr->nb_redir_in);
-	if (cmds->last_rdr->nb_redir_out != 0)
-		printf("last_rdr_out detected and is the %d redir\n", cmds->rdr->nb_redir_out);
-	if (cmds->last_rdr->nb_redir_app != 0)
-		printf("last_rdr_append detected and is the %d redir\n", cmds->rdr->nb_redir_app);
-	if (cmds->last_rdr->nb_redir_hdoc != 0)
-		printf("last_rdr_heredoc detected and is the %d redir\n", cmds->rdr->nb_redir_hdoc);
+	if (cmds->type_last_rdr == 1)
+		printf("last_rdr_in detected\n");
+	if (cmds->type_last_rdr == 2)
+		printf("last_rdr_out detected\n");
+	if (cmds->type_last_rdr == 3)
+		printf("last_rdr_append detected\n");
+	if (cmds->type_last_rdr == 4)
+		printf("last_rdr_heredoc detected\n");
 	
-	printf("builtin_idx > %d\n", cmds->builtin_idx);
 	printf("\n");
 }

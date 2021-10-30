@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/30 20:13:01 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 22:04:10 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,18 +159,26 @@ void get_size_redir(t_cmd_lst *cmds, char *cmd)
 		i = find_quotes(cmd, i, cmd[i]);
 		if (cmd[i] == '<' && cmd[i + 1] == '<')
 		{
+			cmds->type_last_rdr = 4;
 			cmds->rdr->nb_redir_hdoc++;
 			i++;
 		}
 		else if (cmd[i] == '>' && cmd[i + 1] == '>')
 		{
+			cmds->type_last_rdr = 3;
 			cmds->rdr->nb_redir_app++;
 			i++;
 		}
 		else if (cmd[i] == '<')
+		{
 			cmds->rdr->nb_redir_out++;
+			cmds->type_last_rdr = 2;
+		}
 		else if (cmd[i] == '>')
+		{
 			cmds->rdr->nb_redir_in++;
+			cmds->type_last_rdr = 1;
+		}
 		i++;
 	}
 }
