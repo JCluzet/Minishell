@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/30 22:04:10 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 22:21:32 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,8 @@ int		find_lenght_file(char *cmd)
 
 	size = 0;
 	i = 0;
-	// printf("\ncmd = |%s|\n", cmd);
 	i = skip_blank(cmd);
-	while ((cmd[i+size] != ' ' && cmd[i+size] != '\t') && cmd[i+size])
+	while ((cmd[i+size] != ' ' && cmd[i+size] != '\t' && (cmd[i+size] != '<' && cmd[i+size] != '>')) && cmd[i+size])
 		size++;
 	return (size);
 }

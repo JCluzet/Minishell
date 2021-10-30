@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:44:56 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 02:01:46 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/30 22:21:08 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ char*	get_file_redir(char *cmd, char *file)
 	size = 0;
 	i = 0;
 	i = skip_blank(cmd);
-	while ((cmd[i+size] != ' ' && cmd[i+size] != '\t') && cmd[i+size])
+	while ((cmd[i+size] != ' ' && cmd[i+size] != '\t' && cmd[i+size] != '<' && cmd[i+size] != '>') && cmd[i+size])
 	{
 		file[size] = cmd[size + i];
 		size++;
