@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/30 22:32:58 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/31 02:33:50 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ void get_size_redir(t_cmd_lst *cmds, char *cmd)
 	int i;
 
 	cmds->rdr = initrdr2();
+	cmds->type_last_rdr_in = 0;
+	cmds->type_last_rdr_out = 0;
 	i = 0;
 	while (cmd[i])
 	{

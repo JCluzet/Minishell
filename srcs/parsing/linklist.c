@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/10/30 23:02:23 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/31 02:35:53 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 	new->cmd = NULL;
 	new->argv = NULL;
 	new->cmd_path = NULL;
+	cmds->type_last_rdr_out = 0;
+	cmds->type_last_rdr_in = 0;
 	new->next = NULL;
 	cmds->next = new;
 	return(new);
@@ -78,7 +80,7 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 	i++;
 
 	u = 1;
-	//printf("nb of cmd = %d\n\n", nb_of_cmds(cmd));
+	printf("ca c'est du bonnnn taff\n");
 	printf("\n-- COMMAND %d DETECTED --\n", i);
 	if (v == 0)
 		printf("cmd > %s\n", cmds->cmd);
@@ -89,25 +91,26 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 		printf("argv %d > %s\n", u, cmds->argv[u]);
 		u++;
 	}
-	printf("builtin_idx > %d\n\n", cmds->builtin_idx);
+	printf("builtin_idx > %d\n", cmds->builtin_idx);
 	if (cmds->argv[0] && v == 0 && cmds->argv[1] == NULL)
-		printf("argv > (null)\n");
+		printf("argv > (null)\n\n");
 	i = -1;
 	while (cmds->redir_ins[++i])
-		printf("%d redir_in = %s\n",i+1 , cmds->redir_ins[i]);
+		printf("redir_in %d = %s\n",i+1 , cmds->redir_ins[i]);
 	i = -1;
 	while (cmds->redir_outs[++i])
-		printf("%d redir_out = %s\n",i+1 , cmds->redir_outs[i]);
+		printf("redir_out %d = %s\n",i+1 , cmds->redir_outs[i]);
 	i = -1;
 	while (cmds->reddir_append[++i])
-		printf("%d redir_append = %s\n",i+1 , cmds->reddir_append[i]);
+		printf("redir_append %d = %s\n",i+1 , cmds->reddir_append[i]);
 	i = -1;
 	while (cmds->reddir_heredoc[++i])
-		printf("%d redir_heredoc = %s\n",i +1, cmds->reddir_heredoc[i]);
+		printf("redir_heredoc %d = %s\n",i +1, cmds->reddir_heredoc[i]);
+	printf("\n");
 	if (cmds->type_last_rdr_in != 0)
-		printf("last_rdr_in detected = %d\n", cmds->type_last_rdr_in);
+		printf("last_rdr_in detected = %d   << 2=double & 1=simple\n", cmds->type_last_rdr_in);
 	if (cmds->type_last_rdr_out != 0)
-		printf("last_rdr_in detected = %d\n", cmds->type_last_rdr_out);
+		printf("last_rdr_out detected = %d   << 2=double & 1=simple\n", cmds->type_last_rdr_out);
 	
 	printf("\n");
 }

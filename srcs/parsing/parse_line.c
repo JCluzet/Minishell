@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 23:01:04 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/31 02:29:44 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 	i = 0;
 	cmd = init_linkedlist();
 	firstcmd = cmd;
-	// line = line + cut_first_redir(line, cmd);
 	mul_cmd = split_thepipe(line, '|');
 	while (i < sdata->nb_of_cmds)
 	{

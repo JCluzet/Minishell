@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 23:41:36 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/31 02:30:41 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,22 @@ int		end_first_rdr(char *cmd)
 		i = find_quotes(cmd, i, cmd[i]);
 		if (cmd[i] == '<' && cmd[i + 1] == '<')
 		{
-			tot = find_lenght_file(cmd + i + 2) + i + 2;
-			i++;
+			i = find_lenght_file(cmd + i + 2) + i + 2;
 		}
 		else if (cmd[i] == '>' && cmd[i + 1] == '>')
 		{
-			tot = find_lenght_file(cmd + i + 2) + i + 2;
-			i++;
+			i = find_lenght_file(cmd + i + 2) + i + 2;
 		}
 		else if (cmd[i] == '<')
-			tot = find_lenght_file(cmd + i + 1) + i + 1;
+			i = find_lenght_file(cmd + i + 1) + i + 1;
 		else if (cmd[i] == '>')
-			tot = find_lenght_file(cmd + i + 1) + i + 1;
-		i++;
+			i = find_lenght_file(cmd + i + 1) + i + 1;
+		else if (cmd[i] != ' ')
+			return (i);
+		if (cmd[i])
+			i++;
 	}
-	return (tot);
+	return (0);
 }
 
 char	*rmv_rdr_from_cmd(char *cmd)
