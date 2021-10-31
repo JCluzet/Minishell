@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 20:21:22 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/10/31 02:30:20 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		redir_check(char *cmd)
 		i = find_quotes(cmd, i, cmd[i]);
 		if (cmd[i] == '<' && cmd[i + 1] == '<')
 		{
-			if (!cmd[i + 2] || cmd[i + 2] == '<' || cmd[i + 2] == '<')
+			if (!cmd[skip_blank(cmd + i + 2) + 2] || cmd[skip_blank(cmd + i + 2) + 2] == '<' || cmd[skip_blank(cmd + i + 2) + 2] == '>')
 			{
 				printf("minishell: parse error near '<'\n");
 				return (-1);
@@ -74,13 +74,13 @@ int		redir_check(char *cmd)
 		}
 		if (cmd[i] == '>' && cmd[i + 1] == '>')
 		{
-			if (!cmd[i + 2] || cmd[i + 2] == '>' || cmd[i + 2] == '<' )
+			if (!cmd[skip_blank(cmd + i + 2) + 2] || cmd[skip_blank(cmd + i + 2) + 2] == '>' || cmd[skip_blank(cmd + i + 2) + 2] == '<' )
 			{
 				printf("minishell: parse error near '>'\n");
 				return (-1);
 			}
 		}
-		if ((cmd[i] == '>' || cmd[i] == '<') && (cmd[i + 1] == '|' || !cmd[i + 1]))
+		if ((cmd[i] == '>' || cmd[i] == '<') && (cmd[skip_blank(cmd + i + 1) + 1] == '|' || !cmd[skip_blank(cmd + i + 1) + 1]))
 		{
 			printf("minishell: parse error near '%c'\n", cmd[i]);
 			return (-1);
