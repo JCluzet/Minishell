@@ -1,0 +1,181 @@
+ONLY ONE GLOBAL
+! No need to manage backslash (\) and inline end of command (;)
+
+TODO :
+	- Parsing
+		- Creating linked list with every possible need information for execution in order
+		- First element will be a control struct indicating nbr of pipe, forks and any redirection to any fd
+		- Every needed files will be openend with correct flags, and the fd affiliated with the correct struct for execution
+		- Every command before being sent to execution need to be written in the History file
+		- Absolute PATH of the History file will be stored in the control structure
+		- Unclosed quote should be consider as an error as well as special character (\) (;)
+	- Builtins :
+		- echo (-n)
+		- cd (relative & absolute path)
+		- pwd (0)
+		- export (0)
+		- unset (0)
+		- env (0)
+		- exit (0)
+	- Pipes :
+		- Creating adequate nbr of pipes before forking
+	- Forks :
+		- Doing forks right before execution
+		- Parrent will be last command to execute, will call adequate nbr of subsequent fork
+		- Creating general type child fncts for execution
+	- Macros :
+		- CMD + C happend a '\n' to the current line and sends it
+		- CMD + D exit shell
+		- CMD + \ catches send signal and continue process
+	- Redirections :
+		- '<' dups stdin with designated file
+		- '>' dups stdout with designated file
+		- '>>' dups stdout with disgnated file openned with happend option
+		- '<<' takes stdin until delimiter is called
+	- History of command file
+		(Manage open/creation with happend flag)
+	- ENV (array) :
+		- Reccuperate and Create ENV
+		- Working Export and Unset functions for ENV manipulaton
+		- Create PATH linked list for non Builtins command execution (in control struct)
+		- $ENV_VAR replace with ENV Variable
+		- Update PWD and OLD_PWD var according to current dir
+
+
+Control structure (Unique structure passed in every function call)
+{
+	Command structure	Linked list of command to execute in order
+
+	char ** ENV Variable
+
+	Path structure	Linked list of every Path to be checked with command
+
+	int 	fd of the History file to be written in for every command
+}
+
+Command structure (Linked list contain in the Control structure)
+{
+	char *	Just the name of the command
+	
+	char **	of every argument of the command, starting with the command followed by flags then arguments
+	
+	char *	absolute path of the binary file of the command (set to NULL if cmd is a builtin)
+	
+	int 	fdi set to value is cmd reccuperate input from redirecton
+	(set to -1 if there is no '<' redirection or if the function is not before a pipe (|))
+	
+	int 	fdo set to value if cmd write output in a file 
+	(set to -1 if there is no '>' or '>>' redirection or cmd is not after a pipe (|))
+	
+	char	set to 1 if is happend redirections ('>>'), set to 0 if is regular redirection ('>')
+	
+	char ** if cmd has double coted argument with one or more $ refference to a env Variable
+	with arr of string will contain in order every refferenced ENV arguments
+	(NULL terminated double array, arr is set to NULL is the cmd has no ENV refferenced argument)
+}
+
+
+
+PWD : DONE
+- if pwd env variable is deleted, dont recreate it
+- Function getcwd will do the job
+
+CD : DONE
+- After CD, if PWD/OLDPWD exists, update them
+
+EXPORT : DONE
+- Replace variable if variable name already exists
+- Beware of unseting variable who is first or last on the list
+- Without arg dislay env exhaustively (with env variable without =)
+
+ENV : DONE
+If exported variable doesnt have a value (just title) doesnt display with env only with export without arg
+create/update SHLVL Variable at the beginning of process, aswell as PWD if it doesnt exists
+++SHLVL on creation
+
+EXIT : DONE
+Basic usage : exit (nbr)
+Return with the argument value
+If first argument is not a number return 255 "bash: exit: qw: numeric argument required"
+If first argument is a number and is followed with another arg, print "bash: exit: too many arguments"
+
+ECHO : DONE
+if $ refferenced argument doesnt exist, just display \n
+
+Invalid indentifier for Environement variable :
+
++ in value creation concatenate
+Any letter and underscore for the first character
+Any letter, underscore and number for the followed
+
+
+
+
+
+Beware :
+	- On heredoc with command ("<<") don't create file before end of here doc
+
+	- Heredoc manage case
+{
+	15:48:40 ambelkac@e2r6p3.42.fr pipex master ? cat << 1 << 2 << 3 
+heredoc> 3
+heredoc> 2
+heredoc> 1
+heredoc> 3
+heredoc> 2
+heredoc> 3
+3
+2
+3
+}
+
+DAY 1 : Echo & Exit seems done, basic loop with prompt and CTRL + D managed
+
+DAY 2 : Worked and lrval return, corrected seg in shell_loop from reccuperated line
+Still problems on unset not unsetting var, probably need to redo from scratch
+
+DAY 3 : Unset and export Working, also added replacement of exported value already existing
+
+DAY 4 : CD seems to be good, with PWD and OLDPWD updating with each call
+	also unset and export got some fixes
+
+
+
+
+TODO : (Amine) 
+
+- regler le CD qui indiqe no files sur un dossier avec un espace (la tabulation le fait comme ca )
+    ex : cd /Library/Caches    (fonctionne)
+	puis : cd Desktop Pictures/   (erreur > alors que la tab le conmplete come ca)
+Je comprend pas de quoi tu parle, si y'a un espace dans la commande avec un echo normale que sa marche pas
+
+-  regler CD qui indique no such files sur > cd ~/Desktop (relative path ?)
+Techniquement j'ai pas a gerer sa, just cd qui go sur Home je pense que sa suffir
+
+- regler le $ (la fonction replace dollars le fait deja)
+
+-  regler le EXPORT qui ne fonctionne pas quand on fait /usr/bin/env ? (le env est different du binaire)
+Ouai, le env c'est un builtins, on est pas sense utilise le binaire
+
+-  regler UNSET qui crash
+A quel moment ?
+
+- Executer avec redirections
+
+- Implementer '>>' et '<<'
+
+
+
+TODO : (Jojo)
+
+- Parse Errors completement gerer selon POSIX, incomplet/pas tester entierement
+
+- separer les cmds dans une list chainees, manque les redirections
+
+- separer les cmds en tenant en compte le bon pipe >> GOOD
+
+- instaurer les detections et stock de redirections, elles sont traiter comme arguments
+
+- savoir comment gerer le cas : "echo salut >> files1 yolo" ? le dernier mot est ignore pour le moment
+
+
