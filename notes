@@ -164,6 +164,8 @@ A quel moment ?
 
 - Implementer '>>' et '<<'
 
+- Valeur de retour d'un binaire correctement executer par Execve non enregistrer
+
 
 
 TODO : (Jojo)

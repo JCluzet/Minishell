@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/28 15:24:21 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/02 15:29:29 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	deallocate_cmd_list(t_cmd_lst *cmd)
 	
 	while (cmd)
 	{
-		free(cmd->cmd);
+//		free(cmd->cmd);
 		free_arr(cmd->argv);
 		free(cmd->cmd_path);
 		tmp = cmd;

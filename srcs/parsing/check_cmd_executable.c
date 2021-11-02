@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 14:14:59 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/02 16:54:42 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ char	*does_binary_file_exists(char *cmd)
 	if (!ft_strncmp(cmd, "./", 2))
 		fd = open(cmd + 2, O_RDONLY);
 	else
-		fd = open(cmd + 1, O_RDONLY);
+		fd = open(cmd, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
 	else
+	{
+		close(fd);
 		return (cmd);
+	}
 }
 
 // If cmd has a path to binary from path, return cmd_path or else NULL

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 22:27:53 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/02 16:07:30 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef struct	s_command_list
 	int		rdr_nb;
 
 	t_redir *first_rdr;
+
+	int			*fd_stack;
+	int			fd_nbr;
 
 	struct s_command_list	*next;
 }				t_cmd_lst;
@@ -235,6 +238,7 @@ int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
 int		redir_check(char *cmd);
 
-
+void		clear_fd_stack(t_cmd_lst *cmds);
+void		add_fd_to_stack(t_cmd_lst *cmds, int fd);
 int			dispatch_redir_types(t_cmd_lst *cmds);
 #endif

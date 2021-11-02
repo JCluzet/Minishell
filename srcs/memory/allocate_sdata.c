@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 16:51:41 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/02 16:08:37 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_cmd_lst	*allocate_cmd_elem(void)
 	cmd->cmd = NULL;
 	cmd->argv = NULL;
 	cmd->cmd_path = NULL;
+	cmd->fd_stack = NULL;
+	cmd->fd_nbr = 0;
 	return (cmd);
 }
 

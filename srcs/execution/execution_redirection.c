@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:17:22 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 16:49:22 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:06:45 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ int		open_infile(char *path, int out)
 		fd = manage_heredoc(path);
 	else
 		fd = open(path, O_RDONLY);
+	if (fd == -1)
+		printf("no such file or directory: %s\n", path);
 	return (fd);
 }
 
-int			manage_redir_fd(char **paths, int in, int out)
+int			manage_redir_fd(t_cmd_lst *cmd, char **paths, int in, int out)
 {
 	int		fd;
 	int		i;
@@ -76,6 +78,7 @@ int			manage_redir_fd(char **paths, int in, int out)
 			fd = open_outfile(paths[i], in);
 			if (fd == -1)
 				return (1);
+			add_fd_to_stack(cmd, fd);
 			dup2(fd, 1);
 		}
 		if (in)
@@ -83,8 +86,10 @@ int			manage_redir_fd(char **paths, int in, int out)
 			fd = open_infile(paths[i], out);
 			if (fd == -1)
 				return (1);
+			add_fd_to_stack(cmd, fd);
 			dup2(fd, 0);
 		}
+		++i;
 	}
 	return (0);
 }
@@ -94,16 +99,16 @@ int			dispatch_redir_types(t_cmd_lst *cmds)
 	int		fd;
 
 	if (cmds->redir_ins)
-		if (manage_redir_fd(cmds->redir_ins, 1, 0))
+		if (manage_redir_fd(cmds, cmds->redir_outs, 1, 0)) // THE YOSEPH INVERTION LETS GO
 			return (1);
+	if (cmds->reddir_heredoc)
+		if (manage_redir_fd(cmds, cmds->reddir_heredoc, 2, 0))
+			return (4);
 	if (cmds->redir_outs)
-		if (manage_redir_fd(cmds->redir_outs, 0, 1))
+		if (manage_redir_fd(cmds, cmds->redir_ins, 0, 1))
 			return (2);
 	if (cmds->reddir_append)
-		if (manage_redir_fd(cmds->reddir_append, 0, 2))
+		if (manage_redir_fd(cmds, cmds->reddir_append, 0, 2))
 			return (3);
-	if (cmds->reddir_heredoc)
-		if (manage_redir_fd(cmds->reddir_heredoc, 2, 0))
-			return (4);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/30 16:51:06 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:05:15 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void (*builtins_array[7])(t_sdata *) = {display_env, shell_export, shell_unset, pwd,
 	echo, shell_cd, shell_exit};
 
-void	manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
+int		manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 {
 	if (cmds->next)
 		if (!pid)
@@ -23,7 +23,10 @@ void	manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 			close(fd[0]);
 			dup2(fd[1], 1);
 		}
-	dispatch_redir_types(cmds);
+	if (!pid)
+		if (dispatch_redir_types(cmds))
+			return (1);
+	return (0);
 }
 
 void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds, int save_stdout)
@@ -54,12 +57,17 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 			dispatch_redir_types(cmds);
 			(builtins_array)[cmds->builtin_idx](sdata);
 			dup2(save_stdout, 1);
+			close(fd[1]);
+			clear_fd_stack(cmds);
 			sdata->lrval = 0;
 		}
 		else if (cmds->cmd_path)
 		{
 			pid = fork();
-			manage_pipe_dups(cmds, pid, fd);
+			if (manage_pipe_dups(cmds, pid, fd))
+			{
+				sdata->lrval = 1;
+			}
 			if (!pid)
 			{
 				if (execve(cmds->cmd_path, cmds->argv, sdata->env))
