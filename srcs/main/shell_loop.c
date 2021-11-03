@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/31 02:30:20 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/03 14:30:47 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	shell_loop(t_sdata *sdata)
 		deallocate_cmd_list(sdata->cmds);
 		sdata->cmds = NULL;
 		if (is_close_cmd(sdata, line))
-			break;
+			break ;
 	}
 	return (sdata->lrval);
 }
@@ -47,7 +47,7 @@ int	shell_loop(t_sdata *sdata)
 int		check_line(char *line)
 {
 	if (quotes_check(line) == -1 || !line || redir_check(line) == -1)
-		return(-1);
+		return (-1);
 	if (pipe_check(line) == -1)
 	{
 		printf("minishell: parse error near '|'\n");
@@ -58,34 +58,31 @@ int		check_line(char *line)
 
 int		redir_check(char *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])
 	{
 		i = find_quotes(cmd, i, cmd[i]);
-		if (cmd[i] == '<' && cmd[i + 1] == '<')
+		if ((cmd[i] == '>' && cmd[i + 1] == '>')
+			|| (cmd[i] == '<' && cmd[i + 1] == '<'))
 		{
-			if (!cmd[skip_blank(cmd + i + 2) + 2] || cmd[skip_blank(cmd + i + 2) + 2] == '<' || cmd[skip_blank(cmd + i + 2) + 2] == '>')
+			if (!cmd[skip_blank(cmd + i + 2) + i + 2]
+				|| cmd[skip_blank(cmd + i + 2) + i + 2] == '>'
+				|| cmd[skip_blank(cmd + i + 2) + i + 2] == '<' )
 			{
-				printf("minishell: parse error near '<'\n");
+				printf("minishell: parse error near '%c'\n", cmd[i]);
 				return (-1);
 			}
 		}
-		if (cmd[i] == '>' && cmd[i + 1] == '>')
-		{
-			if (!cmd[skip_blank(cmd + i + 2) + 2] || cmd[skip_blank(cmd + i + 2) + 2] == '>' || cmd[skip_blank(cmd + i + 2) + 2] == '<' )
-			{
-				printf("minishell: parse error near '>'\n");
-				return (-1);
-			}
-		}
-		if ((cmd[i] == '>' || cmd[i] == '<') && (cmd[skip_blank(cmd + i + 1) + 1] == '|' || !cmd[skip_blank(cmd + i + 1) + 1]))
+		if ((cmd[i] == '>' || cmd[i] == '<')
+			&& (cmd[skip_blank(cmd + i + 1) + 1] == '|'
+				|| !cmd[skip_blank(cmd + i + 1) + 1]))
 		{
 			printf("minishell: parse error near '%c'\n", cmd[i]);
 			return (-1);
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
