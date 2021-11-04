@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/04 20:51:12 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 22:37:30 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 	new->cmd = NULL;
 	new->argv = NULL;
 	new->cmd_path = NULL;
-	cmds->fd_nbr = 0;
-	cmds->fd_stack = NULL;
-	cmds->type_last_rdr_out = 0;
-	cmds->type_last_rdr_in = 0;
-	cmds->last_fd_in = 0;
-	cmds->save_stdin = 0;
+	new->fd_nbr = 0;
+	new->fd_stack = NULL;
+	new->type_last_rdr_out = 0;
+	new->type_last_rdr_in = 0;
+	new->last_fd_in = 0;
+	new->save_stdin = 0;
 	new->next = NULL;
 	cmds->next = new;
 	return(new);
