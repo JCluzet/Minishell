@@ -169,13 +169,19 @@ A quel moment ?
 RAJOUT DE JO POUR AMINE : 
 
 - regler le segv sur >>                   ls | grep Minishell | pwd
+clear_stack seg, a corriger
 
 - regler le probleme de quote sur >>      echo 'salut'
+simple cote marche pas, a corriger
 
 - regler le probleme sur >>               ls | grep "files"
+ca c'est un probleme du parsing, t'es pas sense me donner les double cote
 
 - regler le probleme sur >>               >>
 
+- Faire << et >> en tant que commande unique
+
+- env -i on execution segfault from allocation env lst and second env tab (str_to_word_arr)
 
 
 TODO : (Jojo)
@@ -189,5 +195,5 @@ TODO : (Jojo)
 - instaurer les detections et stock de redirections, elles sont traiter comme arguments
 
 - savoir comment gerer le cas : "echo salut >> files1 yolo" ? le dernier mot est ignore pour le moment
-
+bash ignore "yolo", du coup sa marche je sais aps pq
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 17:14:10 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/04 20:44:15 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct	s_command_list
 
 	int			*fd_stack;
 	int			fd_nbr;
+	int			last_fd_in;
+	int			save_stdin;
 
 	struct s_command_list	*next;
 }				t_cmd_lst;

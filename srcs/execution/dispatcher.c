@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/02 17:05:15 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 21:51:31 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 	save_stdout = dup(1);
 	while (cmds)
 	{
+		cmds->save_stdin = save_stdin;
 		if (cmds->next)
 			pipe(fd);
 		if (cmds->builtin_idx < 7 && cmds->builtin_idx != -1)
@@ -67,6 +68,8 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 			if (manage_pipe_dups(cmds, pid, fd))
 			{
 				sdata->lrval = 1;
+				cmds = cmds->next;
+				continue;
 			}
 			if (!pid)
 			{

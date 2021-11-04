@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:36:15 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/02 16:53:47 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 21:52:48 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			*extend_fd_stack(int *fd_stack, int fd_len, int fd)
 
 void		add_fd_to_stack(t_cmd_lst *cmds, int fd)
 {
+	printf("fd_stack : %p\n", cmds->fd_stack);
 	if (!cmds->fd_stack)
 	{
 		cmds->fd_stack = malloc(sizeof(int));

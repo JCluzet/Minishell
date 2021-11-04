@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linklist.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/03 20:08:49 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/04 20:51:12 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_cmd_lst	*init_linkedlist(void)
 	cmds->type_last_rdr_in = 0;
 	cmds->fd_nbr = 0;
 	cmds->fd_stack = NULL;
+	cmds->last_fd_in = 0;
+	cmds->save_stdin = 0;
 	cmds->next = NULL;
 	return(cmds);
 }
@@ -44,6 +46,8 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 	cmds->fd_stack = NULL;
 	cmds->type_last_rdr_out = 0;
 	cmds->type_last_rdr_in = 0;
+	cmds->last_fd_in = 0;
+	cmds->save_stdin = 0;
 	new->next = NULL;
 	cmds->next = new;
 	return(new);
