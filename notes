@@ -166,11 +166,15 @@ A quel moment ?
 
 - Valeur de retour d'un binaire correctement executer par Execve non enregistrer
 
-- regler le segv sur ls | grep Minishell | pwd
+RAJOUT DE JO POUR AMINE : 
 
-- regler le probleme de quote sur echo 'salut'
+- regler le segv sur >>                   ls | grep Minishell | pwd
 
-- regler le probleme sur ls | grep "files"
+- regler le probleme de quote sur >>      echo 'salut'
+
+- regler le probleme sur >>               ls | grep "files"
+
+- regler le probleme sur >>               >>
 
 
 
