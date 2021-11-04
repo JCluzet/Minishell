@@ -183,6 +183,7 @@ ca c'est un probleme du parsing, t'es pas sense me donner les double cote
 
 - env -i on execution segfault from allocation env lst and second env tab (str_to_word_arr)
 
+- LAst rvalue of execve
 
 TODO : (Jojo)
 

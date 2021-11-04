@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:36:15 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 21:52:48 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 22:22:02 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void		clear_fd_stack(t_cmd_lst *cmds)
 		close(cmds->fd_stack[i]);
 		++i;
 	}
+	printf("fd_stack : %p\n", cmds->fd_stack);
 	free(cmds->fd_stack);
 	cmds->fd_stack = NULL;
 	cmds->fd_nbr = 0;
