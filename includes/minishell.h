@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/02 16:07:30 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 17:14:10 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <libc.h>
+# include <signal.h>
 #include <fcntl.h>
 # include <sys/wait.h>
 
@@ -47,7 +47,7 @@ typedef struct	s_redir
 typedef struct	s_command_list
 {
 	char		*cmd;//		trimmed cmd name                                     >> nom de la commande tapé
-	char		**argv;//	Null terminated arg of cmd                           >> arguments que prennent la commande ou NULL si sans argument
+	char		**argv;//	Nullterminated arg of cmd                           >> arguments que prennent la commande ou NULL si sans argument
 	char		*cmd_path;// Valid bath to executable file, set to NULL if none  >> path vers l'executable (si existant)
 	int			builtin_idx; // if > 7 is a builtin, if == 7 is not              >> le numero du builtin ( 7 si non existant )
 	t_redir		*rdr;

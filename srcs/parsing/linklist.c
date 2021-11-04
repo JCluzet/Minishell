@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linklist.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/02 16:54:50 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/03 20:08:49 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 		printf("last_rdr_in detected = %d   << 2=double & 1=simple\n", cmds->type_last_rdr_in);
 	if (cmds->type_last_rdr_out != 0)
 		printf("last_rdr_out detected = %d   << 2=double & 1=simple\n", cmds->type_last_rdr_out);
-	
 	printf("\n");
 }
