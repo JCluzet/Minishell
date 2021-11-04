@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/02 16:08:37 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 22:44:28 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	allocate_env_lst(t_sdata *sdata, char **env)
 	int			i;
 
 	i = 1;
-	if (!env)
+	if (!env || !env[0])
 		return (EXIT_FAILURE);
 	sdata->env_lst = allocate_env_lst_elem(str_to_word_arr(env[0], '='));
 	elem = sdata->env_lst;
@@ -66,7 +66,10 @@ void	allocate_sdata(t_sdata *sdata, char **env)
 {
 	sdata->cmds = NULL;
 	sdata->env = dup_arr(env);
-	if (allocate_env_lst(sdata, env) == EXIT_FAILURE)
+	if (allocate_env_lst(sdata, sdata->env) == EXIT_FAILURE)
+	{
+		sdata->env_lst = NULL;
 		return ;
+	}
 	sdata->bin_paths = str_to_word_arr(get_var_in_env(env, "PATH=") + 5, ':');
 }

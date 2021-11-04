@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:29:46 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/25 14:40:14 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 22:59:51 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	putstr_quoteless(char *str)
 		putstr_skipquotes(str);
 		return ;
 	}
-	if (str[len(str) - 1] == '"')
+	if (str[len(str) - 1] == '"' || str[len(str) - 1] == '\'')
 		write(1, str + 1, len(str) - 2);
 	else
 		write(1, str + 1, len(str) - 1);
@@ -67,6 +67,22 @@ void	display_every_arg(char **argv, int start)
 	}
 }
 
+int		is_dash_n_option(char *option)
+{
+	int		i;
+
+	i = 1;
+	if (option[0] != '-' && len(option) < 2)
+		return (1);
+	while (option[i] && option[i] == 'n')
+	{
+		++i;
+	}
+	if (option[i])
+		return (1);
+	return (0);
+}
+
 void	echo(t_sdata *sdata)
 {
 	sdata->lrval = 0;
@@ -80,7 +96,7 @@ void	echo(t_sdata *sdata)
 		printf("%d\n", sdata->lrval);
 		return ;
 	}
-	if (!ft_strncmp(sdata->cmds->argv[1], "-n", 2) && len(sdata->cmds->argv[1]) == 2)
+	if (!is_dash_n_option(sdata->cmds->argv[1]))
 	{
 		if (tablen(sdata->cmds->argv) == 2)
 			return ;

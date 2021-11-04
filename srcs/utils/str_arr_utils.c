@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 13:07:26 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 22:39:30 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char	**dup_arr(char **arr)
 	int		i;
 	i = 0;
 
+	if (!arr)
+		return (NULL);
 	len = tablen(arr);
 	n_arr = malloc(sizeof(char *) * (1 + len));
 	while (i < len)

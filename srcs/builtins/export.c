@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:38:55 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 12:54:27 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/04 22:46:43 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	export_display(t_sdata *sdata)
 {
 	t_env_lst *list;
 
+	if (!sdata->env_lst)
+		return ;
 	list = sdata->env_lst;
-	while (list->next)
+	while (list)
 	{
 		printf("declare -x %s", list->name);
 		if (list->var)

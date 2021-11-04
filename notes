@@ -168,20 +168,13 @@ A quel moment ?
 
 RAJOUT DE JO POUR AMINE : 
 
-- regler le segv sur >>                   ls | grep Minishell | pwd
-clear_stack seg, a corriger
-
-- regler le probleme de quote sur >>      echo 'salut'
-simple cote marche pas, a corriger
-
-- regler le probleme sur >>               ls | grep "files"
-ca c'est un probleme du parsing, t'es pas sense me donner les double cote
-
 - regler le probleme sur >>               >>
 
 - Faire << et >> en tant que commande unique
+On va pas le faire frero BCP trop complexe
 
 - env -i on execution segfault from allocation env lst and second env tab (str_to_word_arr)
+gerer de prime abord, plus de test son sympa
 
 - LAst rvalue of execve
 
