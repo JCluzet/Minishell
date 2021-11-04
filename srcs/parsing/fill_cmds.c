@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/31 02:30:41 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/05 00:32:32 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ void	fill_cmds(t_cmd_lst *cmds, char *cmd)
 		cmds->builtin_idx = -1;
 }
 
-// a function that return the index of the string coresponding to the last redir before the cmd
-
-int		end_first_rdr(char *cmd)
+int	end_first_rdr(char *cmd)
 {
-	int i;
-	int tot;
+	int	i;
+	int	tot;
 
 	tot = 0;
 	i = 0;
@@ -58,14 +56,9 @@ int		end_first_rdr(char *cmd)
 	return (0);
 }
 
-char	*rmv_rdr_from_cmd(char *cmd)
+int	get_last_rdr_idx(char *cmd)
 {
-	return (ft_substr(cmd + end_first_rdr(cmd), 0, get_last_rdr_idx(cmd + end_first_rdr(cmd))));                      // supprime les redir se trouvant apres la cmd
-}
-
-int		get_last_rdr_idx(char *cmd)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])
@@ -78,9 +71,9 @@ int		get_last_rdr_idx(char *cmd)
 	return (i);
 }
 
-int		get_first_rdr_idx(char *cmd)
+int	get_first_rdr_idx(char *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])
@@ -113,9 +106,9 @@ int		get_first_rdr_idx(char *cmd)
 	return (i);
 }
 
-int		is_cmd_after_file(char *cmd, int nb)
+int	is_cmd_after_file(char *cmd, int nb)
 {
-	int i;
+	int	i;
 
 	i = skip_blank(cmd);
 	while ((cmd[i] != ' ' && cmd[i] != '\t') && cmd[i])

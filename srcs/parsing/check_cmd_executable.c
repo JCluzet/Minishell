@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_executable.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/02 16:54:42 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/05 00:41:47 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	**get_paths_from_env(t_env_lst *env)
 {
@@ -64,7 +64,6 @@ char	*does_binary_file_exists(char *cmd)
 	}
 }
 
-// If cmd has a path to binary from path, return cmd_path or else NULL
 char	*is_cmd_executable(char *cmd, t_sdata *sdata)
 {
 	char	**paths;
@@ -85,14 +84,13 @@ void (*builtins[7])(t_sdata *) = {display_env, shell_export, shell_unset, pwd,
 
 static const char *g_builtins_mask[7] = {"env", "export", "unset", "pwd", "echo", "cd", "exit"};
 
-
 int	is_builtin(char *cmd)
 {
 	int	i;
 
 	i = 0;
 	if (!cmd)
-		return(-1);
+		return (-1);
 	while (i < 7)
 	{
 		if (!ft_strncmp(g_builtins_mask[i], cmd, len(g_builtins_mask[i])))

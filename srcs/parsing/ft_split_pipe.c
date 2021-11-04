@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_pipe.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/05 00:30:11 by jcluzet           #+#    #+#             */
+/*   Updated: 2021/11/05 00:30:16 by jcluzet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	count_words(const char *str, char c)
 {
-	int i;
-	int trigger;
-	int s_quotes;
-	int d_quotes;
+	int	i;
+	int	trigger;
+	int	s_quotes;
+	int	d_quotes;
 
 	s_quotes = 0;
 	d_quotes = 0;
@@ -42,39 +54,4 @@ static char	*word_dup(const char *str, int start, int finish)
 		word[i++] = str[start++];
 	word[i] = '\0';
 	return (word);
-}
-
-char		**split_thepipe(char const *s, char c)
-{
-	size_t	i;
-	size_t	j;
-	int		index;
-	char	**split;
-	int		s_quotes;
-	int		d_quotes;
-
-	s_quotes = 0;
-	d_quotes = 0;
-	if (!s || !(split = malloc((count_words(s, c) + 1) * sizeof(char *))))
-		return (0);
-	i = 0;
-	j = 0;
-	index = -1;
-	while (i <= len(s))
-	{
-		if (s[i] == '\'')
-			s_quotes++;
-		if (s[i] == '\"')
-			d_quotes++;
-		if (s[i] != c && index < 0)
-			index = i;
-		else if (((issep(s[i]) && (s_quotes % 2 == 0 && d_quotes % 2 == 0)) || i == len(s)) && index >= 0)
-		{
-			split[j++] = word_dup(s, index, i);
-			index = -1;
-		}
-		i++;
-	}
-	split[j] = 0;
-	return (split);
 }

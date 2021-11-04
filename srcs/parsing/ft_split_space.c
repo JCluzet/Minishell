@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_space.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/05 00:16:03 by jcluzet           #+#    #+#             */
+/*   Updated: 2021/11/05 00:29:37 by jcluzet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	count_words_space(const char *str, char c)
 {
-	int i;
-	int trigger;
-	int s_quotes;
-	int d_quotes;
+	int	i;
+	int	trigger;
+	int	s_quotes;
+	int	d_quotes;
 
 	s_quotes = 0;
 	d_quotes = 0;
@@ -48,12 +60,14 @@ char		**split_thespace(char const *s, char c)
 	size_t	j;
 	int		index;
 	char	**split;
-	int		s_quotes;
-	int		d_quotes;
+	int		qt[2];
 
-	s_quotes = 0;
-	d_quotes = 0;
-	if (!s || !(split = malloc((count_words_space(s, c) + 1) * sizeof(char *))))
+	qt[0] = 0;
+	qt[1] = 0;
+	if (!s)
+		return (0);
+	split = malloc((count_words_space(s, c) + 1) * sizeof(char *));
+	if (!split)
 		return (0);
 	i = 0;
 	j = 0;
@@ -61,12 +75,13 @@ char		**split_thespace(char const *s, char c)
 	while (i <= len(s))
 	{
 		if (s[i] == '\'')
-			s_quotes++;
+			qt[0]++;
 		if (s[i] == '\"')
-			d_quotes++;
+			qt[1]++;
 		if (s[i] != c && index < 0)
 			index = i;
-		else if (((s[i] == c && (s_quotes % 2 == 0 && d_quotes % 2 == 0))|| i == len(s)) && index >= 0)
+		else if (((s[i] == c && (qt[0] % 2 == 0 && qt[1] % 2 == 0))
+				|| i == len(s)) && index >= 0)
 		{
 			split[j++] = word_dup(s, index, i);
 			index = -1;

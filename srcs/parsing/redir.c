@@ -6,57 +6,18 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/10/31 02:33:50 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/05 00:34:54 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd)
-{
-	char	**tab;
-
-	cmds->last_rdr = initrdr2();
-	get_size_redir(cmds, cmd);
-	cmds->redir_ins = malloc_redir_next(cmds, cmd, cmds->rdr->nb_redir_in, 1);
-	cmds->redir_outs = malloc_redir_next(cmds, cmd, cmds->rdr->nb_redir_out, 2);
-	cmds->reddir_append = malloc_redir_next(cmds, cmd, cmds->rdr->nb_redir_app, 3);
-	cmds->reddir_heredoc = malloc_redir_next(cmds, cmd, cmds->rdr->nb_redir_hdoc, 4);
-	return(0);
-}
-
-char	**malloc_redir_next(t_cmd_lst *cmds,char *cmd, int size, int type)
-{
-	int		i;
-	char	**tab;
-
-	i = 0;
-	tab = malloc(sizeof(char *) * (size + 1));
-	while (i < size)
-	{
-		tab[i] = malloc(sizeof(char) * (find_size_rdr(cmd, i+1, type) + 1));
-		tab[i] = fill_file_rdr(cmd, i+1, type, tab[i]);
-		cmds->rdr_nb++;
-		if (type == 1)
-			cmds->rdr->nb_redir_in = cmds->rdr_nb;
-		else if (type == 2)
-			cmds->rdr->nb_redir_out = cmds->rdr_nb;
-		else if (type == 3)
-			cmds->rdr->nb_redir_app = cmds->rdr_nb;
-		else
-			cmds->rdr->nb_redir_hdoc = cmds->rdr_nb;
-		i++;
-	}
-	tab[i] = NULL;
-	return (tab);
-}
-
 char		*fill_file_rdr(char *cmd, int nb, int type, char *file)
 {
 	int i;
+	t_redir	rdr;
 
 	i = 0;
-	t_redir	rdr;
 	rdr = initrdr();
 	while (cmd[i])
 	{
@@ -92,12 +53,12 @@ char		*fill_file_rdr(char *cmd, int nb, int type, char *file)
 	return NULL;
 }
 
-int		find_size_rdr(char *cmd, int nb, int type) // retourne la taille du files apres le redir
+int		find_size_rdr(char *cmd, int nb, int type)
 {
 	int i;
+	t_redir	rdr;
 
 	i = 0;
-	t_redir	rdr;
 	rdr = initrdr();
 	while (cmd[i])
 	{
@@ -130,7 +91,7 @@ int		find_size_rdr(char *cmd, int nb, int type) // retourne la taille du files a
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int		find_lenght_file(char *cmd)
@@ -141,14 +102,16 @@ int		find_lenght_file(char *cmd)
 	size = 0;
 	i = 0;
 	i = skip_blank(cmd);
-	while ((cmd[i+size] != ' ' && cmd[i+size] != '\t' && (cmd[i+size] != '<' && cmd[i+size] != '>')) && cmd[i+size])
+	while ((cmd[i + size] != ' ' && cmd[i + size] != '\t'
+			&& (cmd[i + size] != '<' && cmd[i + size] != '>'))
+		&& cmd[i + size])
 		size++;
 	return (size);
 }
 
 void get_size_redir(t_cmd_lst *cmds, char *cmd)
 {
-	int i;
+	int	i;
 
 	cmds->rdr = initrdr2();
 	cmds->type_last_rdr_in = 0;
@@ -181,27 +144,4 @@ void get_size_redir(t_cmd_lst *cmds, char *cmd)
 		}
 		i++;
 	}
-}
-
-t_redir	initrdr(void)
-{
-	t_redir rdr;
-
-	rdr.nb_redir_in = 0;
-	rdr.nb_redir_out = 0;
-	rdr.nb_redir_app = 0;
-	rdr.nb_redir_hdoc = 0;
-	return (rdr);
-}
-
-t_redir	*initrdr2(void)
-{
-	t_redir *rdr;
-	rdr = malloc(sizeof(t_redir));
-
-	rdr->nb_redir_in = 0;
-	rdr->nb_redir_out = 0;
-	rdr->nb_redir_app = 0;
-	rdr->nb_redir_hdoc = 0;
-	return (rdr);
 }
