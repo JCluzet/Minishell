@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 20:44:15 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:45:11 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ int		find_size_rdr(char *cmd, int nb, int type);
 char	**malloc_redir_next(t_cmd_lst *cmds,char *cmd, int size, int type);
 int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
+int	end_first_rdr(char *cmd);
 int		redir_check(char *cmd);
 
 void		clear_fd_stack(t_cmd_lst *cmds);

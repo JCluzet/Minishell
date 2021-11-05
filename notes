@@ -99,86 +99,36 @@ Return with the argument value
 If first argument is not a number return 255 "bash: exit: qw: numeric argument required"
 If first argument is a number and is followed with another arg, print "bash: exit: too many arguments"
 
-ECHO : DONE
+ECHO : A FAIRE
 if $ refferenced argument doesnt exist, just display \n
 
-Invalid indentifier for Environement variable :
-
-+ in value creation concatenate
-Any letter and underscore for the first character
-Any letter, underscore and number for the followed
-
-
-
-
-
-Beware :
-	- On heredoc with command ("<<") don't create file before end of here doc
-
-	- Heredoc manage case
-{
-	15:48:40 ambelkac@e2r6p3.42.fr pipex master ? cat << 1 << 2 << 3 
-heredoc> 3
-heredoc> 2
-heredoc> 1
-heredoc> 3
-heredoc> 2
-heredoc> 3
-3
-2
-3
-}
-
-DAY 1 : Echo & Exit seems done, basic loop with prompt and CTRL + D managed
-
-DAY 2 : Worked and lrval return, corrected seg in shell_loop from reccuperated line
-Still problems on unset not unsetting var, probably need to redo from scratch
-
-DAY 3 : Unset and export Working, also added replacement of exported value already existing
-
-DAY 4 : CD seems to be good, with PWD and OLDPWD updating with each call
-	also unset and export got some fixes
-
-
-
-
-TODO : (Amine) 
 
 - regler le CD qui indiqe no files sur un dossier avec un espace (la tabulation le fait comme ca )
     ex : cd /Library/Caches    (fonctionne)
 	puis : cd Desktop Pictures/   (erreur > alors que la tab le conmplete come ca)
 Je comprend pas de quoi tu parle, si y'a un espace dans la commande avec un echo normale que sa marche pas
 
--  regler CD qui indique no such files sur > cd ~/Desktop (relative path ?)
-Techniquement j'ai pas a gerer sa, just cd qui go sur Home je pense que sa suffir
+
+
+FAIT MAIS A TESTER RIGOUREUSEMENT :
+
+env -i ./Minishell et creation, suppretion, remplacement environement
+Retourner l'environement avec les builtins pour etre sur que tout marche parfaitement
+Checker chacune des modification de lrval et si apres exit du minishell, la correcte valeur est retourner
+Leaks fd, en close un MAX
+Verification des builtins standard "cd/echo/pwd/exit" non environement lie
+
+
+
+TODO : (Amine) 
+
 
 - regler le $ (la fonction replace dollars le fait deja)
 
--  regler le EXPORT qui ne fonctionne pas quand on fait /usr/bin/env ? (le env est different du binaire)
-Ouai, le env c'est un builtins, on est pas sense utilise le binaire
-
--  regler UNSET qui crash
-A quel moment ?
-
-- Executer avec redirections
-
-- Implementer '>>' et '<<'
-
-- Valeur de retour d'un binaire correctement executer par Execve non enregistrer
-
-RAJOUT DE JO POUR AMINE : 
-
-- regler le probleme sur >>               >>
-
-- Faire << et >> en tant que commande unique
-On va pas le faire frero BCP trop complexe
-
-- env -i on execution segfault from allocation env lst and second env tab (str_to_word_arr)
-gerer de prime abord, plus de test son sympa
-
-- LAst rvalue of execve
 
 TODO : (Jojo)
+
+- Tu rajoute un espace quand tu recup un argu,emt et tu le stock dans argv
 
 - Parse Errors completement gerer selon POSIX, incomplet/pas tester entierement
 

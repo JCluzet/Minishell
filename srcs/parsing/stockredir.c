@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stockredir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/05 00:35:07 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/05 15:43:20 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	malloc_and_stock_redir(t_cmd_lst *c, char *cmd)
 	get_size_redir(c, cmd);
 	c->redir_ins = malloc_redir_next(c, cmd, c->rdr->nb_redir_in, 1);
 	c->redir_outs = malloc_redir_next(c, cmd, c->rdr->nb_redir_out, 2);
-	c->reddir_appd = malloc_redir_next(c, cmd, c->rdr->nb_redir_app, 3);
-	c->reddir_herdc = malloc_redir_next(c, cmd, c->rdr->nb_redir_hdoc, 4);
+	c->reddir_append = malloc_redir_next(c, cmd, c->rdr->nb_redir_app, 3);
+	c->reddir_heredoc = malloc_redir_next(c, cmd, c->rdr->nb_redir_hdoc, 4);
 	return (0);
 }
 

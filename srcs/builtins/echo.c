@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:29:46 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 22:59:51 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:55:27 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ int		is_dash_n_option(char *option)
 
 void	echo(t_sdata *sdata)
 {
-	sdata->lrval = 0;
 	if (tablen(sdata->cmds->argv) == 1)
 	{
 		write(1, "\n", 1);
+		sdata->lrval = 0;
 		return ;
 	}
 	if (!ft_strncmp(sdata->cmds->argv[1], "$?", 2) && len(sdata->cmds->argv[1]) == 2)
@@ -96,6 +96,7 @@ void	echo(t_sdata *sdata)
 		printf("%d\n", sdata->lrval);
 		return ;
 	}
+	sdata->lrval = 0;
 	if (!is_dash_n_option(sdata->cmds->argv[1]))
 	{
 		if (tablen(sdata->cmds->argv) == 2)

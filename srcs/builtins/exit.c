@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:39:17 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 14:09:08 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/05 15:56:29 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	shell_exit(t_sdata *sdata)
 	if (sdata->cmds->argv == NULL || tablen(sdata->cmds->argv) == 1)
 	{
 		printf("exit\n");
-		exit(0);
+		exit(sdata->lrval);
 	}
 	if (!is_number(sdata->cmds->argv[1], 0))
 	{

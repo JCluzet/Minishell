@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 00:29:06 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/05 15:42:40 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		quotes_check(char *str)
 	return (0);
 }	
 
-void	checkquotes(char c, t_quote *qt)
+int	checkquotes(char c, t_quote *qt)
 {
 	if (c == '\"')
 	{
@@ -106,6 +106,7 @@ void	checkquotes(char c, t_quote *qt)
 		else
 			qt->simple_q_indouble++;
 	}
+	return (0);
 }
 
 int		check_error(t_cmd_lst *cmds)

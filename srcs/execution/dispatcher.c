@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 21:51:31 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/05 17:27:10 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 	pid_t	pid;
 	int		save_stdin;
 	int		save_stdout;
+	int		status;
 
+	status = 0;
 	save_stdin = dup(0);
 	save_stdout = dup(1);
 	while (cmds)
@@ -55,13 +57,23 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 		{	
 			if (cmds->next)
 				dup2(fd[1], 1);
-			dispatch_redir_types(cmds);
+			if (dispatch_redir_types(cmds))
+			{
+				sdata->lrval = 1;
+				cmds = cmds->next;
+				continue;
+			}
+			if (!cmds->next)
+				dup2(save_stdout, 1);
 			(builtins_array)[cmds->builtin_idx](sdata);
-			dup2(save_stdout, 1);
-			close(fd[1]);
+			if (cmds->next)
+			{
+				dup2(save_stdout, 1);
+				close(fd[1]);
+			}
 			clear_fd_stack(cmds);
-			sdata->lrval = 0;
 		}
+
 		else if (cmds->cmd_path)
 		{
 			pid = fork();
@@ -77,8 +89,10 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 					invalid_cmd(sdata, cmds, save_stdin);
 			}
 			else
-				waitpid(-1, NULL, 0);
+				waitpid(-1, &status, 0);
+			sdata->lrval = WEXITSTATUS(status);
 		}
+
 		else // Invalid cmd path error management
 		{
 			if (cmds->argv[0][0] == '.' || cmds->argv[0][0] == '/')
@@ -87,11 +101,17 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 				printf("command not found: %s\n", cmds->argv[0]);
 			sdata->lrval = 127;
 		}
+
 		if (cmds->next)
 		{
 			close(fd[1]);
 			dup2(fd[0], 0);
 		}
+		// if (cmds->next && !cmds->next->next)
+		// {
+		// 	close(fd[1]);
+		// 	dup2(save_stdout, 1);
+		// }
 		cmds = cmds->next;
 	}
 	dup2(save_stdin, 0);

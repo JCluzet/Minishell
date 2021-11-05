@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linklist.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/05 00:15:45 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/05 16:55:45 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ t_cmd_lst	*init_linkedlist(void)
 	cmds->fd_stack = NULL;
 	cmds->last_fd_in = 0;
 	cmds->save_stdin = 0;
+	cmds->redir_ins = NULL;
+	cmds->redir_outs = NULL;
+	cmds->reddir_append = NULL;
+	cmds->reddir_heredoc = NULL;
 	cmds->next = NULL;
 	return (cmds);
 }
@@ -49,6 +53,10 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 	new->last_fd_in = 0;
 	new->save_stdin = 0;
 	new->next = NULL;
+	new->redir_ins = NULL;
+	new->redir_outs = NULL;
+	new->reddir_append = NULL;
+	new->reddir_heredoc = NULL;
 	cmds->next = new;
 	return (new);
 }
@@ -100,11 +108,11 @@ void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
 	while (cmds->redir_outs[++i])
 		printf("redir_out %d = %s\n",i + 1, cmds->redir_outs[i]);
 	i = -1;
-	while (cmds->reddir_appd[++i])
-		printf("redir_append %d = %s\n",i + 1, cmds->reddir_appd[i]);
+	while (cmds->reddir_append[++i])
+		printf("redir_append %d = %s\n",i + 1, cmds->reddir_append[i]);
 	i = -1;
-	while (cmds->reddir_herdc[++i])
-		printf("redir_heredoc %d = %s\n",i + 1, cmds->reddir_herdc[i]);
+	while (cmds->reddir_heredoc[++i])
+		printf("redir_heredoc %d = %s\n",i + 1, cmds->reddir_heredoc[i]);
 	printf("\n");
 	if (cmds->type_last_rdr_in != 0)
 		printf("last_rdr_in detected = %d   << 2=double & 1=simple\n",
