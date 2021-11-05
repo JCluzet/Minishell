@@ -134,7 +134,7 @@ TODO : (Jojo)
 
 - separer les cmds dans une list chainees, manque les redirections
 
-- separer les cmds en tenant en compte le bon pipe >> GOOD
+- separer les cmds en tenant en compte le bon pipe >> GOODf
 
 - instaurer les detections et stock de redirections, elles sont traiter comme arguments
 

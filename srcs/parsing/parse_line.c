@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 15:42:40 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/05 20:32:19 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 	{
 		if (i != 0)
 			cmd = insertion_linklist(cmd);
-		fill_cmds(cmd, mul_cmd[i]);
+		fill_cmds(cmd, replace_dollars(mul_cmd[i], sdata));
 		if (cmd->builtin_idx == -1 && cmd->argv[0])
 			cmd->cmd_path = is_cmd_executable(cmd->cmd, sdata);
 		i++;
