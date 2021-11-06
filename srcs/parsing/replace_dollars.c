@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 17:37:01 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 17:50:52 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 			i++;
 			count++;
 			if (str[i] == '?')
-			{
 				count++;
-			}
 		}
 		else if (str[i] == '$' && is_inquote(str, i))
 		{
@@ -98,7 +96,8 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 		}
 		else
 			count++;
-		i++;
+		if(str[i])
+			i++;
 	}
 	//printf("str_end >> |%s|", str);
 	//printf("\nACTUEL RETURN DE STRLEN >> |%d|\n", count);
@@ -163,7 +162,8 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 			newcmd[count] =  old_cmd[i];
 			count++;
 		}
-		i++;
+		if(old_cmd[i])
+			i++;
 	}
 	newcmd[count] = '\0';
     printf("\nYO CMD IS HERE |%s|", newcmd);
