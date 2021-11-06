@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 01:40:08 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 02:23:44 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,76 @@ t_redir	*initrdr2(void)
 	return (rdr);
 }
 
-char	*rmv_rdr_from_cmd(char *cmd)
-{
-	return (ft_substr(cmd + end_first_rdr(cmd), 0 , get_last_rdr_idx(cmd + end_first_rdr(cmd))));
-}
+// char	*rmv_rdr_from_cmd(char *cmd)
+// {
+// 	return (ft_substr(cmd + end_first_rdr(cmd), 0 , get_last_rdr_idx(cmd + end_first_rdr(cmd))));
+// }
 
 // remove all >> and << from cmd with her file name and return the new cmd
 
-// char	*rmv_rdr_from_cmd(char *cmd)
-// {
-// 	int i;
-// 	int count;
+int		strlen_cmd_without_rdr(char *cmd)
+{
+	int i;
+	int count;
 
-// 	count = 0;
-// 	i = 0;
-// 	while (cmd[i])
-// 	{
-// 		if (cmd[i] == '<' || cmd[i] == '>')
-// 		{
-			
-// 		}
-// 		else
-// 		{
-// 			count++;
-// 		}
-// 	}
+	count = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '<' || cmd[i] == '>')
+		{
+			i++;
+			if (cmd[i] == '<' || cmd[i] == '>')
+				i++;
+			// printf("I1>|%d|", i);
+			i += skip_blank(cmd + i);
+			// printf("I2>|%d|", i);
+			while (cmd[i] && cmd[i] != ' ')
+			{
+				i++;
+			}
+		}
+		else
+		{
+			count++;
+		}
+		if (cmd[i])
+			i++;
+	}
+	return (count);
+}
+
+char	*rmv_rdr_from_cmd(char *cmd)
+{
+	int i;
+	int count;
+	char *newcmd;
+
+	count = 0;
+	i = 0;
+	// printf("\nOLDCMD > |%s|", cmd);
+	newcmd = malloc(sizeof(char *) * (strlen_cmd_without_rdr(cmd) + 1));
+	while (cmd[i])
+	{
+		if (cmd[i] == '<' || cmd[i] == '>')
+		{
+			i++;
+			if (cmd[i] == '<' || cmd[i] == '>')
+				i++;
+			i += skip_blank(cmd + i);
+			while (cmd[i] && cmd[i] != ' ')
+				i++;
+		}
+		else
+		{
+			newcmd[count] = cmd[i];
+			count++;
+		}
+		if (cmd[i])
+			i++;
+	}
+	newcmd[count] = '\0';
+	free(cmd);
+	// printf("\nNEWCMD > |%s|", newcmd);
+	return(newcmd);
+}
