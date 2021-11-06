@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:52:22 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 13:07:42 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/06 01:05:01 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int		get_idx_var_in_env(char **env, char *var)
 
 char	*get_env_var_from_name(t_env_lst *list, char *name)
 {
+	//printf("\nYAL1.5>> |%s|\n", name);
 	while (list)
 	{
 		if (!ft_strncmp(list->name, name, len(name)) && len(name) == len(list->name))
