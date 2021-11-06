@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 15:45:11 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/06 16:15:50 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ int	lenequal(char *str);
 t_env_lst	*remove_elem(t_env_lst *list, char *arg);
 t_env_lst	*add_elem(t_env_lst *list, char *arg);
 char	**list_to_arr(t_env_lst *list);
-
+int		error_print_free(int rval, char *str, t_sdata *sdata);
 
 // REDIR TESTING
 

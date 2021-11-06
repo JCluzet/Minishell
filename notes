@@ -117,13 +117,14 @@ Retourner l'environement avec les builtins pour etre sur que tout marche parfait
 Checker chacune des modification de lrval et si apres exit du minishell, la correcte valeur est retourner
 Leaks fd, en close un MAX
 Verification des builtins standard "cd/echo/pwd/exit" non environement lie
+Refaire les fonctions d'allocations et de deallocatiomn et verifie que tout mene a un free complet
 
 
 
 TODO : (Amine) 
 
-
-- e
+Allocations incomplete sur les deux structures, tout set a null dans le cas 
+d'un retour prematurer pour tout free correctement
 
 
 TODO : (Jojo)
