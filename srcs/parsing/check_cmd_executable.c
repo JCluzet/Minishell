@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_executable.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 00:41:47 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 18:45:41 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	is_builtin(char *cmd)
 		return (-1);
 	while (i < 7)
 	{
-		if (!ft_strncmp(g_builtins_mask[i], cmd, len(g_builtins_mask[i])))
+		if (!ft_strncmp(g_builtins_mask[i], cmd, len(g_builtins_mask[i])) && len(cmd) == len(g_builtins_mask[i]))
 			return (i);
 		++i;
 	}
