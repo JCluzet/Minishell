@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 01:05:53 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 02:53:42 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,19 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 	count = 0;
 	i = 0;
 	//printf("str_start >> |%s|", str);
-	while(str[i] != '\0')
+	while(str[i])
 	{
 		i = find_quotes(str, i, str[i]);
-		if (str[i] == '$')
+		if (str[i] == '$' && (!str[i+1] || str[i + 1] == '?'))
+		{
+			i++;
+			count++;
+			if (str[i] == '?')
+			{
+				count++;
+			}
+		}
+		else if (str[i] == '$')
 		{
 			tmp = get_env_var_from_name(t_sdata->env_lst, str_cmd(str + i + 1));
 			if (tmp == NULL)
@@ -109,16 +118,26 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
     count = 0;
 	// printf("\nstr0 >> |%s|\n", old_cmd);
 	// strlen_pathcmd(sdata, old_cmd);
-	
     newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
 
 	// printf("\nstr1 >> |%s|\n", old_cmd);
     // printf("\n\nHere is the new_cmd strlen > |%d|", strlen_pathcmd(sdata, old_cmd));
 
-	while(old_cmd[i] != '\0')
+	while(old_cmd[i])
 	{
 		i = find_quotes(old_cmd, i, old_cmd[i]);
-		if (old_cmd[i] == '$')
+		if (old_cmd[i] == '$' && (!old_cmd[i+1] || old_cmd[i + 1] == '?'))
+		{
+			newcmd[count] = '$';
+			i++;
+			count++;
+			if (old_cmd[i] == '?')
+			{
+				newcmd[count] = '?';
+				count++;
+			}
+		}
+		else if (old_cmd[i] == '$')
 		{
 			tmp = get_env_var_from_name(sdata->env_lst, str_cmd(old_cmd + i + 1));
 			if (tmp == NULL)
