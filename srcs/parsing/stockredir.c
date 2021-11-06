@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 02:23:44 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 18:20:45 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,94 @@ int		strlen_cmd_without_rdr(char *cmd)
 			i++;
 	}
 	return (count);
+}
+
+int		strlen_cmd_without_quotes(char *cmd)
+{
+	int i;
+	int count;
+
+	count = 0;
+	i = 0;
+	while(cmd[i])
+	{
+		if (cmd[i] == '\'')
+		{
+			i++;
+			while (cmd[i] != '\'')
+			{
+				count++;
+				i++;
+			}
+			i++;
+		}
+		else if (cmd[i] == '\"')
+		{
+			i++;
+			while (cmd[i] != '\"')
+			{
+				count++;
+				i++;
+			}
+			i++;
+		}
+		else
+		{
+			if (cmd[i])
+				i++;
+			count++;
+		}
+	}
+	return (count);
+}
+
+
+char	*rmv_quotes_from_cmd(char *cmd)
+{
+	int i;
+	int count;
+	char *newcmd;
+
+	count = 0;
+	i = 0;
+	printf("\nOLDCMD > |%s|", cmd);
+	newcmd = malloc(sizeof(char *) * (strlen_cmd_without_quotes(cmd) + 1));
+	while(cmd[i])
+	{
+		if (cmd[i] == '\'')
+		{
+			i++;
+			while (cmd[i] != '\'')
+			{
+				newcmd[count] = cmd[i];
+				count++;
+				i++;
+			}
+			i++;
+		}
+		else if (cmd[i] == '\"')
+		{
+			i++;
+			while (cmd[i] != '\"')
+			{
+				newcmd[count] = cmd[i];
+				count++;
+				i++;
+			}
+			i++;
+		}
+		else 
+		{
+			newcmd[count] = cmd[i];
+			count++;
+			if (cmd[i])
+				i++;
+		}
+	}
+	newcmd[count] = '\0';
+	free(cmd);
+	printf("\nNEWCMD > |%s|", newcmd);
+	return(newcmd);
 }
 
 char	*rmv_rdr_from_cmd(char *cmd)

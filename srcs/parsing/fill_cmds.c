@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 00:32:32 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 18:10:16 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	fill_cmds(t_cmd_lst *cmds, char *cmd)
 {
+	cmd = rmv_quotes_from_cmd(cmd);
 	malloc_and_stock_redir(cmds, cmd);
 	cmd = rmv_rdr_from_cmd(cmd);
 	cmds->argv = split_thespace(cmd, ' ');

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 17:33:32 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 18:15:40 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,7 @@ char	*ft_strdup(char *src);
 int		cut_first_redir(char *line, t_cmd_lst *cmd);
 char*	get_file_redir(char *cmd, char *file);
 t_redir	*initrdr2(void);
+char	*rmv_quotes_from_cmd(char *cmd);
 int		skip_blank(char *cmd);
 int		find_lenght_file(char *cmd);
 int		find_size_rdr(char *cmd, int nb, int type);
