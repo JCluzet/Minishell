@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stockredir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/05 15:43:20 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/06 01:40:08 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,26 @@ t_redir	*initrdr2(void)
 
 char	*rmv_rdr_from_cmd(char *cmd)
 {
-	return (ft_substr(cmd + end_first_rdr(cmd), 0
-			, get_last_rdr_idx(cmd + end_first_rdr(cmd))));
+	return (ft_substr(cmd + end_first_rdr(cmd), 0 , get_last_rdr_idx(cmd + end_first_rdr(cmd))));
 }
+
+// remove all >> and << from cmd with her file name and return the new cmd
+
+// char	*rmv_rdr_from_cmd(char *cmd)
+// {
+// 	int i;
+// 	int count;
+
+// 	count = 0;
+// 	i = 0;
+// 	while (cmd[i])
+// 	{
+// 		if (cmd[i] == '<' || cmd[i] == '>')
+// 		{
+			
+// 		}
+// 		else
+// 		{
+// 			count++;
+// 		}
+// 	}
