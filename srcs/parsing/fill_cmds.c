@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 18:10:16 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 18:42:57 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	fill_cmds(t_cmd_lst *cmds, char *cmd)
 	if (cmds->argv[0])
 		cmds->cmd = ft_strdup_free(cmds->argv[0], 0);
 	cmds->cmd_path = NULL;
-	if (cmds->argv)
-		cmds->builtin_idx = is_builtin(cmds->argv[0]);
-	else
-		cmds->builtin_idx = -1;
+	cmds->builtin_idx = is_builtin(cmds->cmd);
 }
 
 int	end_first_rdr(char *cmd)
