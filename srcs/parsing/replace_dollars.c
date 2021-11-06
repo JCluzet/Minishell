@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 17:50:52 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 19:13:30 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 	int i;
 	int count;
 	char *tmp;
+	char *tmp2;
 
 	count = 0;
 	i = 0;
@@ -82,7 +83,9 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 		}
 		else if (str[i] == '$' && is_inquote(str, i))
 		{
-			tmp = get_env_var_from_name(t_sdata->env_lst, str_cmd(str + i + 1));
+			tmp2 = str_cmd(str + i + 1);
+			get_env_var_from_name(t_sdata->env_lst, tmp2);
+			free(tmp2);
 			if (tmp == NULL)
 			{
 				count++;
@@ -109,6 +112,7 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
     int i;
     int count;
     int j;
+	char *tmp2;
     char *newcmd;
     char *tmp;
 
@@ -138,7 +142,9 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 		}
 		else if (old_cmd[i] == '$' && is_inquote(old_cmd, i))
 		{
-			tmp = get_env_var_from_name(sdata->env_lst, str_cmd(old_cmd + i + 1));
+			tmp2 = str_cmd(old_cmd + i + 1);
+			get_env_var_from_name(sdata->env_lst, tmp2);
+			free(tmp2);
 			if (tmp == NULL)
 			{
 				newcmd[count] = ' ';
@@ -166,7 +172,7 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 			i++;
 	}
 	newcmd[count] = '\0';
-    printf("\nYO CMD IS HERE |%s|", newcmd);
+    //printf("\nYO CMD IS HERE |%s|", newcmd);
 	free(old_cmd);
 	return(newcmd);
 }

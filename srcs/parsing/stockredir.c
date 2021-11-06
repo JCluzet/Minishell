@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 18:20:45 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 19:14:10 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ char	*rmv_quotes_from_cmd(char *cmd)
 
 	count = 0;
 	i = 0;
-	printf("\nOLDCMD > |%s|", cmd);
+	//printf("\nOLDCMD > |%s|", cmd);
 	newcmd = malloc(sizeof(char *) * (strlen_cmd_without_quotes(cmd) + 1));
 	while(cmd[i])
 	{
@@ -197,7 +197,7 @@ char	*rmv_quotes_from_cmd(char *cmd)
 	}
 	newcmd[count] = '\0';
 	free(cmd);
-	printf("\nNEWCMD > |%s|", newcmd);
+	//printf("\nNEWCMD > |%s|", newcmd);
 	return(newcmd);
 }
 
