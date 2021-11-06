@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 16:15:50 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/06 16:42:29 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ char	**remove_str_from_arr(char **arr, char *str);
 char	**cncat_arr(char **arr, char *str);
 char	**dup_arr(char **arr);
 //	str_manip
+int		find_squotes(char *cmd, int i, char c);
 char	*ft_strncpy(char *dest, char *src, int n);
 char	*ft_strncat(char *dest, char *src, unsigned int nb);
 char	*cncat(char *str1, char *str2, int ifree1, int ifree2);

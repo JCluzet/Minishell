@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 02:53:42 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 17:07:21 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		len_doll_null(char *str)
 	int				i;
 	
 	i = 1;
-	while (str[i] && str[i] != ' ' && str[i] != '<' && str[i] != '>' && str[i] != '$')
+	while (str[i] && str[i] != ' ' && str[i] != '<' && str[i] != '>' && str[i] != '$' && str[i] != '\"')
 		++i;
     // printf("dollh >> %d\n", i-1);
 	return (i - 1);
@@ -50,7 +50,7 @@ char 	*str_cmd(char *str)
 	while(str[i])
 	{
 		i++;
-		if (((str[i] == ' ' || str[i] == '<' || str[i] == '>' || str[i] == '$') && u == 0))
+		if (((str[i] == ' ' || str[i] == '<' || str[i] == '>' || str[i] == '$' || str[i] == '\"') && u == 0))
 			u = i;
 	}
 	if (u == 0)
@@ -72,7 +72,19 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 	//printf("str_start >> |%s|", str);
 	while(str[i])
 	{
-		i = find_quotes(str, i, str[i]);
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] != '\'')
+			{
+				count++;
+				i++;
+			}
+			i++;
+		}
+		if (str[i] == '\"')
+			i++;
+		// i = find_squotes(str, i, str[i]);
 		if (str[i] == '$' && (!str[i+1] || str[i + 1] == '?'))
 		{
 			i++;
@@ -98,7 +110,8 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 		}
 		else
 			count++;
-		i++;
+		if (str[i])
+			i++;
 	}
 	//printf("str_end >> |%s|", str);
 	//printf("\nACTUEL RETURN DE STRLEN >> |%d|\n", count);
@@ -125,7 +138,20 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 
 	while(old_cmd[i])
 	{
-		i = find_quotes(old_cmd, i, old_cmd[i]);
+		if (old_cmd[i] == '\'')
+		{
+			i++;
+			while (old_cmd[i] != '\'')
+			{
+				newcmd[count] = old_cmd[i];
+				count++;
+				i++;
+			}
+			i++;
+		}
+		if (old_cmd[i] == '\"')
+			i++;
+		//i = find_squotes(old_cmd, i, old_cmd[i]);
 		if (old_cmd[i] == '$' && (!old_cmd[i+1] || old_cmd[i + 1] == '?'))
 		{
 			newcmd[count] = '$';
@@ -163,10 +189,11 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 			newcmd[count] =  old_cmd[i];
 			count++;
 		}
-		i++;
+		if (old_cmd[i])
+			i++;
 	}
 	newcmd[count] = '\0';
-    //printf("\nYO CMD IS HERE |%s|", newcmd);
+    printf("\nYO CMD IS HERE |%s|", newcmd);
 	free(old_cmd);
 	return(newcmd);
 }

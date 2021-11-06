@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:48:50 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 20:29:04 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 17:02:32 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,17 @@ int		find_quotes(char *cmd, int i, char c)
 	while (cmd[i] != c)
 		i++;
 	return(i);
+}
+
+int		find_squotes(char *cmd, int i, char c)
+{
+	if (cmd[i] != '\"')
+		return (i);
+	else
+		return(i+1);
+	// if (cmd[i] == '\"')
+	// 	return (i+1);
+	// while (cmd[i] != c)
+	// 	i++;
+	return (i+1);
 }
