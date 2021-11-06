@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 16:42:29 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 17:33:32 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree);
 int	get_next_line(int fd, char **line);
 //	str_utils
 int	tablen(char **tab);
+int		is_inquote(char *cmd, int v);
 int		nb_of_cmds(char *cmd);
 int	ft_isdigit(int c);
 int	is_number(char const *str, int i);

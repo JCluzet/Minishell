@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 17:19:35 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 17:37:01 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		len_doll_null(char *str)
 	int				i;
 	
 	i = 1;
-	while (str[i] && str[i] != ' ' && str[i] != '<' && str[i] != '>' && str[i] != '$')
+	while (str[i] && str[i] != ' ' && str[i] != '<' && str[i] != '>' && str[i] != '$' && str[i] != '\"')
 		++i;
     // printf("dollh >> %d\n", i-1);
 	return (i - 1);
@@ -72,8 +72,8 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 	//printf("str_start >> |%s|", str);
 	while(str[i])
 	{
-		i = find_quotes(str, i, str[i]);
-		if (str[i] == '$' && (!str[i+1] || str[i + 1] == '?'))
+		//i = find_quotes(str, i, str[i]);
+		if (str[i] == '$' && (!str[i+1] || str[i + 1] == '?') && is_inquote(str, i))
 		{
 			i++;
 			count++;
@@ -82,7 +82,7 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 				count++;
 			}
 		}
-		else if (str[i] == '$')
+		else if (str[i] == '$' && is_inquote(str, i))
 		{
 			tmp = get_env_var_from_name(t_sdata->env_lst, str_cmd(str + i + 1));
 			if (tmp == NULL)
@@ -125,8 +125,8 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 
 	while(old_cmd[i])
 	{
-		i = find_quotes(old_cmd, i, old_cmd[i]);
-		if (old_cmd[i] == '$' && (!old_cmd[i+1] || old_cmd[i + 1] == '?'))
+		//i = find_quotes(old_cmd, i, old_cmd[i]);
+		if (old_cmd[i] == '$' && (!old_cmd[i+1] || old_cmd[i + 1] == '?') && is_inquote(old_cmd, i))
 		{
 			newcmd[count] = '$';
 			i++;
@@ -137,7 +137,7 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 				count++;
 			}
 		}
-		else if (old_cmd[i] == '$')
+		else if (old_cmd[i] == '$' && is_inquote(old_cmd, i))
 		{
 			tmp = get_env_var_from_name(sdata->env_lst, str_cmd(old_cmd + i + 1));
 			if (tmp == NULL)
