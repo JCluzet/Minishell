@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:29:46 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 15:55:27 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/06 18:29:07 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	putstr_skipquotes(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != '"')
+		if (str[i] != '"' && str[i] != '\'')
 			write(1, &str[i], 1);
 		++i;
 	}
@@ -31,16 +31,20 @@ void	putstr_quoteless(char *str)
 {
 	int		i;
 	int		j;
+	int		k;
 
 	i = 0;
 	j = 0;
+	k = 0;
 	while (str[i])
 	{
 		if (str[i] == '"')
 			++j;
+		if (str[i] == '\'')
+			++k;
 		++i;
 	}
-	if (j > 2)
+	if (j > 2 || k > 2)
 	{
 		putstr_skipquotes(str);
 		return ;

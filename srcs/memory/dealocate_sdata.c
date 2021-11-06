@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 16:28:54 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/06 18:24:10 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ void	deallocate_sdata(t_sdata *sdata)
 	free_arr(sdata->env);
 	free_arr(sdata->bin_paths);
 	deallocate_env_lst(sdata->env_lst);
+	close(sdata->save_stdin);
+	close(sdata->save_stdout);
 	free(sdata);
 }

@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 22:44:28 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/06 18:23:54 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ void	allocate_sdata(t_sdata *sdata, char **env)
 		sdata->env_lst = NULL;
 		return ;
 	}
+	sdata->save_stdin = dup(0);
+	sdata->save_stdout = dup(1);
 	sdata->bin_paths = str_to_word_arr(get_var_in_env(env, "PATH=") + 5, ':');
 }

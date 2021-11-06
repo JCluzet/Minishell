@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 16:16:34 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/06 18:25:45 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,80 +96,35 @@ void		invalid_cmd_path_error(t_sdata *sdata)
 void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 {
 	int		fd[2];
-	pid_t	pid;
-	int		save_stdin;
-	int		save_stdout;
-	int		status;
+	int		last_fdin;
 
-	status = 0;
-	save_stdin = dup(0);
-	save_stdout = dup(1);
+	last_fdin = 0;
 	while (sdata->cmds)
 	{
-		sdata->cmds->save_stdin = save_stdin;
+		sdata->cmds->save_stdin = sdata->save_stdin;
 		if (sdata->cmds->next)
 			pipe(fd);
 		if (sdata->cmds->builtin_idx < 7 && sdata->cmds->builtin_idx != -1)
 		{	
-			if (execute_builtins(sdata, fd, save_stdout))
+			if (execute_builtins(sdata, fd, sdata->save_stdout))
 				continue ;
-			// if (sdata->cmds->next)
-			// 	dup2(fd[1], 1);
-			// if (dispatch_redir_types(sdata->cmds))
-			// {
-			// 	sdata->lrval = 1;
-			// 	sdata->cmds = sdata->cmds->next;
-			// 	continue;
-			// }
-			// if (!sdata->cmds->next)
-			// 	dup2(save_stdout, 1);
-			// (builtins_array)[sdata->cmds->builtin_idx](sdata);
-			// if (sdata->cmds->next)
-			// {
-			// 	dup2(save_stdout, 1);
-			// 	close(fd[1]);
-			// }
-			// clear_fd_stack(sdata->cmds);
 		}
 		else if (sdata->cmds->cmd_path)
 		{
-			if (execute_binary(sdata, fd, save_stdin))
+			if (execute_binary(sdata, fd, sdata->save_stdin))
 				continue ;
-
-			// pid = fork();
-			// if (manage_pipe_dups(sdata->cmds, pid, fd))
-			// {
-			// 	sdata->lrval = 1;
-			// 	sdata->cmds = sdata->cmds->next;
-			// 	continue;
-			// }
-			// if (!pid)
-			// {
-			// 	if (execve(sdata->cmds->cmd_path, sdata->cmds->argv, sdata->env))
-			// 		invalid_cmd(sdata, sdata->cmds, save_stdin);
-			// }
-			// else
-			// 	waitpid(-1, &status, 0);
-			// sdata->lrval = WEXITSTATUS(status);
 		}
 		else // Invalid cmd path error management
-		{
 			invalid_cmd_path_error(sdata);
-			// if (sdata->cmds->argv[0][0] == '.' || sdata->cmds->argv[0][0] == '/')
-			// 	printf("no such file or directory: %s\n", sdata->cmds->argv[0]);
-			// else
-			// 	printf("command not found: %s\n", sdata->cmds->argv[0]);
-			// sdata->lrval = 127;
-		}
-
+		if (last_fdin)
+			close(last_fdin);
 		if (sdata->cmds->next)
 		{
 			close(fd[1]);
+			last_fdin = fd[0];
 			dup2(fd[0], 0);
 		}
 		sdata->cmds = sdata->cmds->next;
 	}
-	dup2(save_stdin, 0);
-	close(save_stdin);
-	close(save_stdout);
+	dup2(sdata->save_stdin, 0);
 }

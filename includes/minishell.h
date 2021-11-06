@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 17:33:32 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/06 18:22:57 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef struct	s_shell_data                   // structure envoyé a chaque fonc
 	int			cmd_idx;
 	int			nb_of_cmds;
 	int			cmd_nbr;
+	int			save_stdin;
+	int			save_stdout;
 }				t_sdata;
 
 
