@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:44:56 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 20:29:19 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/07 15:10:36 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,14 @@ size_t	len(const char *str)
 	int				i;
 
 	i = 0;
+//	printf("\nstr > |");
+//	printf("%c", str[i]);
 	while (str[i])
+	{
+	//	printf("%c", str[i]);
 		++i;
+	}
+	//printf("|\n");
 	return (i);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_dollars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 19:13:30 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/07 15:13:05 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,10 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
     i = 0;
     j = 0;
     count = 0;
-	// printf("\nstr0 >> |%s|\n", old_cmd);
+	printf(""); // lol ca enleve toutes lees erreurs en fait le code c;;est simple
+	//printf("\nstr0 >> |%s|\n", old_cmd);
 	// strlen_pathcmd(sdata, old_cmd);
-    newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
+    newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 2));
 
 	// printf("\nstr1 >> |%s|\n", old_cmd);
     // printf("\n\nHere is the new_cmd strlen > |%d|", strlen_pathcmd(sdata, old_cmd));
@@ -143,7 +144,7 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 		else if (old_cmd[i] == '$' && is_inquote(old_cmd, i))
 		{
 			tmp2 = str_cmd(old_cmd + i + 1);
-			get_env_var_from_name(sdata->env_lst, tmp2);
+			tmp = get_env_var_from_name(sdata->env_lst, tmp2);
 			free(tmp2);
 			if (tmp == NULL)
 			{
