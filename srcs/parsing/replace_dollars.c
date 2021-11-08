@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_dollars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/08 19:38:23 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/08 20:09:07 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char 	*str_find_var(char *str) // recoit la chaine a partir de juste apres $
 	char *tmp;
 	
 	i = 0;
-	printf("\nbegin of str_find_var |%s|", str);
+	// printf("\nbegin of str_find_var |%s|", str);
 	while(str[i])
 	{
 		if (!is_in_set(str[i], ENV_CHAR_LIST))
@@ -49,6 +49,20 @@ int 	skip_var(char *str) // recoit la chaine a partir de juste apres $
 	}
 	return(i);
 }
+
+int		int_len(int i)
+{
+	int count;
+
+	count = 1;
+	while (i > 9)
+	{
+		i = i / 10;
+		count++;
+	}
+	return (count);
+}
+
 int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 {
 	int i;
@@ -63,13 +77,13 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 		if (str[i] == '$' && (str[i + 1] == '?') && is_insquote(str, i))
 		{
 			i += 2;
-			count ++;
+			count += int_len(t_sdata->lrval);
 		}
 		else if (str[i] == '$' && is_in_set(str[i + 1], ENV_CHAR_LIST) && is_insquote(str, i))
 		{
 			i++;
 			tmpvar = str_find_var(str + i);
-			printf("\ntmpvar |%s|", tmpvar);
+			// printf("\ntmpvar |%s|", tmpvar);
 			tmp = get_env_var_from_name(t_sdata->env_lst, tmpvar);
 			free(tmpvar);
 			if (tmp == NULL)
@@ -86,8 +100,26 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 			count++;
 		}
 	}
-	printf("\nHere is the strlen > |%d|", count);
+	// printf("\nHere is the strlen > |%d|", count);
 	return (count);
+}
+
+char *put_int_str(int nb_len, char *cmd, int count, int lrval)
+{
+	if (nb_len == 3)
+	{
+		cmd[count] = (lrval/100) + 48;
+		cmd[count + 1] = ((lrval/10) % 10) + 48;
+		cmd[count + 3] = (lrval % 10) + 48;
+	}
+	if (nb_len == 2)
+	{
+		cmd[count] = (lrval/10) + 48;
+		cmd[count + 1] = (lrval % 10) + 48;
+	}
+	if (nb_len == 1)
+		cmd[count] = lrval + 48;
+	return (cmd);
 }
 
 // gerer le cas du $?
@@ -105,21 +137,21 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 	j = 0;
     i = 0;
     count = 0;
-	printf("\nodd_cmd |%s|", old_cmd);
-    newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 2));
+	// printf("\nodd_cmd |%s|", old_cmd);
+    newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
 	while(old_cmd[i])
 	{
 		if (old_cmd[i] == '$' && (old_cmd[i + 1] == '?') && is_insquote(old_cmd, i))
 		{
 			i += 2;
-			newcmd[count] = sdata->lrval + 48;
-			count ++;
+			newcmd = put_int_str(int_len(sdata->lrval), newcmd, count, sdata->lrval);
+			count += int_len(sdata->lrval);
 		}
 		else if (old_cmd[i] == '$' && is_in_set(old_cmd[i + 1], ENV_CHAR_LIST) && is_insquote(old_cmd, i))
 		{
 			i++;
 			tmpvar = str_find_var(old_cmd + i);
-			printf("\ntmpvar |%s|", tmpvar);
+			// printf("\ntmpvar |%s|", tmpvar);
 			tmp = get_env_var_from_name(sdata->env_lst, tmpvar);
 			free(tmpvar);
 			if (tmp == NULL)
@@ -144,7 +176,7 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 		}
 	}
 	newcmd[count] = '\0';
-    printf("\nnew_cmd |%s|", newcmd);
-	return (old_cmd);
+    // printf("\nnew_cmd |%s|", newcmd);
+	// return (old_cmd);
 	return (newcmd);
 }
