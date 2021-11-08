@@ -6,7 +6,7 @@
 /*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 20:14:33 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/08 21:37:05 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	shell_loop(t_sdata *sdata)
 	{
 		line = readline("\033[33m$ ➜\033[00m ");
 		if (line == NULL)
+		{
+			printf("exit\n");
 			break ;
+		}
 		add_history(line);
 		if (line[0] == 0 || empty_str(line) || check_line(line) == -1)
 			continue ;

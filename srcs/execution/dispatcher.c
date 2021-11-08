@@ -6,7 +6,7 @@
 /*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 21:19:11 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/08 21:23:19 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			execute_builtins(t_sdata *sdata, int *fd, int save_stdout)
 		return (1);
 	}
 	(builtins_array)[sdata->cmds->builtin_idx](sdata);
-		dup2(save_stdout, 1);
+	dup2(save_stdout, 1);
 	if (sdata->cmds->next)
 	{
 		close(fd[1]);
