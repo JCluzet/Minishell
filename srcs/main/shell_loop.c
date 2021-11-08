@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 21:37:05 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/08 22:30:40 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	shell_loop(t_sdata *sdata)
 
 int		check_line(char *line)
 {
-	if (quotes_check(line) == -1 || !line || redir_check(line) == -1)
+	if (quotes_check(line) == -1 || !line || redir_check(line) == -1 || check_forbidden(line))
 		return (-1);
 	if (pipe_check(line) == -1)
 	{

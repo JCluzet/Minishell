@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 17:42:43 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 22:32:06 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,24 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 	}
 	printf_linked_list(firstcmd, sdata->nb_of_cmds);
 	return (firstcmd);
+}
+
+int	check_forbidden(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		i = find_quotes(str, i, str[i]);
+		if (str[i] == ';')
+		{
+			printf ("minishell: unexpected behavior ';' not supported\n");
+			return (1);
+		}
+		i++;
+	}
+	return(0);
 }
 
 int	pipe_check(char *str)

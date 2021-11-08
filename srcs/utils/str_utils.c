@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:44:56 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/07 15:10:36 by jo               ###   ########.fr       */
+/*   Updated: 2021/11/08 22:18:46 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,20 +147,22 @@ int		skip_blank(char *cmd)
 	return(i);
 }
 
-char*	get_file_redir(char *cmd, char *file)
+char*	get_file_redir(char *cmd, char *file) // virer les doubles quotes du redir name
 {
 	int i;
 	int size;
 
 	size = 0;
 	i = 0;
+	printf("\ncmdf >>|%s|\n", cmd);
 	i = skip_blank(cmd);
-	while ((cmd[i+size] != ' ' && cmd[i+size] != '\t' && cmd[i+size] != '<' && cmd[i+size] != '>') && cmd[i+size])
+	while ((duoquote(cmd, i+size) || (cmd[i+size] != ' ' && cmd[i+size] != '\t' && cmd[i+size] != '<' && cmd[i+size] != '>')) && cmd[i+size])
 	{
 		file[size] = cmd[size + i];
 		size++;
 	}
 	file[size] = '\0';
+	printf("\nfile >>|%s|\n", file);
 	if (size == 0)
 		file = NULL;
 	return (file);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 20:03:36 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/08 22:31:17 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
 char		**split_thespace(char const *s, char c);
 static int	count_words_space(const char *str, char c);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
-
+int		duoquote(char *cmd, int v);
 //		Execution
 //	dispatcher.c
 void	execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds);
@@ -148,6 +148,7 @@ char	*get_env_var_from_name(t_env_lst *list, char *name);
 int	does_env_var_exist(t_env_lst *env, char *var);
 char	*get_env_var_name_from_arg(char *arg);
 int	is_env_var_valid(char *arg, int is_unset);
+int	check_forbidden(char *str);
 int	get_idx_var_in_env(char **env, char *var);
 char	*get_var_in_env(char **env, char *var);
 

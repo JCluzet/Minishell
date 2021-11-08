@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/06 19:14:10 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 22:19:52 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ char	*rmv_rdr_from_cmd(char *cmd)
 			if (cmd[i] == '<' || cmd[i] == '>')
 				i++;
 			i += skip_blank(cmd + i);
-			while (cmd[i] && cmd[i] != ' ')
+			while ((duoquote(cmd, i) || (cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '<' && cmd[i] != '>')) && cmd[i])
 				i++;
 		}
 		else

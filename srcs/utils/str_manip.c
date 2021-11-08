@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:48:50 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 20:19:13 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 22:24:00 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,33 @@ int		is_maj(char c)
 		return (1);
 	if ((c > 96) && (c < 123))
 		return (1);
+	return (0);
+}
+
+int		duoquote(char *cmd, int v)
+{
+	int i;
+	int s;
+	int j;
+
+	j = 0;
+	s = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '\"')
+			s++;
+		if (cmd[i] == '\'')
+			j++;
+		if (i == v)
+		{
+			if (s % 2 == 0 && j % 2 == 0)
+				return (0);
+			else
+				return(1);
+		}
+		i++;
+	}
 	return (0);
 }
 
