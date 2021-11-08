@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:41:54 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/09/21 20:57:47 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 18:53:24 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int ac, char **argv, char **env)
 		return (0);
 	}
 	allocate_sdata(&sdata, env);
+	g_sdata = &sdata;
+	assign_signals_handler(&sdata);
 	shell_loop(&sdata);
 	deallocate_sdata(&sdata);
 }

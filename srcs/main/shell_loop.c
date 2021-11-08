@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 02:25:45 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 18:49:54 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,10 @@ int	is_close_cmd(t_sdata *sdata, char *line)
 	return (0);
 }
 
-void	signal_dispatch(int sig)
-{
-	char *line;
-	if (sig == 2)             // ctrl-d
-	{
-		printf("\n");
-		printf("\033[33m$ ➜\033[00m ");
-		//rl_clear_signals();
-		// printf("\nctrl-d detected\n");
-		// line = readline("\033[33m$ ➜\033[00m ");
-	}
-	
-}
-
 int	shell_loop(t_sdata *sdata)
 {
 	char	*line;
 
-	signal(SIGINT, signal_dispatch);
 	line = NULL;
 	while (1)
 	{

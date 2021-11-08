@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 19:18:45 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 19:33:11 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -28,7 +26,6 @@
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/"
 # define BUFFER_SIZE 4096
-
 
 typedef struct  s_quote
 {
@@ -94,6 +91,7 @@ typedef struct	s_shell_data                   // structure envoyé a chaque fonc
 	int			save_stdout;
 }				t_sdata;
 
+t_sdata	*g_sdata;
 
 // Testing
 
@@ -225,6 +223,9 @@ t_env_lst	*remove_elem(t_env_lst *list, char *arg);
 t_env_lst	*add_elem(t_env_lst *list, char *arg);
 char	**list_to_arr(t_env_lst *list);
 int		error_print_free(int rval, char *str, t_sdata *sdata);
+
+//	Signal
+int		assign_signals_handler(t_sdata *sdata);
 
 // REDIR TESTING
 
