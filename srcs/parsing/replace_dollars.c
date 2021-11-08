@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/08 20:09:07 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 20:53:03 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 				i += skip_var(str + i);
 			else
 			{
-				count += skip_var(str + i);
+				count += len(tmp);
 				i += skip_var(str + i);
 			}
 		}
@@ -106,11 +106,12 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 
 char *put_int_str(int nb_len, char *cmd, int count, int lrval)
 {
+	printf("\n\nnb_len > %d\nlrval > %d\ncount > %d\n", nb_len, lrval, count);
 	if (nb_len == 3)
 	{
 		cmd[count] = (lrval/100) + 48;
 		cmd[count + 1] = ((lrval/10) % 10) + 48;
-		cmd[count + 3] = (lrval % 10) + 48;
+		cmd[count + 2] = (lrval % 10) + 48;
 	}
 	if (nb_len == 2)
 	{

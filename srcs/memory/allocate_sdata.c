@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_sdata.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 18:23:54 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/08 20:51:00 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	allocate_env_lst(t_sdata *sdata, char **env)
 void	allocate_sdata(t_sdata *sdata, char **env)
 {
 	sdata->cmds = NULL;
+	sdata->lrval = 0;
 	sdata->env = dup_arr(env);
 	if (allocate_env_lst(sdata, sdata->env) == EXIT_FAILURE)
 	{
