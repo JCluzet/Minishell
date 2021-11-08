@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 17:42:09 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 19:18:45 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	shell_loop(t_sdata *sdata);
 
 //		Parsing
 //	parse_line
+int		is_maj(char c);
 int		pipe_check(char *str);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
 char		**split_thepipe(char const *s, char c);
@@ -206,7 +207,8 @@ char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree);
 int	get_next_line(int fd, char **line);
 //	str_utils
 int	tablen(char **tab);
-int		is_inquote(char *cmd, int v);
+int		is_insquote(char *cmd, int v);
+int		is_indquote(char *cmd, int v);
 int		nb_of_cmds(char *cmd);
 int	ft_isdigit(int c);
 int	is_number(char const *str, int i);
@@ -247,6 +249,7 @@ int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
 int	end_first_rdr(char *cmd);
 int		redir_check(char *cmd);
+int		is_insquote(char *cmd, int v);
 
 void		clear_fd_stack(t_cmd_lst *cmds);
 void		add_fd_to_stack(t_cmd_lst *cmds, int fd);

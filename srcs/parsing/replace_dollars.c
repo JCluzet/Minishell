@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_dollars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/07 15:13:05 by jo               ###   ########.fr       */
+/*   Updated: 2021/11/08 19:19:09 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,164 +16,135 @@
 ** replace dollars return cmd with $X changed by var name, or remove $X if there is no var
 */
 
-int		len_doll(char const *str)
-{
-	int				i;
-	
-	i = 1;
-	while (str[i] && (str[i] > 64) && (str[i] < 91))
-		++i;
-
-    //printf("doll >> %d", i);
-	return (i);
-}
-
-int		len_doll_null(char *str)
-{
-	int				i;
-	
-	i = 1;
-	while (str[i] && str[i] != ' ' && str[i] != '<' && str[i] != '>' && str[i] != '$' && str[i] != '\"')
-		++i;
-    // printf("dollh >> %d\n", i-1);
-	return (i - 1);
-}
-
-char 	*str_cmd(char *str)
+char 	*str_find_var(char *str) // recoit la chaine a partir de juste apres $
 {
 	int i;
-	int u;
 	char *tmp;
-
-	i = -1;
-	u = 0;
+	
+	i = 0;
+	printf("\nbegin of str_find_var |%s|", str);
 	while(str[i])
 	{
+		if (!is_in_set(str[i], ENV_CHAR_LIST))
+			break ;
 		i++;
-		if (((str[i] == ' ' || str[i] == '<' || str[i] == '>' || str[i] == '$') && u == 0))
-			u = i;
 	}
-	if (u == 0)
-		u = i;
+	if (i == 0)
+		return (NULL);
 	tmp = malloc(sizeof(char *) * (i + 1));
-	tmp = ft_strncpy(tmp, str, u);
-	//printf("\nTMP >>%s\nSTR>> %s\nU>> %d", tmp, str, u);
-	return (ft_strncpy(tmp, str, u));
+	return (ft_strncpy(tmp, str, i));
 }
 
+int 	skip_var(char *str) // recoit la chaine a partir de juste apres $
+{
+	int i;
+	char *tmp;
+	
+	i = 0;
+	while(str[i])
+	{
+		if (!is_in_set(str[i], ENV_CHAR_LIST))
+			return (i);
+		i++;
+	}
+	return(i);
+}
 int		strlen_pathcmd(t_sdata *t_sdata, char *str)
 {
 	int i;
 	int count;
+	char *tmpvar;
 	char *tmp;
-	char *tmp2;
 
-	count = 0;
 	i = 0;
-	//printf("str_start >> |%s|", str);
+	count = 0;
 	while(str[i])
 	{
-		//i = find_quotes(str, i, str[i]);
-		if (str[i] == '$' && (!str[i+1] || str[i + 1] == '?') && is_inquote(str, i))
+		if (str[i] == '$' && (str[i + 1] == '?') && is_insquote(str, i))
+		{
+			i += 2;
+			count ++;
+		}
+		else if (str[i] == '$' && is_in_set(str[i + 1], ENV_CHAR_LIST) && is_insquote(str, i))
 		{
 			i++;
-			count++;
-			if (str[i] == '?')
-				count++;
-		}
-		else if (str[i] == '$' && is_inquote(str, i))
-		{
-			tmp2 = str_cmd(str + i + 1);
-			get_env_var_from_name(t_sdata->env_lst, tmp2);
-			free(tmp2);
+			tmpvar = str_find_var(str + i);
+			printf("\ntmpvar |%s|", tmpvar);
+			tmp = get_env_var_from_name(t_sdata->env_lst, tmpvar);
+			free(tmpvar);
 			if (tmp == NULL)
-			{
-				count++;
-				i += len_doll_null(str + i);
-			}
+				i += skip_var(str + i);
 			else
 			{
-				count += len(tmp);
-				i += len_doll(str + i) - 1;
+				count += skip_var(str + i);
+				i += skip_var(str + i);
 			}
 		}
-		else
-			count++;
-		if(str[i])
+		else if (str[i])
+		{
 			i++;
+			count++;
+		}
 	}
-	//printf("str_end >> |%s|", str);
-	//printf("\nACTUEL RETURN DE STRLEN >> |%d|\n", count);
+	printf("\nHere is the strlen > |%d|", count);
 	return (count);
 }
+
+// gerer le cas du $?
+// gerer le cas du is_insquote > ne rien faire
 
 char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 {
     int i;
+	int j;
     int count;
-    int j;
-	char *tmp2;
-    char *newcmd;
-    char *tmp;
+	char *newcmd;
+	char *tmp;
+	char *tmpvar;
 
+	j = 0;
     i = 0;
-    j = 0;
     count = 0;
-	printf(""); // lol ca enleve toutes lees erreurs en fait le code c;;est simple
-	//printf("\nstr0 >> |%s|\n", old_cmd);
-	// strlen_pathcmd(sdata, old_cmd);
-    newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 2));
-
-	// printf("\nstr1 >> |%s|\n", old_cmd);
-    // printf("\n\nHere is the new_cmd strlen > |%d|", strlen_pathcmd(sdata, old_cmd));
-
+	printf("\nodd_cmd |%s|", old_cmd);
+    newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
 	while(old_cmd[i])
 	{
-		//i = find_quotes(old_cmd, i, old_cmd[i]);
-		if (old_cmd[i] == '$' && (!old_cmd[i+1] || old_cmd[i + 1] == '?') && is_inquote(old_cmd, i))
+		if (old_cmd[i] == '$' && (old_cmd[i + 1] == '?') && is_insquote(old_cmd, i))
 		{
-			newcmd[count] = '$';
-			i++;
-			count++;
-			if (old_cmd[i] == '?')
-			{
-				newcmd[count] = '?';
-				count++;
-			}
+			i += 2;
+			newcmd[count] = sdata->lrval + 48;
+			count ++;
 		}
-		else if (old_cmd[i] == '$' && is_inquote(old_cmd, i))
+		else if (old_cmd[i] == '$' && is_in_set(old_cmd[i + 1], ENV_CHAR_LIST) && is_insquote(old_cmd, i))
 		{
-			tmp2 = str_cmd(old_cmd + i + 1);
-			tmp = get_env_var_from_name(sdata->env_lst, tmp2);
-			free(tmp2);
+			i++;
+			tmpvar = str_find_var(old_cmd + i);
+			printf("\ntmpvar |%s|", tmpvar);
+			tmp = get_env_var_from_name(sdata->env_lst, tmpvar);
+			free(tmpvar);
 			if (tmp == NULL)
-			{
-				newcmd[count] = ' ';
-				count++;
-				i += len_doll_null(old_cmd + i);
-			}
+				i += skip_var(old_cmd + i);
 			else
 			{
 				while (tmp[j])
-                {
- 				    newcmd[count] = tmp[j];
- 				    j++;
- 				    count++;
- 			    }
- 			    j = 0;
-				i += len_doll(old_cmd + i) - 1;
+				{
+					newcmd[count] = tmp[j];
+					j++;
+					count++;
+				}
+				i += skip_var(old_cmd + i);
+				j = 0;
 			}
 		}
-		else
+		else if (old_cmd[i])
 		{
-			newcmd[count] =  old_cmd[i];
+			newcmd[count] = old_cmd[i];
+			i++;
 			count++;
 		}
-		if(old_cmd[i])
-			i++;
 	}
 	newcmd[count] = '\0';
-    //printf("\nYO CMD IS HERE |%s|", newcmd);
-	free(old_cmd);
-	return(newcmd);
+    printf("\nnew_cmd |%s|", newcmd);
+	return (old_cmd);
+	return (newcmd);
 }
