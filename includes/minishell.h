@@ -6,7 +6,7 @@
 /*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 19:33:11 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/08 20:03:36 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ char	**list_to_arr(t_env_lst *list);
 int		error_print_free(int rval, char *str, t_sdata *sdata);
 
 //	Signal
-int		assign_signals_handler(t_sdata *sdata);
+void		assign_signals_handler(void);
 
 // REDIR TESTING
 

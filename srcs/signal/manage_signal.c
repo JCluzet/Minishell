@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   manage_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/16 15:41:54 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 20:02:05 by amine            ###   ########.fr       */
+/*   Created: 2021/11/08 19:55:18 by amine             #+#    #+#             */
+/*   Updated: 2021/11/08 20:08:48 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	main(int ac, char **argv, char **env)
+void		handler(int signum)
 {
-	t_sdata		sdata;
+	rl_on_new_line();
+}
 
-	if (ac != 1)
-	{
-		write(1, "Minishell can't have more than 0 argument\n", 43);
-		return (0);
-	}
-	allocate_sdata(&sdata, env);
-	g_sdata = &sdata;
-	assign_signals_handler();
-	shell_loop(&sdata);
-	deallocate_sdata(&sdata);
+void		assign_signals_handler(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handler);
 }

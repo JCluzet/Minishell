@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_dollars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/08 19:19:09 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 19:38:23 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
     i = 0;
     count = 0;
 	printf("\nodd_cmd |%s|", old_cmd);
-    newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
+    newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 2));
 	while(old_cmd[i])
 	{
 		if (old_cmd[i] == '$' && (old_cmd[i + 1] == '?') && is_insquote(old_cmd, i))
