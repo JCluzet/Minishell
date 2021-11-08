@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 17:26:23 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 17:42:09 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char 	*replace_dollars(char *str, t_sdata *sdata);
 //	check_cmd_executable.c
 char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
-void	fill_cmds(t_cmd_lst *cmds, char *cmd);
+void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
 char		**split_thespace(char const *s, char c);
 static int	count_words_space(const char *str, char c);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);

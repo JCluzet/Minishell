@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 20:32:19 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 17:42:43 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 	{
 		if (i != 0)
 			cmd = insertion_linklist(cmd);
-		fill_cmds(cmd, replace_dollars(mul_cmd[i], sdata));
+		fill_cmds(sdata, cmd, mul_cmd[i]);
 		if (cmd->builtin_idx == -1 && cmd->argv[0])
 			cmd->cmd_path = is_cmd_executable(cmd->cmd, sdata);
 		i++;

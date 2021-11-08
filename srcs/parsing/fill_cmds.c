@@ -6,15 +6,15 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 18:42:57 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 17:43:04 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	fill_cmds(t_cmd_lst *cmds, char *cmd)
+void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd)
 {
-	cmd = rmv_quotes_from_cmd(cmd);
+	cmd = replace_dollars(cmd, data);
 	malloc_and_stock_redir(cmds, cmd);
 	cmd = rmv_rdr_from_cmd(cmd);
 	cmds->argv = split_thespace(cmd, ' ');
@@ -35,13 +35,9 @@ int	end_first_rdr(char *cmd)
 	{
 		i = find_quotes(cmd, i, cmd[i]);
 		if (cmd[i] == '<' && cmd[i + 1] == '<')
-		{
 			i = find_lenght_file(cmd + i + 2) + i + 2;
-		}
 		else if (cmd[i] == '>' && cmd[i + 1] == '>')
-		{
 			i = find_lenght_file(cmd + i + 2) + i + 2;
-		}
 		else if (cmd[i] == '<')
 			i = find_lenght_file(cmd + i + 1) + i + 1;
 		else if (cmd[i] == '>')
