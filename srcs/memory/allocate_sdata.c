@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_sdata.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 20:51:00 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/08 20:56:42 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	allocate_sdata(t_sdata *sdata, char **env)
 		sdata->env_lst = NULL;
 		return ;
 	}
+	sdata->lrval = 0;
 	sdata->save_stdin = dup(0);
 	sdata->save_stdout = dup(1);
 	sdata->bin_paths = str_to_word_arr(get_var_in_env(env, "PATH=") + 5, ':');

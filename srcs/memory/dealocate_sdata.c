@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dealocate_sdata.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 18:24:10 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/08 20:48:56 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,34 @@ void	free_arr(char **arr)
 	free(arr);
 }
 
-void	deallocate_cmd_list(t_cmd_lst *cmd)
+void	deallocate_cmd_elem(t_cmd_lst *elem)
+{
+	free(elem->cmd);
+	free_arr(elem->argv);
+	free(elem->cmd_path);
+	free(elem->rdr);
+	free_arr(elem->reddir_append);
+	free_arr(elem->reddir_heredoc);
+	free_arr(elem->redir_ins);
+	free_arr(elem->redir_outs);
+	free(elem->last_rdr);
+	free(elem->first_rdr);
+	clear_fd_stack(elem);
+}
+
+void	deallocate_cmd_list(t_cmd_lst *cmds)
 {
 	t_cmd_lst	*tmp;
-	
-	while (cmd)
+
+	if (!cmds)
+		return ;
+	while (cmds->next)
 	{
-		free(cmd->cmd);
-		free_arr(cmd->argv);
-		free(cmd->cmd_path);
-		tmp = cmd;
-		cmd = cmd->next;
-		free(tmp);
+		tmp = cmds;
+		cmds = cmds->next;
+		deallocate_cmd_elem(tmp);
 	}
+	deallocate_cmd_elem(cmds);
 }
 
 void	deallocate_env_lst_elem(t_env_lst *elem)
@@ -69,7 +84,7 @@ void	deallocate_sdata(t_sdata *sdata)
 {
 	t_cmd_lst *tmp;
 
-//	deallocate_cmd_list(sdata->cmds);
+	deallocate_cmd_list(sdata->cmds);
 	free_arr(sdata->env);
 	free_arr(sdata->bin_paths);
 	deallocate_env_lst(sdata->env_lst);
