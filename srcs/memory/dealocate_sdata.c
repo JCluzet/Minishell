@@ -6,7 +6,7 @@
 /*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 20:48:56 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/08 21:01:00 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,4 @@ void	deallocate_sdata(t_sdata *sdata)
 	deallocate_env_lst(sdata->env_lst);
 	close(sdata->save_stdin);
 	close(sdata->save_stdout);
-	free(sdata);
 }

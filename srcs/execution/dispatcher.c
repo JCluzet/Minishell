@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 18:25:45 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/08 21:19:11 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int		manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 	return (0);
 }
 
-void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds, int save_stdout)
+void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds)
 {
-	dup2(save_stdout, 1);
 	fprintf(stderr, "%s: command not found\n", cmds->cmd);
 	//  Free everything
 	exit(1);
@@ -47,12 +46,10 @@ int			execute_builtins(t_sdata *sdata, int *fd, int save_stdout)
 		sdata->cmds = sdata->cmds->next;
 		return (1);
 	}
-//	if (!sdata->cmds->next)
-//		dup2(save_stdout, 1);
 	(builtins_array)[sdata->cmds->builtin_idx](sdata);
+		dup2(save_stdout, 1);
 	if (sdata->cmds->next)
 	{
-		dup2(save_stdout, 1);
 		close(fd[1]);
 	}
 	clear_fd_stack(sdata->cmds);
@@ -76,7 +73,7 @@ int			execute_binary(t_sdata *sdata, int *fd, int save_stdin)
 	if (!pid)
 	{
 		if (execve(sdata->cmds->cmd_path, sdata->cmds->argv, sdata->env))
-			invalid_cmd(sdata, sdata->cmds, save_stdin);
+			invalid_cmd(sdata, sdata->cmds);
 	}
 	else
 		waitpid(-1, &status, 0);
@@ -105,7 +102,7 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 		if (sdata->cmds->next)
 			pipe(fd);
 		if (sdata->cmds->builtin_idx < 7 && sdata->cmds->builtin_idx != -1)
-		{	
+		{
 			if (execute_builtins(sdata, fd, sdata->save_stdout))
 				continue ;
 		}
