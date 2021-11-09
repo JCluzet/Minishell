@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 13:48:31 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/10 14:50:06 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:24:48 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	read_fd(int fd, char **str)
 	int				red;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (0);
 	i = 0;
 	while (i < BUFFER_SIZE + 1)
 		buffer[i++] = '\0';

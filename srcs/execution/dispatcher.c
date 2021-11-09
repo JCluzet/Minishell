@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 21:23:19 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/09 16:41:56 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,16 @@
 void (*builtins_array[7])(t_sdata *) = {display_env, shell_export, shell_unset, pwd,
 	echo, shell_cd, shell_exit};
 
+void	child_handler(int signum)
+{
+	putstr_err("Quit: 3\n");
+	exit(131);
+}
+
 int		manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 {
+	if (!pid)
+		signal(SIGQUIT, child_handler);
 	if (cmds->next)
 		if (!pid)
 		{
@@ -31,8 +39,9 @@ int		manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 
 void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds)
 {
-	fprintf(stderr, "%s: command not found\n", cmds->cmd);
-	//  Free everything
+	putstr_err(cmds->cmd);
+	putstr_err(": command not found\n");
+	deallocate_sdata(sdata);
 	exit(1);
 }
 
@@ -84,9 +93,17 @@ int			execute_binary(t_sdata *sdata, int *fd, int save_stdin)
 void		invalid_cmd_path_error(t_sdata *sdata)
 {
 	if (sdata->cmds->argv[0][0] == '.' || sdata->cmds->argv[0][0] == '/')
-		fprintf(stderr, "no such file or directory: %s\n", sdata->cmds->argv[0]);
+	{
+		putstr_err("no such file or directory: ");
+		putstr_err(sdata->cmds->cmd);
+		putstr_err("\n");
+	}
 	else
-		fprintf(stderr, "command not found: %s\n", sdata->cmds->argv[0]);
+	{
+		putstr_err("command not found: ");
+		putstr_err(sdata->cmds->cmd);
+		putstr_err("\n");
+	}
 	sdata->lrval = 127;
 }
 
@@ -111,7 +128,7 @@ void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
 			if (execute_binary(sdata, fd, sdata->save_stdin))
 				continue ;
 		}
-		else // Invalid cmd path error management
+		else
 			invalid_cmd_path_error(sdata);
 		if (last_fdin)
 			close(last_fdin);

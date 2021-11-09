@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 22:39:30 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:25:47 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	**new_arr(char *str)
 	char	**arr;
 
 	arr = malloc(sizeof(char *) * 2);
+	if (!arr)
+		return (NULL);
 	arr[0] = ft_strdup_free(str, 1);
 	arr[1] = NULL;
 	return (arr);
@@ -29,6 +31,8 @@ char	**extend_arr(char **arr, char *str)
 
 	i = 0;
 	n_arr = malloc(sizeof(char *) * (tablen(arr) + 2));
+	if (!n_arr)
+		return (NULL);
 	while (arr[i])
 	{
 		n_arr[i] = arr[i];
@@ -62,6 +66,8 @@ char	**remove_str_from_arr(char **arr, char *str)
 	j = 0;
 	name = get_env_var_name_from_arg(str);
 	n_arr = malloc(sizeof(char *) * (tablen(arr) + 1));
+	if (!n_arr)
+		return (NULL);
 	while (arr[i])
 	{
 		if (!ft_strncmp(name, arr[i], len(name)) && len(name) == lenequal(arr[i]))
@@ -91,6 +97,8 @@ char	**dup_arr(char **arr)
 		return (NULL);
 	len = tablen(arr);
 	n_arr = malloc(sizeof(char *) * (1 + len));
+	if (!n_arr)
+		return (NULL);
 	while (i < len)
 	{
 		n_arr[i] = ft_strdup_free(arr[i], 0);

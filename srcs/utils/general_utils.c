@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 15:32:45 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/20 02:01:53 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:24:24 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	*ft_bzero(size_t n)
 	int		i;
 
 	ptr = malloc(n);
+	if (!ptr)
+		return (NULL);
 	i = 0;
 	if (!ptr)
 		return (NULL);
@@ -88,6 +90,8 @@ char	**str_to_word_arr(char *av, char sep)
 	if (!av || av[0] == 0 || nbr_of_word(av, sep) == 0)
 		return (NULL);
 	arr = malloc(sizeof(char *) * (nbr_of_word(av, sep) + 1));
+	if (!arr)
+		return (NULL);
 	i = 0;
 	j = 0;
 	save = 0;
@@ -99,6 +103,8 @@ char	**str_to_word_arr(char *av, char sep)
 			while (av[i] && av[i] != sep)
 				++i;
 			arr[j] = malloc(sizeof(char) * (i - save + 1));
+			if (!arr[j])
+				return (NULL);
 			arr[j] = ft_strncpy(arr[j], av + save, i - save);
 			++j;
 		}

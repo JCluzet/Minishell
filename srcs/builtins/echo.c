@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:29:46 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 21:39:50 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/09 15:06:36 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,6 @@ void	echo(t_sdata *sdata)
 		sdata->lrval = 0;
 		return ;
 	}
-	// if (!ft_strncmp(sdata->cmds->argv[1], "$?", 2) && len(sdata->cmds->argv[1]) == 2)
-	// {
-	// 	printf("%d\n", sdata->lrval);
-	// 	return ;
-	// }
 	sdata->lrval = 0;
 	if (!is_dash_n_option(sdata->cmds->argv[1]))
 	{

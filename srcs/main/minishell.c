@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:41:54 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 20:02:05 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/09 16:34:04 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main(int ac, char **argv, char **env)
 		return (0);
 	}
 	allocate_sdata(&sdata, env);
-	g_sdata = &sdata;
 	assign_signals_handler();
 	shell_loop(&sdata);
 	deallocate_sdata(&sdata);
+	system("leaks Minishell");
 }

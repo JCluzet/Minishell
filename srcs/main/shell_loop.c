@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 22:30:40 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/09 15:45:59 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	is_close_cmd(t_sdata *sdata, char *line)
-{
-	if (!line)
-	{
-		deallocate_sdata(sdata);
-		usage_exit(NULL);
-	}
-	return (0);
-}
 
 int	shell_loop(t_sdata *sdata)
 {
@@ -45,8 +35,6 @@ int	shell_loop(t_sdata *sdata)
 		execution_dispatcher(sdata, sdata->cmds);
 		deallocate_cmd_list(sdata->cmds);
 		sdata->cmds = NULL;
-		if (is_close_cmd(sdata, line))
-			break ;
 	}
 	return (sdata->lrval);
 }

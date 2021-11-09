@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 22:31:17 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/09 16:26:44 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ typedef struct	s_shell_data                   // structure envoyé a chaque fonc
 	int			save_stdout;
 }				t_sdata;
 
-t_sdata	*g_sdata;
-
 // Testing
-
 void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i);
 
 //		Main
@@ -205,6 +202,7 @@ char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree);
 //	get_next_line.c
 int	get_next_line(int fd, char **line);
 //	str_utils
+void		putstr_err(char *str);
 int	tablen(char **tab);
 int		is_insquote(char *cmd, int v);
 int		is_indquote(char *cmd, int v);

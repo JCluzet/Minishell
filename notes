@@ -142,3 +142,7 @@ TODO : (Jojo)
 - savoir comment gerer le cas : "echo salut >> files1 yolo" ? le dernier mot est ignore pour le moment
 bash ignore "yolo", du coup sa marche je sais aps pq
 
+
+
+
+Apres fork remettre le signal ctrl \ pour le child

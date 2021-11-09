@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:17:22 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 16:11:00 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:21:56 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ int		open_infile(t_cmd_lst *cmds, char *path, int out)
 	else
 		fd = open(path, O_RDONLY);
 	if (fd == -1)
-		fprintf(stderr, "no such file or directory: %s\n", path);
+	{
+		putstr_err("no such file or directory: ");
+		putstr_err(path);
+		putstr_err("\n");
+	}	
 	cmds->last_fd_in = fd;
 	return (fd);
 }
@@ -82,6 +86,8 @@ int			manage_redir_fd(t_cmd_lst *cmd, char **paths, int in, int out)
 			if (fd == -1)
 				return (1);
 			add_fd_to_stack(cmd, fd);
+			if (!cmd->fd_stack)
+				return (1);
 			dup2(fd, 1);
 		}
 		if (in)
@@ -90,6 +96,8 @@ int			manage_redir_fd(t_cmd_lst *cmd, char **paths, int in, int out)
 			if (fd == -1)
 				return (1);
 			add_fd_to_stack(cmd, fd);
+			if (!cmd->fd_stack)
+				return (1);
 			dup2(fd, 0);
 		}
 		++i;

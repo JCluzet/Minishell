@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:39:08 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/26 12:54:21 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:19:12 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int		usage_unset(char ***env, char *var)
 	if (get_idx_var_in_env(*env, var) == -1)
 		return (0);
 	n_env = malloc(sizeof(char *) * (tablen(*env) - 1));
+	if (!n_env)
+		return (1);
 	while ((*env)[i])
 	{
 		if (ft_strncmp((*env)[i], var, len(var)))

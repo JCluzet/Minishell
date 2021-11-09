@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_manip.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:48:50 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 22:24:00 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/09 15:26:46 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char	*cncat(char *str1, char *str2, int ifree1, int ifree2)
 	if (!str2)
 		return (ft_strdup_free(str1, ifree1));
 	str3 = malloc(sizeof(char) * (len(str1) + len(str2) + 1));
+	if (!str3)
+		return (NULL);
 	i = -1;
 	while (++i < (size_t)(len(str1) + len(str2) + 1))
 		str3[i] = '\0';
@@ -79,6 +81,8 @@ char	*ft_strdup_free(char *src, int ifree)
 	size_t		i;
 
 	dest = malloc(sizeof(char) * (len(src) + 1));
+	if (!dest)
+		return (NULL);
 	i = -1;
 	while (src[++i])
 		dest[i] = src[i];
@@ -102,6 +106,8 @@ char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree)
 		return (ft_strdup_free("\0", 0));
 	}
 	str = malloc(sizeof(char) * (lenght + 1));
+	if (!str)
+		return (NULL);
 	i = 0;
 	while (i < lenght && s[i])
 		str[i++] = s[start++];

@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:36:15 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 15:52:45 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:23:09 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int			*extend_fd_stack(int *fd_stack, int fd_len, int fd)
 
 	i = 0;
 	nfd_stack = malloc(sizeof(int) * (fd_len + 1));
+	if (!nfd_stack)
+		return (NULL);
 	while (i < fd_len)
 	{
 		nfd_stack[i] = fd_stack[i];
@@ -33,12 +35,22 @@ void		add_fd_to_stack(t_cmd_lst *cmds, int fd)
 	if (!cmds->fd_stack)
 	{
 		cmds->fd_stack = malloc(sizeof(int));
+		if (!cmds->fd_stack)
+		{
+			cmds->fd_nbr = 0;
+			return ;
+		}
 		cmds->fd_stack[0] = fd;
 		cmds->fd_nbr = 1;
 	}
 	else
 	{
 		cmds->fd_stack = extend_fd_stack(cmds->fd_stack, cmds->fd_nbr, fd);
+		if (!cmds->fd_stack)
+		{
+			cmds->fd_nbr = 0;
+			return ;
+		}
 		(cmds->fd_nbr)++;
 	}
 }
