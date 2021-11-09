@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:44:56 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 15:09:16 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 00:09:14 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int		skip_blank(char *cmd)
 	return(i);
 }
 
-char*	get_file_redir(char *cmd, char *file) // virer les doubles quotes du redir name
+char*	get_file_redir(char *cmd, char *file)
 {
 	int i;
 	int size;
@@ -156,10 +156,49 @@ char*	get_file_redir(char *cmd, char *file) // virer les doubles quotes du redir
 	i = 0;
 	printf("\ncmdf >>|%s|\n", cmd);
 	i = skip_blank(cmd);
-	while ((duoquote(cmd, i+size) || (cmd[i+size] != ' ' && cmd[i+size] != '\t' && cmd[i+size] != '<' && cmd[i+size] != '>')) && cmd[i+size])
+	// while ((duoquote(cmd, i+size) || (cmd[i+size] != ' ' && cmd[i+size] != '\t' && cmd[i+size] != '<' && cmd[i+size] != '>')) && cmd[i+size])
+	// {
+	// 	file[size] = cmd[size + i];
+	// 	size++;
+	// }
+	while (cmd[i])
 	{
-		file[size] = cmd[size + i];
-		size++;
+		if (cmd[i] == '\"')
+		{
+			i++;
+			while (cmd[i] != '\"' && cmd[i])
+			{
+				file[size] = cmd[i];
+				size++;
+				i++;
+			}
+			if (cmd[i])
+				i++;
+		}
+		else if (cmd[i] == '\'')
+		{
+			i++;
+			while (cmd[i] != '\'' && cmd[i])
+			{
+				file[size] = cmd[i];
+				size++;
+				i++;
+			}
+			if (cmd[i])
+				i++;
+		}
+		else if (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '<' || cmd[i] == '>')
+		{
+			//printf("\ncmd deuxio >> |%s|", cmd);
+			file[size] = '\0';
+			return(file);
+		}
+		else
+		{
+			file[size] = cmd[i];
+			size++;
+			i++;
+		}
 	}
 	file[size] = '\0';
 	printf("\nfile >>|%s|\n", file);

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/08 22:19:52 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/09 23:10:43 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	malloc_and_stock_redir(t_cmd_lst *c, char *cmd)
 	char	**tab;
 
 	c->last_rdr = initrdr2();
-	get_size_redir(c, cmd);
+	get_size_redir(c, cmd); // nickel
 	c->redir_ins = malloc_redir_next(c, cmd, c->rdr->nb_redir_in, 1);
 	c->redir_outs = malloc_redir_next(c, cmd, c->rdr->nb_redir_out, 2);
 	c->reddir_append = malloc_redir_next(c, cmd, c->rdr->nb_redir_app, 3);
@@ -31,11 +31,12 @@ char	**malloc_redir_next(t_cmd_lst *cmds, char *cmd, int size, int type)
 	char	**tab;
 
 	i = 0;
-	tab = malloc(sizeof(char *) * (size + 1));
+	tab = malloc(sizeof(char *) * (size + 1)); // malloc le nombre de redir pour 1 type de redir 
 	while (i < size)
 	{
 		tab[i] = malloc(sizeof(char) * (find_size_rdr(cmd, i + 1, type) + 1));
 		tab[i] = fill_file_rdr(cmd, i + 1, type, tab[i]);
+		
 		cmds->rdr_nb++;
 		if (type == 1)
 			cmds->rdr->nb_redir_in = cmds->rdr_nb;

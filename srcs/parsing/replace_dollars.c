@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/08 20:53:03 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/09 23:48:17 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 	j = 0;
     i = 0;
     count = 0;
-	// printf("\nodd_cmd |%s|", old_cmd);
+	printf("\nodd_cmd |%s|", old_cmd);
     newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
 	while(old_cmd[i])
 	{
@@ -177,7 +177,7 @@ char 	*replace_dollars(char *old_cmd, t_sdata *sdata)
 		}
 	}
 	newcmd[count] = '\0';
-    // printf("\nnew_cmd |%s|", newcmd);
+    printf("\nnew_cmd |%s|", newcmd);
 	// return (old_cmd);
 	return (newcmd);
 }
