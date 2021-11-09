@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 15:45:59 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:57:43 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	shell_loop(t_sdata *sdata)
 		execution_dispatcher(sdata, sdata->cmds);
 		deallocate_cmd_list(sdata->cmds);
 		sdata->cmds = NULL;
+		free(line);
 	}
 	return (sdata->lrval);
 }

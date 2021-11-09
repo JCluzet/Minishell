@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:55:18 by amine             #+#    #+#             */
-/*   Updated: 2021/11/09 16:40:25 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:54:26 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		handler(int signum)
 {
-	printf("\033[33m$ ➜\033[00m ");
+//	printf("\033[33m$ ➜\033[00m ");
 	rl_on_new_line();
 	rl_redisplay();
 }
