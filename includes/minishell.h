@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 16:26:44 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:35:22 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/"
 # define BUFFER_SIZE 4096
+# define SHOW_PARSE 1
 
 typedef struct  s_quote
 {
@@ -132,7 +133,7 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
 void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
 char		**split_thespace(char const *s, char c);
-static int	count_words_space(const char *str, char c);
+static char	*word_dup(const char *str, int start, int finish);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
 int		duoquote(char *cmd, int v);
 //		Execution
