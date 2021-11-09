@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 22:32:06 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/09 17:51:49 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 			cmd->cmd_path = is_cmd_executable(cmd->cmd, sdata);
 		i++;
 	}
-	printf_linked_list(firstcmd, sdata->nb_of_cmds);
+	if (SHOW_PARSE)
+		printf_linked_list(firstcmd, sdata->nb_of_cmds);
 	return (firstcmd);
 }
 

@@ -6,11 +6,45 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:16:03 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/05 00:29:37 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/09 18:46:15 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// refaire count word space et split_the_space
+// DOIT : 
+// 
+//		- Compter nombre de 
+//      - SI CA nous permet de rentrer dans une quote sans en etre dans aucune autre, alors c'est la premiere  >> passer
+//      - SI ya une premiere quote dentamé et noté, verifier si celle si permet d'en sortir ou pas. >> passer
+//      - SI l'ont dans entre la premiere quote noté et pas sorti a l'int actuel >> CONTINUE
+
+// do les 3 fonctions
+
+int		is_first_quote(char *str, int index)
+{
+	int i;
+	int find;
+
+	find = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'')
+		{
+			find = i;
+			i++;
+			while (str[i] && str[i] !='\'')
+			{
+				i++;
+			}
+			// if ()
+		}
+		i++;
+	}
+	return (0);
+}
 
 static int	count_words_space(const char *str, char c)
 {
@@ -41,18 +75,37 @@ static int	count_words_space(const char *str, char c)
 	return (i);
 }
 
+// static char	*word_dup(const char *str, int start, int finish)
+// {
+// 	char	*word;
+// 	int		i;
+
+// 	i = 0;
+// 	word = malloc((finish - start + 1) * sizeof(char));
+// 	while (start < finish)
+// 		word[i++] = str[start++];
+// 	word[i] = '\0';
+// 	return (word);
+// }
+
 static char	*word_dup(const char *str, int start, int finish)
 {
 	char	*word;
 	int		i;
 
 	i = 0;
+	if (str[start] == '\"' || str[start] == '\'')
+		start++;
+	if (str[finish-1] && (str[finish-1] == '\"' || str[finish-1] == '\''))
+		finish--;
 	word = malloc((finish - start + 1) * sizeof(char));
 	while (start < finish)
 		word[i++] = str[start++];
 	word[i] = '\0';
 	return (word);
 }
+
+// split a refaire qui enleve les quotes des cotés 
 
 char		**split_thespace(char const *s, char c)
 {
