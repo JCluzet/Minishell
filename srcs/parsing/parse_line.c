@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 17:51:49 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 00:10:34 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 	int			i;
 
 	i = 0;
+	//printf("\ncmd -1>>|%s|\n", line);
 	cmd = init_linkedlist();
 	firstcmd = cmd;
 	mul_cmd = split_thespace(line, '|');
@@ -28,6 +29,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 		if (i != 0)
 			cmd = insertion_linklist(cmd);
 		fill_cmds(sdata, cmd, mul_cmd[i]);
+		//printf("\ncmd 0>>|%s|\n", mul_cmd[i]);
 		if (cmd->builtin_idx == -1 && cmd->argv[0])
 			cmd->cmd_path = is_cmd_executable(cmd->cmd, sdata);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/08 22:16:40 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 00:10:24 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,51 @@ int		find_size_rdr(char *cmd, int nb, int type)
 
 int		find_lenght_file(char *cmd)
 {
-	int	i;
-	int	size;
+	int i;
+	int size;
+	int dquote = -1;
+	int squote = -1;
 
 	size = 0;
 	i = 0;
+	//printf("\ncmd uno >> |%s|", cmd);
 	i = skip_blank(cmd);
-	while ((duoquote(cmd, i+size) || (cmd[i+size] != ' ' && cmd[i+size] != '\t' && cmd[i+size] != '<' && cmd[i+size] != '>')) && cmd[i+size])
-		size++;
-	return (size);
+	while (cmd[i])
+	{
+		if (cmd[i] == '\"')
+		{
+			i++;
+			while (cmd[i] != '\"' && cmd[i])
+			{
+				size++;
+				i++;
+			}
+			if (cmd[i])
+				i++;
+		}
+		else if (cmd[i] == '\'')
+		{
+			i++;
+			while (cmd[i] != '\'' && cmd[i])
+			{
+				size++;
+				i++;
+			}
+			if (cmd[i])
+				i++;
+		}
+		else if (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '<' || cmd[i] == '>')
+		{
+			//printf("\ncmd deuxio >> |%s|", cmd);
+			return(size);
+		}
+		else
+		{
+			size++;
+			i++;
+		}
+	}
+	return (i);
 }
 
 void get_size_redir(t_cmd_lst *cmds, char *cmd)
@@ -115,9 +151,9 @@ void get_size_redir(t_cmd_lst *cmds, char *cmd)
 	cmds->type_last_rdr_in = 0;
 	cmds->type_last_rdr_out = 0;
 	i = 0;
+	//printf("\ncmd YOLGDFGLD >> |%s|", cmd);
 	while (cmd[i])
 	{
-		i = find_quotes(cmd, i, cmd[i]);
 		if (cmd[i] == '<' && cmd[i + 1] == '<')
 		{
 			cmds->type_last_rdr_in = 2;
@@ -140,6 +176,8 @@ void get_size_redir(t_cmd_lst *cmds, char *cmd)
 			cmds->rdr->nb_redir_in++;
 			cmds->type_last_rdr_out = 1;
 		}
+		else
+			i = find_quotes(cmd, i, cmd[i]);
 		i++;
 	}
 }

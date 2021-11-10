@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+         #
+#    By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 01:05:24 by jcluzet           #+#    #+#              #
-#    Updated: 2021/11/09 15:47:00 by ambelkac         ###   ########.fr        #
+#    Updated: 2021/11/09 18:52:51 by jcluzet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 CC = gcc
 
-CFLAGS = -g3  -lreadline
+CFLAGS = -g3  -lreadline -g -fsanitize=address
 
 # CFLAGS =  -Wall -Werror -Wextra -g -fsanitize=address
 
