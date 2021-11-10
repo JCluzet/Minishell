@@ -146,3 +146,4 @@ bash ignore "yolo", du coup sa marche je sais aps pq
 
 
 Apres fork remettre le signal ctrl \ pour le child
+export += a faire

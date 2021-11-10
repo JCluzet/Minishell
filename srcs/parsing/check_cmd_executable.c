@@ -6,10 +6,10 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/06 18:45:41 by ambelkac         ###   ########.fr       */
-/*   Updated: 2021/11/06 18:44:23 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 14:54:16 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 
@@ -33,7 +33,7 @@ char	*is_cmd_in_path(char *cmd, char **paths)
 	while (paths[i])
 	{
 		if (cmd[0] != '/')
-			path = cncat(cncat(paths[i], "/", 0, 0), cmd, 0, 0);
+			path = cncat(cncat(paths[i], "/", 0, 0), cmd, 1, 0);
 		else
 			path = ft_strdup_free(cmd, 0);
 		fd = open(path, O_RDONLY);

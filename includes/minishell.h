@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 18:35:22 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 15:53:04 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 # include <sys/wait.h>
 
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
-# define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/"
+# define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
-# define SHOW_PARSE 1
 
 typedef struct  s_quote
 {
@@ -133,7 +132,7 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
 void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
 char		**split_thespace(char const *s, char c);
-static char	*word_dup(const char *str, int start, int finish);
+static int	count_words_space(const char *str, char c);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
 int		duoquote(char *cmd, int v);
 //		Execution
@@ -203,6 +202,7 @@ char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree);
 //	get_next_line.c
 int	get_next_line(int fd, char **line);
 //	str_utils
+char		**split_env(char *line, char sep);
 void		putstr_err(char *str);
 int	tablen(char **tab);
 int		is_insquote(char *cmd, int v);

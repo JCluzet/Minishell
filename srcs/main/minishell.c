@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:41:54 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 16:34:04 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:54:16 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,4 @@ int	main(int ac, char **argv, char **env)
 	assign_signals_handler();
 	shell_loop(&sdata);
 	deallocate_sdata(&sdata);
-	system("leaks Minishell");
 }

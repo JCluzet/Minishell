@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_sdata.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 20:56:42 by amine            ###   ########.fr       */
+/*   Updated: 2021/11/10 15:51:38 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ t_env_lst	*allocate_env_lst_elem(char **line)
 {
 	t_env_lst	*elem;
 
-	elem = ft_bzero(sizeof(t_env_lst));
+	elem = malloc(sizeof(t_env_lst));
+	if (!elem)
+		return (NULL);
+	for (int i = 0; line[i]; ++i)
+		printf("Line[%d] : %s\n", i, line[i]);
+	printf("\n");
 	elem->name = line[0];
 	elem->var = line[1];
+	elem->next = NULL;
 	free(line);
 	return (elem);
 }
@@ -48,11 +54,11 @@ int	allocate_env_lst(t_sdata *sdata, char **env)
 	i = 1;
 	if (!env || !env[0])
 		return (EXIT_FAILURE);
-	sdata->env_lst = allocate_env_lst_elem(str_to_word_arr(env[0], '='));
+	sdata->env_lst = allocate_env_lst_elem(split_env(env[0], '='));
 	elem = sdata->env_lst;
 	while (env[i])
 	{
-		next = allocate_env_lst_elem(str_to_word_arr(env[i], '='));
+		next = allocate_env_lst_elem(split_env(env[i], '='));
 		elem->next = next;
 		elem = next;
 		++i;
