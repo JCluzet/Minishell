@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 22:48:59 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 23:53:14 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
-# define SHOW_PARSE 0
+# define SHOW_PARSE 1
 
 typedef struct  s_quote
 {
@@ -100,7 +100,7 @@ typedef struct	s_shell_data                   // structure envoyé a chaque fonc
 }				t_sdata;
 
 // Testing
-void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i);
+void	print_cmds(t_cmd_lst *cmds, int v, int i);
 
 //		Main
 //	shell_loop.c
@@ -113,7 +113,7 @@ int		pipe_check(char *str);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
 char		**split_thepipe(char const *s, char c);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
-static char	*word_dup(const char *str, int start, int finish);
+char	*word_dup(const char *str, int start, int finish);
 int issep(char c);
 int		check_line(char *line);
 int is_double_redir(char c, char c1);
@@ -121,14 +121,13 @@ int		strlen_pathcmd(t_sdata *t_sdata, char *str);
 int	isspace_behind(char *str, int i);
 
 
-static char	*word_dup(const char *str, int start, int finish);
-static int	count_words(const char *str, char c);
+// static int	count_words(const char *str);
 
 t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
 t_cmd_lst	*init_linkedlist(void);
 
 t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds);
-void			printf_linked_list(t_cmd_lst *cmd, int nb);
+void			printf_linked_list(t_cmd_lst *cmd);
 int		check_error(t_cmd_lst *cmd);
 int	is_builtin(char *cmd);
 int		quotes_check(char *str);
@@ -141,8 +140,8 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
 void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
 char		**split_thespace(char const *s, char c);
-char	**split_arg(char *s, char c);
-static int	count_words_space(const char *str, char c);
+char	**split_arg(char *s);
+//static int	count_words_space(const char *str, char c);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
 int		duoquote(char *cmd, int v);
 //		Execution
@@ -203,7 +202,7 @@ char	**remove_str_from_arr(char **arr, char *str);
 char	**cncat_arr(char **arr, char *str);
 char	**dup_arr(char **arr);
 //	str_manip
-int		find_squotes(char *cmd, int i, char c);
+int		find_squotes(char *cmd, int i);
 char	*ft_strncpy(char *dest, char *src, int n);
 char	*ft_strncat(char *dest, char *src, unsigned int nb);
 char	*cncat(char *str1, char *str2, int ifree1, int ifree2);

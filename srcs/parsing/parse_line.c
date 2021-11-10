@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 00:10:34 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 23:55:27 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 		i++;
 	}
 	if (SHOW_PARSE)
-		printf_linked_list(firstcmd, sdata->nb_of_cmds);
+		printf_linked_list(firstcmd);
 	return (firstcmd);
 }
 
@@ -72,7 +72,7 @@ int	pipe_check(char *str)
 		if (str[i] == '|')
 		{
 			cmd++;
-			if (i == len(str) - 1 || i == 0 || blank == -1)
+			if (i == (int)len(str) - 1 || i == 0 || blank == -1)
 				return (-1);
 			blank = -1;
 		}

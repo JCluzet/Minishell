@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_quote.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:48:53 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 18:50:12 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 23:17:07 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ int		is_indquote(char *cmd, int v)
 	return (0);
 }
 
-int		find_squotes(char *cmd, int i, char c)
-{
-	if (cmd[i] != '\"')
-		return (i);
-	else
-		return(i+1);
-	return (i+1);
-}
+// int		find_squotes(char *cmd, int i)
+// {
+// 	if (cmd[i] != '\"')
+// 		return (i);
+// 	else
+// 		return(i+1);
+// 	return (i+1);
+// }
 
 int		is_insquote(char *cmd, int v)
 {

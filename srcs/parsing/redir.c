@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/10 22:43:33 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 23:57:05 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ int		find_lenghtwq(char *cmd)
 {
 	int i;
 	int size;
-	int dquote = -1;
-	int squote = -1;
 
 	size = 0;
 	//printf("\ncmd uno >> |%s|", cmd);
@@ -143,8 +141,6 @@ int		find_lenght_file(char *cmd)
 {
 	int i;
 	int size;
-	int dquote = -1;
-	int squote = -1;
 
 	size = 0;
 	i = 0;

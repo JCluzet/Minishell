@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/09 23:10:43 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 00:03:22 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	malloc_and_stock_redir(t_cmd_lst *c, char *cmd)
 {
-	char	**tab;
-
 	c->last_rdr = initrdr2();
 	get_size_redir(c, cmd); // nickel
 	c->redir_ins = malloc_redir_next(c, cmd, c->rdr->nb_redir_in, 1);
@@ -99,10 +97,8 @@ int		strlen_cmd_without_rdr(char *cmd)
 			// printf("I1>|%d|", i);
 			i += skip_blank(cmd + i);
 			// printf("I2>|%d|", i);
-			while (cmd[i] && cmd[i] != ' ')
-			{
+			while ((duoquote(cmd, i) || (cmd[i] != ' ' && cmd[i] != '\t' && cmd[i] != '<' && cmd[i] != '>')) && cmd[i])
 				i++;
-			}
 		}
 		else
 		{
@@ -214,7 +210,7 @@ char	*rmv_rdr_from_cmd(char *cmd)
 	newcmd = malloc(sizeof(char *) * (strlen_cmd_without_rdr(cmd) + 1));
 	while (cmd[i])
 	{
-		if (cmd[i] == '<' || cmd[i] == '>')
+		if ((cmd[i] == '<' || cmd[i] == '>') && !duoquote(cmd, i))
 		{
 			i++;
 			if (cmd[i] == '<' || cmd[i] == '>')

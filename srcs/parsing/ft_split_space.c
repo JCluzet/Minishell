@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:16:03 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/10 22:47:49 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 23:50:30 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,29 @@
 
 // do les 3 fonctions
 
-int		is_first_quote(char *str, int index)
-{
-	int i;
-	int find;
+// int		is_first_quote(char *str)
+// {
+// 	int i;
+// 	int find;
 
-	find = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-		{
-			find = i;
-			i++;
-			while (str[i] && str[i] !='\'')
-			{
-				i++;
-			}
-			// if ()
-		}
-		i++;
-	}
-	return (0);
-}
+// 	find = 0;
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '\'')
+// 		{
+// 			find = i;
+// 			i++;
+// 			while (str[i] && str[i] !='\'')
+// 			{
+// 				i++;
+// 			}
+// 			// if ()
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 static int	count_words_space(const char *str, char c)
 {
@@ -87,19 +87,6 @@ static int	count_words_space(const char *str, char c)
 // 	word[i] = '\0';
 // 	return (word);
 // }
-
-static char	*word_dup(const char *str, int start, int finish)
-{
-	char	*word;
-	int		i;
-
-	i = 0;
-	word = malloc((finish - start + 1) * sizeof(char));
-	while (start < finish)
-		word[i++] = str[start++];
-	word[i] = '\0';
-	return (word);
-}
 
 // split a refaire qui enleve les quotes des cotés 
 
@@ -187,7 +174,7 @@ int		nb_of_args(char *cmd)
 	return(size);
 }
 
-char	**split_arg(char *s, char c)
+char	**split_arg(char *s)
 {
 	//printf("\nGDSGDGFDGFD 2>>||\n");
 	char **split;
@@ -214,4 +201,17 @@ char	**split_arg(char *s, char c)
 	}
 	split[i] = NULL;
 	return(split);
+}
+
+char	*word_dup(const char *str, int start, int finish)
+{
+	char	*word;
+	int		i;
+
+	i = 0;
+	word = malloc((finish - start + 1) * sizeof(char));
+	while (start < finish)
+		word[i++] = str[start++];
+	word[i] = '\0';
+	return (word);
 }

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/10 00:15:04 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 23:57:17 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char 	*str_find_var(char *str) // recoit la chaine a partir de juste apres $
 int 	skip_var(char *str) // recoit la chaine a partir de juste apres $
 {
 	int i;
-	char *tmp;
 	
 	i = 0;
 	while(str[i])

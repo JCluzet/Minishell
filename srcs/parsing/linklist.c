@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linklist.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/05 16:55:45 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 23:53:06 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 }
 
 // print linked list
-void			printf_linked_list(t_cmd_lst *cmd, int nb)
+void			printf_linked_list(t_cmd_lst *cmd)
 {
 	int	i;
 
@@ -70,19 +70,19 @@ void			printf_linked_list(t_cmd_lst *cmd, int nb)
 	while (cmd->next != NULL)
 	{
 		if (cmd->argv)
-			print_cmds(cmd, cmd->argv[0], 0, i);
+			print_cmds(cmd, 0, i);
 		else
-			print_cmds(cmd, cmd->argv[0], 1, i);
+			print_cmds(cmd, 1, i);
 		cmd = cmd->next;
 		i++;
 	}
 	if (cmd->argv)
-		print_cmds(cmd, cmd->argv[0], 0, i);
+		print_cmds(cmd, 0, i);
 	else
-		print_cmds(cmd, cmd->argv[0], 1, i);
+		print_cmds(cmd, 1, i);
 }
 
-void	print_cmds(t_cmd_lst *cmds, char *cmd, int v, int i)
+void	print_cmds(t_cmd_lst *cmds, int v, int i)
 {
 	int	u;
 
