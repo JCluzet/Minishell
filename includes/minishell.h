@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 16:09:02 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:11:31 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct	s_shell_data                   // structure envoyé a chaque fonc
 	char		**env;
 	t_env_lst	*env_lst;
 	char		**bin_paths;//	Path to all binary folder from ENV
-	char		lrval;// Last return value of launched cmd
+	unsigned char	lrval;// Last return value of launched cmd
 	int			cmd_idx;
 	int			nb_of_cmds;
 	int			cmd_nbr;

@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 15:06:36 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:10:37 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,17 @@
 void (*builtins_array[7])(t_sdata *) = {display_env, shell_export, shell_unset, pwd,
 	echo, shell_cd, shell_exit};
 
+void		child_handler(int signum)
+{
+	(void)signum;
+	putstr_err("Quit (core dumped)\n");
+	exit(131);
+}
+
 int		manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 {
+	if (!pid)
+		signal(SIGQUIT, child_handler);
 	if (cmds->next)
 		if (!pid)
 		{
@@ -78,7 +87,13 @@ int			execute_binary(t_sdata *sdata, int *fd, int save_stdin)
 	}
 	else
 		waitpid(-1, &status, 0);
-	sdata->lrval = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+	{
+		putstr_err("Quit (core dumped)\n");
+		sdata->lrval = 131;
+	}
+	else
+		sdata->lrval = WEXITSTATUS(status);
 	return (0);
 }
 

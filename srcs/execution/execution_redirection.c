@@ -6,12 +6,19 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:17:22 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 15:21:56 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:20:04 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int		heredoc_error(char *limit)
+{
+	putstr_err("warning: here-document is delimited by end-of-file (wanted '");
+	putstr_err(limit);
+	putstr_err("')\n");
+	return (1);
+}
 
 int		manage_heredoc(char *limit, int l_fd_in, int save_stdin)
 {
@@ -26,6 +33,8 @@ int		manage_heredoc(char *limit, int l_fd_in, int save_stdin)
 	line = NULL;
 	write(1, ">", 1);
 	get_next_line(0, &line);
+	if (!line)
+		return (heredoc_error(limit));
 	while (ft_strncmp(limit, line, len(limit)))
 	{
 		write(fd, line, len(line));
@@ -34,6 +43,8 @@ int		manage_heredoc(char *limit, int l_fd_in, int save_stdin)
 		write(fd, "\n", 1);
 		write(1, ">", 1);
 		get_next_line(0, &line);
+		if (!line)
+			return (heredoc_error(limit));
 	}
 	close(fd);
 	fd = open("/tmp/.tmp_heredoc", O_RDONLY);
