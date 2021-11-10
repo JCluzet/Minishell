@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 15:44:55 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 15:50:46 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:14:34 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char		**split_env(char *line, char sep)
 {
 	char	**arr;
 	int		i;
-	int		save;
 
+	i = 0;
 	arr = malloc(sizeof(char *) * 3);
 	while (line[i])
 	{
@@ -36,7 +36,7 @@ char		**split_env(char *line, char sep)
 				free(arr);
 				return (NULL);
 			}
-			arr[1] = ft_strncpy(arr[1], line + i, len(line) - 1);
+			arr[1] = ft_strncpy(arr[1], line + i + 1, len(line) - i - 1);
 			arr[2] = NULL;
 			return (arr);
 		}
