@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_executable.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 14:54:16 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 00:20:37 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,31 +101,4 @@ int	is_builtin(char *cmd)
 	if (i == 7)
 		return (-1);
 	return (i);
-}
-
-char	*find_cmd_path(t_cmd_lst *cmd, char **paths)
-{
-	int		i;
-	char	*path;
-	int		fd;
-
-	i = 0;
-	if (!cmd)
-		return (NULL);
-	while (paths[i])
-	{
-		if (cmd->cmd[0] != '/')
-			path = cncat(cncat(paths[i], "/", 0, 0), cmd->cmd, 0, 0);
-		else
-			path = ft_strdup_free(cmd->cmd, 0);
-		fd = open(path, O_RDONLY);
-		if (fd != -1)
-		{
-			close(fd);
-			return (path);
-		}
-		free(path);
-		++i;
-	}
-	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 23:55:27 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 00:22:49 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 	//printf("\ncmd -1>>|%s|\n", line);
 	cmd = init_linkedlist();
 	firstcmd = cmd;
-	mul_cmd = split_thespace(line, '|');
+	mul_cmd = split_the_pipe(line, '|');
 	while (i < sdata->nb_of_cmds)
 	{
 		if (i != 0)
@@ -126,21 +126,6 @@ int	checkquotes(char c, t_quote *qt)
 			qt->simple_q++;
 		else
 			qt->simple_q_indouble++;
-	}
-	return (0);
-}
-
-int		check_error(t_cmd_lst *cmds)
-{
-	if (!cmds)
-		return (-1);
-	if (((((cmds->builtin_idx > 6) && !cmds->cmd_path)
-				|| (cmds->builtin_idx == -1 && !cmds->cmd_path))
-			&& cmds->argv))
-	{
-		write(1, "minishell: command not found: ", 31);
-		write(1, cmds->cmd, len(cmds->cmd));
-		write(1, "\n", 1);
 	}
 	return (0);
 }
