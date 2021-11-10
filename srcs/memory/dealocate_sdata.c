@@ -6,26 +6,11 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 14:55:55 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:01:41 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	free_arr(char **arr)
-{
-	int		i;
-
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
-	{
-		free(arr[i]);
-		++i;
-	}
-	free(arr);
-}
 
 void	deallocate_cmd_elem(t_cmd_lst *elem)
 {
@@ -66,10 +51,12 @@ void	deallocate_env_lst_elem(t_env_lst *elem)
 	free(elem);
 }
 
-void	deallocate_env_lst(t_env_lst *list)
+int	deallocate_env_lst(t_env_lst *list)
 {
-	t_env_lst *tmp;
+	t_env_lst	*tmp;
 
+	if (!list)
+		return (1);
 	tmp = list;
 	while (list->next)
 	{
@@ -78,11 +65,12 @@ void	deallocate_env_lst(t_env_lst *list)
 		tmp = list;
 	}
 	deallocate_env_lst_elem(list);
+	return (1);
 }
 
 void	deallocate_sdata(t_sdata *sdata)
 {
-	t_cmd_lst *tmp;
+	t_cmd_lst	*tmp;
 
 	deallocate_cmd_list(sdata->cmds);
 	free_arr(sdata->env);

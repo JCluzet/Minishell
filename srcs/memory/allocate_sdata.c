@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 16:15:06 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:59:30 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,36 +43,31 @@ t_env_lst	*allocate_env_lst_elem(char **line)
 	return (elem);
 }
 
-int		allocate_env_lst(t_sdata *sdata, char **env)
+int	allocate_env_lst(t_sdata *sdata, char **env)
 {
 	t_env_lst	*elem;
 	t_env_lst	*next;
 	char		**line;
 	int			i;
 
-	i = 1;
+	i = 0;
 	if (!env || !env[0])
 		return (EXIT_FAILURE);
 	sdata->env_lst = allocate_env_lst_elem(split_env(env[0], '='));
 	if (!sdata->env_lst)
 		return (1);
 	elem = sdata->env_lst;
-	while (env[i])
+	while (env[++i])
 	{
 		next = allocate_env_lst_elem(split_env(env[i], '='));
 		if (!next)
-		{
-			deallocate_env_lst_elem(sdata->env_lst);
-			return (1);
-		}
+			return (deallocate_env_lst(sdata->env_lst));
 		elem->next = next;
 		elem = next;
-		++i;
 	}
 	elem->next = NULL;
 	return (EXIT_SUCCESS);
 }
-
 
 void	allocate_sdata(t_sdata *sdata, char **env)
 {
@@ -90,5 +85,6 @@ void	allocate_sdata(t_sdata *sdata, char **env)
 	if (!env)
 		sdata->bin_paths = NULL;
 	else
-		sdata->bin_paths = str_to_word_arr(get_var_in_env(env, "PATH=") + 5, ':');
+		sdata->bin_paths = str_to_word_arr(
+				get_var_in_env(env, "PATH=") + 5, ':');
 }

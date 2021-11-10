@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/10 17:48:37 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 18:05:30 by ambelkac         ###   ########.fr       */
+/*   Created: 2021/11/10 18:01:17 by ambelkac          #+#    #+#             */
+/*   Updated: 2021/11/10 18:01:23 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_atoi(const char *str)
+void	free_arr(char **arr)
 {
-	int	res;
-	int	negative;
+	int		i;
 
-	negative = 1;
-	res = 0;
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\t'
-			|| *str == '\v' || *str == '\f' || *str == '\r'))
-		++str;
-	if (*str == '-')
-		negative = -1;
-	if (*str == '-' || *str == '+')
-		++str;
-	while (*str && *str >= '0' && *str <= '9')
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
 	{
-		res = res * 10 + (*str - 48);
-		++str;
+		free(arr[i]);
+		++i;
 	}
-	return (res * negative);
+	free(arr);
 }

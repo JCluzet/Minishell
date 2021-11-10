@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 15:32:45 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 15:24:24 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:53:33 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	nbr_of_word(char *av, char sep)
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
@@ -80,37 +80,12 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char	**str_to_word_arr(char *av, char sep)
+int	find_quotes(char *cmd, int i, char c)
 {
-	int				i;
-	int				j;
-	int				save;
-	char			**arr;
-
-	if (!av || av[0] == 0 || nbr_of_word(av, sep) == 0)
-		return (NULL);
-	arr = malloc(sizeof(char *) * (nbr_of_word(av, sep) + 1));
-	if (!arr)
-		return (NULL);
-	i = 0;
-	j = 0;
-	save = 0;
-	while (av[i])
-	{
-		if (av[i] != sep)
-		{
-			save = i;
-			while (av[i] && av[i] != sep)
-				++i;
-			arr[j] = malloc(sizeof(char) * (i - save + 1));
-			if (!arr[j])
-				return (NULL);
-			arr[j] = ft_strncpy(arr[j], av + save, i - save);
-			++j;
-		}
-		else
-			++i;
-	}
-	arr[j] = NULL;
-	return (arr);
+	if (!(cmd[i] == '\'' || cmd[i] == '\"'))
+		return (i);
+	i++;
+	while (cmd[i] != c)
+		i++;
+	return (i);
 }

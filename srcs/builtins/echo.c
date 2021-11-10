@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:29:46 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 15:06:36 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:50:16 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	display_every_arg(char **argv, int start)
 	}
 }
 
-int		is_dash_n_option(char *option)
+int	is_dash_n_option(char *option)
 {
 	int		i;
 

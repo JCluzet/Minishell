@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:38:55 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 22:46:43 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:49:30 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	export_display(t_sdata *sdata)
 {
-	t_env_lst *list;
+	t_env_lst	*list;
 
 	if (!sdata->env_lst)
 		return ;

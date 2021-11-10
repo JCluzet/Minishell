@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 16:32:53 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/10/25 15:39:31 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:49:07 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*get_abs_path(char *path, int free_path)
 {
 	char	*abs_path;
 
-	if ((len(path) == 1 && path[0] == '.') || (len(path) == 2 && path[0] == '.' && path[1] == '.'))
+	if ((len(path) == 1 && path[0] == '.')
+		|| (len(path) == 2 && path[0] == '.' && path[1] == '.'))
 		return (path);
 	if (path[0] == '/')
 		return (path);
@@ -71,7 +72,8 @@ void	shell_cd(t_sdata *sdata)
 	abs_path = get_abs_path(sdata->cmds->argv[1], 0);
 	if (chdir(abs_path) == -1)
 	{
-		printf("bash: cd: %s: No such file or directory\n", sdata->cmds->argv[1]);
+		printf("bash: cd: %s: No such file or directory\n",
+			sdata->cmds->argv[1]);
 		sdata->lrval = 1;
 		return ;
 	}

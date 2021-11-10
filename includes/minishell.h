@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 17:11:31 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:23:48 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,16 @@ typedef struct	s_command_list
 typedef struct s_environement_list
 {
 	char	*name;
-	char 	*var;
+	char	*var;
 	struct s_environement_list	*next;
 }				t_env_lst;
+
+typedef struct s_split_var
+{
+	int	i;
+	int	j;
+	int	save;
+}				t_split_var;
 
 typedef struct	s_shell_data                   // structure envoyé a chaque fonction
 {
@@ -181,7 +188,7 @@ void	deallocate_env_lst_elem(t_env_lst *elem);
 void	free_arr(char **arr);
 void	deallocate_sdata(t_sdata *sdata);
 void	deallocate_cmd_list(t_cmd_lst *cmd);
-
+int	deallocate_env_lst(t_env_lst *list);
 //		Utils
 //	general_utils.c
 void	*ft_bzero(size_t n);

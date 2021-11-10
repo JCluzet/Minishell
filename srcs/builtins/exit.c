@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:39:17 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/05 15:56:29 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:50:05 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	shell_exit(t_sdata *sdata)
 	}
 	if (!is_number(sdata->cmds->argv[1], 0))
 	{
-		printf("exit\nbash: exit: %s: numeric argument required\n", sdata->cmds->argv[0]);
+		printf("exit\nbash: exit: %s: numeric argument required\n",
+			sdata->cmds->argv[0]);
 		exit(255);
 	}
 	if (is_number(sdata->cmds->argv[1], 0))
@@ -36,7 +37,7 @@ void	shell_exit(t_sdata *sdata)
 	}
 }
 
-int 	usage_exit(char **argv)
+int	usage_exit(char **argv)
 {
 	if (!argv)
 	{

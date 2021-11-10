@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:40:25 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/08/18 14:51:53 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:50:54 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	display_env(t_sdata *sdata)
 {
-	int		i;
-	t_env_lst	*list;
+	int				i;
+	t_env_lst		*list;
 
 	i = 0;
 	list = sdata->env_lst;

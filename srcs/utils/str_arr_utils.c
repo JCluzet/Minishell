@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 15:25:47 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:47:41 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,21 @@ char	**remove_str_from_arr(char **arr, char *str)
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
+	i = -1;
+	j = -1;
 	name = get_env_var_name_from_arg(str);
 	n_arr = malloc(sizeof(char *) * (tablen(arr) + 1));
 	if (!n_arr)
 		return (NULL);
-	while (arr[i])
+	while (arr[++i])
 	{
-		if (!ft_strncmp(name, arr[i], len(name)) && len(name) == lenequal(arr[i]))
+		if (!ft_strncmp(name, arr[i], len(name))
+			&& len(name) == lenequal(arr[i]))
 		{
-			free(arr[i]);
-			++i;
-			continue;
+			free(arr[i++]);
+			continue ;
 		}
-		n_arr[j] = ft_strdup_free(arr[i], 1);
-		++i;
-		++j;
+		n_arr[++j] = ft_strdup_free(arr[i], 1);
 	}
 	free(arr);
 	n_arr[j] = NULL;
@@ -91,8 +89,8 @@ char	**dup_arr(char **arr)
 	char	**n_arr;
 	int		len;
 	int		i;
-	i = 0;
 
+	i = 0;
 	if (!arr)
 		return (NULL);
 	len = tablen(arr);

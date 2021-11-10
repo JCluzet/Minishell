@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:39:08 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 15:19:12 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:50:42 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	shell_unset(t_sdata *sdata)
 		sdata->lrval = 1;
 		return ;
 	}
-	if (!sdata->cmds->argv[1] || !does_env_var_exist(sdata->env_lst, sdata->cmds->argv[1]))
+	if (!sdata->cmds->argv[1]
+		|| !does_env_var_exist(sdata->env_lst, sdata->cmds->argv[1]))
 	{
 		sdata->lrval = 0;
 		return ;
@@ -32,7 +33,7 @@ void	shell_unset(t_sdata *sdata)
 	sdata->lrval = 0;
 }
 
-int		usage_unset(char ***env, char *var)
+int	usage_unset(char ***env, char *var)
 {
 	char	**n_env;
 	int		i;

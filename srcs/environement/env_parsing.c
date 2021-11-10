@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:52:22 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/08 18:46:31 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 17:52:57 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		env_var_additional_parsing(char *arg, int is_unset)
+int	env_var_additional_parsing(char *arg, int is_unset)
 {
 	int	i;
 	int	counter;
@@ -32,7 +32,7 @@ int		env_var_additional_parsing(char *arg, int is_unset)
 	return (1);
 }
 
-int		is_env_var_valid(char *arg, int is_unset)
+int	is_env_var_valid(char *arg, int is_unset)
 {
 	int	i;
 
@@ -60,14 +60,15 @@ int		is_env_var_valid(char *arg, int is_unset)
 	return (0);
 }
 
-int		does_env_var_exist(t_env_lst *env, char *var)
+int	does_env_var_exist(t_env_lst *env, char *var)
 {
 	char	*name;
 
 	name = get_env_var_name_from_arg(var);
 	while (env)
 	{
-		if (!ft_strncmp(env->name, name, len(name)) && len(name) == len(env->name))
+		if (!ft_strncmp(env->name, name,
+				len(name)) && len(name) == len(env->name))
 		{
 			free(name);
 			return (1);
@@ -78,62 +79,17 @@ int		does_env_var_exist(t_env_lst *env, char *var)
 	return (0);
 }
 
-int		get_idx_var_in_env(char **env, char *var)
+int	get_idx_var_in_env(char **env, char *var)
 {
 	int			i;
 
 	i = 0;
 	while (env[i])
 	{
-		if (!ft_strncmp(env[i], var, lenequal(var) && lenequal(env[i]) == lenequal(var)))
+		if (!ft_strncmp(env[i], var,
+				lenequal(var) && lenequal(env[i]) == lenequal(var)))
 			return (i);
 		++i;
 	}
 	return (-1);
-}
-
-char	*get_env_var_from_name(t_env_lst *list, char *name)
-{
-	//printf("\nYAL1.5>> |%s|\n", name);
-	if (name == NULL)
-		return (NULL);
-	while (list)
-	{
-		if (!ft_strncmp(list->name, name, len(name)) && len(name) == len(list->name))
-			return (list->var);
-		list = list->next;
-	}
-	return (NULL);
-}
-
-char	*get_var_in_env(char **env, char *var)
-{
-	int			i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], var, len(var)))
-			return (env[i]);
-		++i;
-	}
-	return (NULL);
-}
-
-char	*get_env_var_name_from_arg(char *arg)
-{
-	char	**line;
-	char	*name;
-	int		i;
-
-	i = 1;
-	line = str_to_word_arr(arg, '=');
-	name = line[0];
-	while (line[i])
-	{
-		free(line[i]);
-		++i;
-	}
-	free(line);
-	return (name);
 }
