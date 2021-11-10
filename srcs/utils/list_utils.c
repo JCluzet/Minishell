@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 14:55:59 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/04 22:44:49 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:17:43 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_env_lst	*add_elem(t_env_lst *list, char *arg)
 	char	**line;
 	t_env_lst	*new;
 
-	line = str_to_word_arr(arg, '=');
+	line = split_env(arg, '=');
 	new = allocate_env_lst_elem(line);
 	new->next = list;
 	return (new);
