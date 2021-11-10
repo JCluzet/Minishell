@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:55:18 by amine             #+#    #+#             */
-/*   Updated: 2021/11/10 18:02:10 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 22:11:50 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	handler(int signum)
 {
 	(void)signum;
 	printf("\n");
-	rl_replace_line("", 0);
+//	rl_replace_line("", 0); 
 	rl_on_new_line();
 	rl_redisplay();
 }

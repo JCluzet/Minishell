@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 00:12:48 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 22:47:17 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd)
 	//printf("\ncmd 1>>|%s|\n", cmd);
 	cmd = rmv_rdr_from_cmd(cmd); 
 	//printf("\ncmd 2>>|%s|\n", cmd);
-	cmds->argv = split_thespace(cmd, ' ');
+	
+	cmds->argv = split_arg(cmd, ' ');
 	if (cmds->argv[0])
 		cmds->cmd = ft_strdup_free(cmds->argv[0], 0);
 	cmds->cmd_path = NULL;

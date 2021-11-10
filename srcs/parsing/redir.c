@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/10 00:10:24 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/10 22:43:33 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,51 @@ int		find_size_rdr(char *cmd, int nb, int type)
 		i++;
 	}
 	return (0);
+}
+
+int		find_lenghtwq(char *cmd)
+{
+	int i;
+	int size;
+	int dquote = -1;
+	int squote = -1;
+
+	size = 0;
+	//printf("\ncmd uno >> |%s|", cmd);
+	i = skip_blank(cmd);
+	while (cmd[i])
+	{
+		if (cmd[i] == '\"')
+		{
+			i++;
+			while (cmd[i] != '\"' && cmd[i])
+			{
+				i++;
+			}
+			if (cmd[i])
+				i++;
+		}
+		else if (cmd[i] == '\'')
+		{
+			i++;
+			while (cmd[i] != '\'' && cmd[i])
+			{
+				i++;
+			}
+			if (cmd[i])
+				i++;
+		}
+		else if (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '<' || cmd[i] == '>')
+		{
+			//printf("\ncmd deuxio >> |%s|", cmd);
+			return(i);
+		}
+		else
+		{
+			i++;
+		}
+	}
+	return (i);
 }
 
 int		find_lenght_file(char *cmd)

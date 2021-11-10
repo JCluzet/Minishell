@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 18:23:48 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 22:48:59 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
-# define SHOW_PARSE 1
+# define SHOW_PARSE 0
 
 typedef struct  s_quote
 {
@@ -133,6 +133,7 @@ int		check_error(t_cmd_lst *cmd);
 int	is_builtin(char *cmd);
 int		quotes_check(char *str);
 int		checkquotes(char c, t_quote *qt);
+int		find_lenghtwq(char *cmd);
 char 	*replace_dollars(char *str, t_sdata *sdata);
 
 //	check_cmd_executable.c
@@ -140,6 +141,7 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
 void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
 char		**split_thespace(char const *s, char c);
+char	**split_arg(char *s, char c);
 static int	count_words_space(const char *str, char c);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
 int		duoquote(char *cmd, int v);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   even_more_str_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:03:57 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 18:51:04 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/10 22:48:46 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char*	get_file_redir(char *cmd, char *file)
 
 	size = 0;
 	i = 0;
-	printf("\ncmdf >>|%s|\n", cmd);
+	//printf("\ncmdf >>|%s|\n", cmd);
 	i = skip_blank(cmd);
 	// while ((duoquote(cmd, i+size) || (cmd[i+size] != ' ' && cmd[i+size] != '\t' && cmd[i+size] != '<' && cmd[i+size] != '>')) && cmd[i+size])
 	// {
@@ -76,7 +76,7 @@ char*	get_file_redir(char *cmd, char *file)
 		}
 	}
 	file[size] = '\0';
-	printf("\nfile >>|%s|\n", file);
+	//printf("\nfile >>|%s|\n", file);
 	if (size == 0)
 		file = NULL;
 	return (file);
