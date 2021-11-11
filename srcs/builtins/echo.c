@@ -6,54 +6,11 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:29:46 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 17:50:16 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 14:59:57 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// write tout les arguments de la cmd >>  pas seulement le 1
-
-void	putstr_skipquotes(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != '"' && str[i] != '\'')
-			write(1, &str[i], 1);
-		++i;
-	}
-}
-
-void	putstr_quoteless(char *str)
-{
-	int		i;
-	int		j;
-	int		k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			++j;
-		if (str[i] == '\'')
-			++k;
-		++i;
-	}
-	if (j > 2 || k > 2)
-	{
-		putstr_skipquotes(str);
-		return ;
-	}
-	if (str[len(str) - 1] == '"' || str[len(str) - 1] == '\'')
-		write(1, str + 1, len(str) - 2);
-	else
-		write(1, str + 1, len(str) - 1);
-}
 
 void	display_every_arg(char **argv, int start)
 {
@@ -62,10 +19,7 @@ void	display_every_arg(char **argv, int start)
 	i = start;
 	while (argv[i])
 	{
-		if (argv[i][0] == '"' || argv[i][0] == '\'')
-			putstr_quoteless(argv[i]);
-		else
-			write(1, argv[i], len(argv[i]));
+		write(1, argv[i], len(argv[i]));
 		write(1, " ", 1);
 		++i;
 	}
