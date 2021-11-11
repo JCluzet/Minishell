@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:41:54 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 14:54:16 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:46:31 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int ac, char **argv, char **env)
 {
 	t_sdata		sdata;
 
+	(void)argv;
 	if (ac != 1)
 	{
 		write(1, "Minishell can't have more than 0 argument\n", 43);

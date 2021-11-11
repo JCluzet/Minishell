@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 15:32:45 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:24:33 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 15:40:37 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*ft_bzero(size_t n)
 	i = 0;
 	if (!ptr)
 		return (NULL);
-	while (i < n)
+	while ((size_t)i < n)
 	{
 		((char *)ptr)[i] = 0;
 		++i;

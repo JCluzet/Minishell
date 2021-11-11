@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 14:42:28 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:38:06 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int	deallocate_env_lst(t_env_lst *list)
 
 void	deallocate_sdata(t_sdata *sdata)
 {
-	t_cmd_lst	*tmp;
-
 	deallocate_cmd_list(sdata->cmds);
 	free_arr(sdata->env);
 	free_arr(sdata->bin_paths);

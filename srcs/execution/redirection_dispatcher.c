@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:09:04 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:16:38 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:46:47 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	call_infile(t_cmd_lst *cmd, char **paths, int in, int i)
 
 int	manage_redir_fd(t_cmd_lst *cmd, char **paths, int in, int out)
 {
-	int		fd;
 	int		i;
 
 	i = 0;

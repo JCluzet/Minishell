@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 17:55:40 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:43:16 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	shell_loop(t_sdata *sdata)
 		sdata->cmds = parse_line(sdata, line);
 		if (!sdata->cmds->cmd)
 			continue ;
-		execution_dispatcher(sdata, sdata->cmds);
+		execution_dispatcher(sdata);
 		deallocate_cmd_list(sdata->cmds);
 		sdata->cmds = NULL;
 		free(line);

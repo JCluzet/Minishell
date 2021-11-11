@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:32:54 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:33:17 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:47:17 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,12 @@ void	get_child_return_value(t_sdata *sdata, int status)
 		sdata->lrval = WEXITSTATUS(status);
 }
 
-int	execute_binary(t_sdata *sdata, int *fd, int save_stdin)
+int	execute_binary(t_sdata *sdata, int *fd)
 {
 	pid_t	pid;
 	int		status;
 
+	status = 0;
 	pid = fork();
 	if (manage_pipe_dups(sdata->cmds, pid, fd))
 	{

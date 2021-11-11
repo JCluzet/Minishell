@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 16:32:53 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 17:49:07 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:42:19 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 void	update_env_cd(t_sdata *sdata, char *old_pwd)
 {
-	char	*pwd;
-
 	if (does_env_var_exist(sdata->env_lst, "OLDPWD"))
 		usage_export_replace_var(sdata, cncat("OLDPWD=", old_pwd, 0, 1));
 	if (does_env_var_exist(sdata->env_lst, "PWD"))
@@ -26,8 +24,6 @@ void	update_env_cd(t_sdata *sdata, char *old_pwd)
 
 char	*get_abs_path(char *path, int free_path)
 {
-	char	*abs_path;
-
 	if ((len(path) == 1 && path[0] == '.')
 		|| (len(path) == 2 && path[0] == '.' && path[1] == '.'))
 		return (path);

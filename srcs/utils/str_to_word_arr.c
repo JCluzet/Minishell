@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:26:09 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 14:21:30 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:41:15 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	skip_sep_char(char *av, char sep, int *i)
 		++(*i);
 }
 
-char	*put_word_in_arr(char *av, int i, int j, int save)
+char	*put_word_in_arr(char *av, int i, int save)
 {
 	char	*str;
 
@@ -48,7 +48,7 @@ char	**str_to_word_arr(char *av, char sep)
 		{
 			var.save = var.i;
 			skip_sep_char(av, sep, &(var.i));
-			arr[var.j] = put_word_in_arr(av, var.i, var.j, var.save);
+			arr[var.j] = put_word_in_arr(av, var.i, var.save);
 			++(var.j);
 		}
 		else

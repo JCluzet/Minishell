@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_manip.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:48:50 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:28:45 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 15:38:33 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree)
 
 	if (!s)
 		return (NULL);
-	if ((len(s) == 1 && s[0] == '\n') || !lenght || len(s) < start)
+	if ((len(s) == 1 && s[0] == '\n') || !lenght || len(s) < (int)start)
 	{
 		if (ifree)
 			free(s);

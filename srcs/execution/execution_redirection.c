@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:17:22 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:12:04 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:43:45 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	manage_heredoc(char *limit, int l_fd_in, int save_stdin)
 {
 	char	*line;
 	int		fd;
-	int		save_fdin;
 
 	dup2(save_stdin, 0);
 	fd = open("/tmp/.tmp_heredoc", O_RDWR | O_TRUNC);
@@ -73,8 +72,6 @@ int	open_infile(t_cmd_lst *cmds, char *path, int out)
 
 int	dispatch_redir_types(t_cmd_lst *cmds)
 {
-	int		fd;
-
 	if (priority_redir_in(cmds))
 		return (1);
 	if (priority_redir_out(cmds))

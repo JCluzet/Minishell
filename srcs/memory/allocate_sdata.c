@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 17:59:30 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:37:52 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	allocate_env_lst(t_sdata *sdata, char **env)
 {
 	t_env_lst	*elem;
 	t_env_lst	*next;
-	char		**line;
 	int			i;
 
 	i = 0;

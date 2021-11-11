@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:33:51 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:47:46 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,8 +197,8 @@ int			skip_blank(char *cmd);
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/utils/env_lst_utils.c                      */
 /* -------------------------------------------------------------------------- */
-t_env_lst	*remove_first_elem(t_env_lst *list, char *arg);
-void		remove_last_elem(t_env_lst *list, t_env_lst *tmp, char *arg);
+t_env_lst	*remove_first_elem(t_env_lst *list);
+void		remove_last_elem(t_env_lst *list, t_env_lst *tmp);
 t_env_lst	*remove_elem(t_env_lst *list, char *arg);
 t_env_lst	*add_elem(t_env_lst *list, char *arg);
 int			does_elem_exists(t_env_lst *list, char *arg);
@@ -224,7 +224,7 @@ char		**dup_arr(char **arr);
 /*                    FILE = srcs/utils/str_to_word_arr.c                     */
 /* -------------------------------------------------------------------------- */
 void		skip_sep_char(char *av, char sep, int *i);
-char		*put_word_in_arr(char *av, int i, int j, int save);
+char		*put_word_in_arr(char *av, int i, int save);
 char		**str_to_word_arr(char *av, char sep);
 
 /* -------------------------------------------------------------------------- */
@@ -291,9 +291,9 @@ void		echo(t_sdata *sdata);
 int			manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd);
 void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds);
 int			execute_builtins(t_sdata *sdata, int *fd, int save_stdout);
-int			execute_binary(t_sdata *sdata, int *fd, int save_stdin);
+int			execute_binary(t_sdata *sdata, int *fd);
 void		invalid_cmd_path_error(t_sdata *sdata);
-void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds);
+void		execution_dispatcher(t_sdata *sdata);
 
 /* -------------------------------------------------------------------------- */
 /*               FILE = srcs/execution/execution_redirection.c                */
@@ -413,6 +413,5 @@ int	priority_redir_out(t_cmd_lst *cmds);
 int	priority_redir_in(t_cmd_lst *cmds);
 char	**remove_str_from_arr(char **arr, char *str);
 void	child_handler(int signum);
-int	execute_binary(t_sdata *sdata, int *fd, int save_stdin);
 int	execute_builtins(t_sdata *sdata, int *fd, int save_stdout);
 #endif

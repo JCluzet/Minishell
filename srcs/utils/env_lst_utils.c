@@ -6,13 +6,13 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:29:26 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 18:53:17 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:39:33 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_env_lst	*remove_first_elem(t_env_lst *list, char *arg)
+t_env_lst	*remove_first_elem(t_env_lst *list)
 {
 	t_env_lst	*tmp;
 
@@ -21,7 +21,7 @@ t_env_lst	*remove_first_elem(t_env_lst *list, char *arg)
 	return (tmp);
 }
 
-void	remove_last_elem(t_env_lst *list, t_env_lst *tmp, char *arg)
+void	remove_last_elem(t_env_lst *list, t_env_lst *tmp)
 {
 	tmp->next = NULL;
 	deallocate_env_lst_elem(list);
@@ -35,7 +35,7 @@ t_env_lst	*remove_elem(t_env_lst *list, char *arg)
 	first = list;
 	if (!ft_strncmp(list->name, arg, len(list->name))
 		&& len(list->name) == lenequal(arg))
-		return (remove_first_elem(list, arg));
+		return (remove_first_elem(list));
 	while (list->next)
 	{
 		if (!ft_strncmp(list->name, arg, len(list->name))
@@ -45,7 +45,7 @@ t_env_lst	*remove_elem(t_env_lst *list, char *arg)
 		list = list->next;
 	}
 	if (!list->next)
-		remove_last_elem(list, tmp, arg);
+		remove_last_elem(list, tmp);
 	else
 	{
 		list = list->next;

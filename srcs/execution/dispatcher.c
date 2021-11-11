@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:33:24 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:47:23 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	valid_cmd_dispatch(t_sdata *sdata, int *fd)
 	}
 	else if (sdata->cmds->cmd_path)
 	{
-		if (execute_binary(sdata, fd, sdata->save_stdin))
+		if (execute_binary(sdata, fd))
 			return (1);
 	}
 	else
@@ -64,7 +64,7 @@ int	valid_cmd_dispatch(t_sdata *sdata, int *fd)
 	return (0);
 }
 
-void	execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds)
+void	execution_dispatcher(t_sdata *sdata)
 {
 	int		fd[2];
 	int		last_fdin;
