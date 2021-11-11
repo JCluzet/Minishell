@@ -32,26 +32,26 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 
 typedef struct s_len_file
 {
-	int i;
-	int size;
+	int		i;
+	int		size;
 }				t_len_file;
 
 typedef struct s_path
 {
-	int i;
-	int count;
-	char *tmpvar;
-	char *tmp;
+	int		i;
+	int		count;
+	char	*tmpvar;
+	char	*tmp;
 }				t_path;
 
 typedef struct s_doll
 {
-	int i;
-	int j;
-	int count;
-	char *newcmd;
-	char *tmp;
-	char *tmpvar;
+	int		i;
+	int		j;
+	int		count;
+	char	*newcmd;
+	char	*tmp;
+	char	*tmpvar;
 }				t_doll;
 
 typedef struct s_quote
