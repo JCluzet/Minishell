@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 14:33:06 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 14:57:02 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	**remove_str_from_arr(char **arr, char *str)
 	int		j;
 
 	i = 0;
-	j = -1;
+	j = 0;
 	name = get_env_var_name_from_arg(str);
 	n_arr = malloc(sizeof(char *) * (tablen(arr) + 1));
 	if (!n_arr)
@@ -76,9 +76,11 @@ char	**remove_str_from_arr(char **arr, char *str)
 			free(arr[i++]);
 			continue ;
 		}
-		n_arr[++j] = ft_strdup_free(arr[i], 1);
+		n_arr[j] = ft_strdup_free(arr[i], 1);
+		++j;
 		++i;
 	}
+	printf("i : %d | j : %d\n", i, j);
 	free(arr);
 	n_arr[j] = NULL;
 	free(name);
