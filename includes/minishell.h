@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 01:13:59 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 02:46:04 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ int	shell_loop(t_sdata *sdata);
 
 //		Parsing
 //	parse_line
+int	skip_var(char *str);
+int	int_len(int i);
+int	strlen_cmd_without_rdr(char *cmd);
 int		is_maj(char c);
 int		pipe_check(char *str);
 int		stock_redir(t_cmd_lst *cmds, char *cmd);
@@ -204,6 +207,7 @@ char	**dup_arr(char **arr);
 //	str_manip
 int		find_squotes(char *cmd, int i);
 char	*ft_strncpy(char *dest, char *src, int n);
+char	*find_andsupp_rdr(char *cmd, char *newcmd, int count);
 char	*ft_strncat(char *dest, char *src, unsigned int nb);
 char	*cncat(char *str1, char *str2, int ifree1, int ifree2);
 char	*ft_strdup_free(char *src, int ifree);

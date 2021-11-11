@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 02:18:15 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 02:34:27 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,38 +99,4 @@ int	strlen_cmd_without_rdr(char *cmd)
 			i++;
 	}
 	return (count);
-}
-
-char	*rmv_rdr_from_cmd(char *cmd)
-{
-	int		i;
-	int		count;
-	char	*newcmd;
-
-	count = 0;
-	i = 0;
-	newcmd = malloc(sizeof(char *) * (strlen_cmd_without_rdr(cmd) + 1));
-	while (cmd[i])
-	{
-		if ((cmd[i] == '<' || cmd[i] == '>') && !duoquote(cmd, i))
-		{
-			i++;
-			if (cmd[i] == '<' || cmd[i] == '>')
-				i++;
-			i += skip_blank(cmd + i);
-			while ((duoquote(cmd, i) || (cmd[i] != ' ' && cmd[i] != '\t'
-						&& cmd[i] != '<' && cmd[i] != '>')) && cmd[i])
-				i++;
-		}
-		else
-		{
-			newcmd[count] = cmd[i];
-			count++;
-			if (cmd[i])
-				i++;
-		}
-	}
-	newcmd[count] = '\0';
-	free(cmd);
-	return (newcmd);
 }
