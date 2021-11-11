@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:16:03 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 00:22:27 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 01:55:26 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,117 +41,74 @@ static int	count_words_space(const char *str, char c)
 	return (i);
 }
 
-char		**split_the_pipe(char const *s, char c)
+char	**split_the_pipe(char const *s)
 {
 	size_t	i;
 	size_t	j;
 	int		index;
 	char	**split;
-	int		qt[2];
 
-	qt[0] = 0;
-	qt[1] = 0;
 	if (!s)
 		return (0);
-	split = malloc((count_words_space(s, c) + 1) * sizeof(char *));
+	split = malloc((count_words_space(s, '|') + 1) * sizeof(char *));
 	if (!split)
 		return (0);
 	i = 0;
-	j = 0;
-	index = -1;
-	while (i <= len(s))
-	{
-		if (s[i] == '\'')
-			qt[0]++;
-		if (s[i] == '\"')
-			qt[1]++;
-		if (s[i] != c && index < 0)
-			index = i;
-		else if (((s[i] == c && (qt[0] % 2 == 0 && qt[1] % 2 == 0))
-				|| i == len(s)) && index >= 0)
-		{
-			split[j++] = word_dup(s, index, i);
-			index = -1;
-		}
-		i++;
-	}
-	split[j] = 0;
-	return (split);
+	return (skip_quotes_split(s, i, split));
 }
 
-int		nb_of_args(char *cmd)
+int	nb_of_args(char *cmd)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
+	int	j;
 
 	size = 0;
 	i = skip_blank(cmd);
 	if (cmd[i])
 		size++;
-	//printf("YOYO >> |%s|", cmd);
 	while (cmd[i])
 	{
-		//printf("YOYO >> |%s|", cmd);
-		if (cmd[i] == '\"')
-		{
-			i++;
-			while (cmd[i] != '\"' && cmd[i])
-			{
-				i++;
-			}
-			if (cmd[i])
-				i++;
-		}
-		else if (cmd[i] == '\'')
-		{
-			i++;
-			while (cmd[i] != '\'' && cmd[i])
-			{
-				i++;
-			}
-			if (cmd[i])
-				i++;
-		}
-		else if (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '<' || cmd[i] == '>')
+		j = i;
+		i = skip_quotes_arg(cmd, i);
+		if ((cmd[i] == ' ' || cmd[i] == '\t'
+				|| cmd[i] == '<' || cmd[i] == '>') && i == j)
 		{
 			size++;
 			i += skip_blank(cmd + i);
 			if (!cmd[i])
 				size--;
 		}
-		else
+		else if (i == j)
 			i++;
 	}
-	return(size);
+	return (size);
 }
 
 char	**split_arg(char *s)
 {
-	//printf("\nGDSGDGFDGFD 2>>||\n");
-	char **split;
-	int size;
-	int i;
-	int v;
-	int j;
+	char	**split;
+	int		size;
+	int		i;
+	int		v;
+	int		j;
 
 	j = 0;
 	i = 0;
 	size = 0;
 	size = nb_of_args(s);
-	//printf("\nnb of args > %d",size);
 	split = malloc(sizeof(char *) * (size + 1));
 	v = 0;
 	while (i < size)
 	{
 		v = find_lenght_file(s + j);
-		//printf("\nagrg %d est |%s| > v = %d\n", i, s + j, v);
 		split[i] = malloc(sizeof(char *) * (v + 1));
 		split[i] = get_file_redir(s + j, split[i]);
 		j += find_lenghtwq(s + j);
 		i++;
 	}
 	split[i] = NULL;
-	return(split);
+	return (split);
 }
 
 char	*word_dup(const char *str, int start, int finish)

@@ -6,13 +6,11 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/10 23:53:06 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 01:34:26 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
-
-// malloc and init linked list for cmds and return it
+#include "../../includes/minishell.h"
 
 t_cmd_lst	*init_linkedlist(void)
 {
@@ -35,8 +33,6 @@ t_cmd_lst	*init_linkedlist(void)
 	cmds->next = NULL;
 	return (cmds);
 }
-
-// insert a new node in the linked list and return it
 
 t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 {
@@ -61,8 +57,7 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 	return (new);
 }
 
-// print linked list
-void			printf_linked_list(t_cmd_lst *cmd)
+void	printf_linked_list(t_cmd_lst *cmd)
 {
 	int	i;
 
@@ -91,7 +86,7 @@ void	print_cmds(t_cmd_lst *cmds, int v, int i)
 	printf("\n-- COMMAND %d DETECTED --\n", i);
 	if (v == 0)
 		printf("cmd > %s\n", cmds->cmd);
-	else 
+	else
 		printf("cmd > (null)\n");
 	while (cmds->argv[0] && v == 0 && cmds->argv[u] != NULL)
 	{
@@ -103,16 +98,16 @@ void	print_cmds(t_cmd_lst *cmds, int v, int i)
 		printf("argv > (null)\n\n");
 	i = -1;
 	while (cmds->redir_ins[++i])
-		printf("redir_in %d = %s\n",i + 1, cmds->redir_ins[i]);
+		printf("redir_in %d = %s\n", i + 1, cmds->redir_ins[i]);
 	i = -1;
 	while (cmds->redir_outs[++i])
-		printf("redir_out %d = %s\n",i + 1, cmds->redir_outs[i]);
+		printf("redir_out %d = %s\n", i + 1, cmds->redir_outs[i]);
 	i = -1;
 	while (cmds->reddir_append[++i])
-		printf("redir_append %d = %s\n",i + 1, cmds->reddir_append[i]);
+		printf("redir_append %d = %s\n", i + 1, cmds->reddir_append[i]);
 	i = -1;
 	while (cmds->reddir_heredoc[++i])
-		printf("redir_heredoc %d = %s\n",i + 1, cmds->reddir_heredoc[i]);
+		printf("redir_heredoc %d = %s\n", i + 1, cmds->reddir_heredoc[i]);
 	printf("\n");
 	if (cmds->type_last_rdr_in != 0)
 		printf("last_rdr_in detected = %d   << 2=double & 1=simple\n",

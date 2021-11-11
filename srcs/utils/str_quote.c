@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:48:53 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:29:26 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 01:13:46 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,55 @@ int		is_insquote(char *cmd, int v)
 		i++;
 	}
 	return (1);
+}
+
+int	skip_quotes_arg(char *cmd, int i)
+{
+	if (cmd[i] == '\"')
+	{
+		i++;
+		while (cmd[i] != '\"' && cmd[i])
+			i++;
+		if (cmd[i])
+			i++;
+	}
+	else if (cmd[i] == '\'')
+	{
+		i++;
+		while (cmd[i] != '\'' && cmd[i])
+			i++;
+		if (cmd[i])
+			i++;
+	}
+	return (i);
+}
+
+char 	**skip_quotes_split(const char *s, int i, char **split)
+{
+	int		qt[2];
+	int		index;
+	int		j;
+	
+	j	= 0;
+	index = -1;
+	qt[0] = 0;
+	qt[1] = 0;
+	while (i <= len(s))
+	{
+		if (s[i] == '\'')
+			qt[0]++;
+		if (s[i] == '\"')
+			qt[1]++;
+		if (s[i] != '|' && index < 0)
+			index = i;
+		else if (((s[i] == '|' && (qt[0] % 2 == 0 && qt[1] % 2 == 0))
+				|| i == len(s)) && index >= 0)
+		{
+			split[j++] = word_dup(s, index, i);
+			index = -1;
+		}
+		i++;
+	}
+	split[j] = 0;
+	return (split);
 }

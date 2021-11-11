@@ -6,15 +6,15 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 00:18:34 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 01:56:38 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char		*fill_file_rdr(char *cmd, int nb, int type, char *file)
+char	*fill_file_rdr(char *cmd, int nb, int type, char *file)
 {
-	int i;
+	int		i;
 	t_redir	rdr;
 
 	i = 0;
@@ -50,12 +50,12 @@ char		*fill_file_rdr(char *cmd, int nb, int type, char *file)
 		}
 		i++;
 	}
-	return NULL;
+	return (NULL);
 }
 
-int		find_size_rdr(char *cmd, int nb, int type)
+int	find_size_rdr(char *cmd, int nb, int type)
 {
-	int i;
+	int		i;
 	t_redir	rdr;
 
 	i = 0;
@@ -94,57 +94,34 @@ int		find_size_rdr(char *cmd, int nb, int type)
 	return (0);
 }
 
-int		find_lenghtwq(char *cmd)
+int	find_lenghtwq(char *cmd)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
+	int	temp;
 
 	size = 0;
-	//printf("\ncmd uno >> |%s|", cmd);
 	i = skip_blank(cmd);
 	while (cmd[i])
 	{
-		if (cmd[i] == '\"')
-		{
+		temp = i;
+		i = skip_quotes_arg(cmd, i);
+		if (temp == i && (cmd[i] == ' ' || cmd[i] == '\t'
+				|| cmd[i] == '<' || cmd[i] == '>'))
+			return (i);
+		else if (temp == i)
 			i++;
-			while (cmd[i] != '\"' && cmd[i])
-			{
-				i++;
-			}
-			if (cmd[i])
-				i++;
-		}
-		else if (cmd[i] == '\'')
-		{
-			i++;
-			while (cmd[i] != '\'' && cmd[i])
-			{
-				i++;
-			}
-			if (cmd[i])
-				i++;
-		}
-		else if (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '<' || cmd[i] == '>')
-		{
-			//printf("\ncmd deuxio >> |%s|", cmd);
-			return(i);
-		}
-		else
-		{
-			i++;
-		}
 	}
 	return (i);
 }
 
-int		find_lenght_file(char *cmd)
+int	find_lenght_file(char *cmd)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
 
 	size = 0;
 	i = 0;
-	//printf("\ncmd uno >> |%s|", cmd);
 	i = skip_blank(cmd);
 	while (cmd[i])
 	{
@@ -170,10 +147,10 @@ int		find_lenght_file(char *cmd)
 			if (cmd[i])
 				i++;
 		}
-		else if (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '<' || cmd[i] == '>')
+		else if (cmd[i] == ' ' || cmd[i] == '\t'
+			|| cmd[i] == '<' || cmd[i] == '>')
 		{
-			//printf("\ncmd deuxio >> |%s|", cmd);
-			return(size);
+			return (size);
 		}
 		else
 		{
@@ -184,7 +161,7 @@ int		find_lenght_file(char *cmd)
 	return (i);
 }
 
-void get_size_redir(t_cmd_lst *cmds, char *cmd)
+void	get_size_redir(t_cmd_lst *cmds, char *cmd)
 {
 	int	i;
 
@@ -192,7 +169,6 @@ void get_size_redir(t_cmd_lst *cmds, char *cmd)
 	cmds->type_last_rdr_in = 0;
 	cmds->type_last_rdr_out = 0;
 	i = 0;
-	//printf("\ncmd YOLGDFGLD >> |%s|", cmd);
 	while (cmd[i])
 	{
 		if (cmd[i] == '<' && cmd[i + 1] == '<')

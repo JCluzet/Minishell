@@ -6,10 +6,9 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:20:37 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 01:27:29 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/minishell.h"
 
@@ -80,10 +79,12 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata)
 	return (abs_cmd);
 }
 
-void (*builtins[7])(t_sdata *) = {display_env, shell_export, shell_unset, pwd,
-	echo , shell_cd, shell_exit};
+// void	(*builtins[7])(t_sdata *) = {display_env,
+// shell_export, shell_unset, pwd,
+// echo, shell_cd, shell_exit};
 
-static const char *g_builtins_mask[7] = {"env", "export", "unset", "pwd", "echo", "cd", "exit"};
+static const char	*g_builtins_mask[7] = {"env", "export",
+	"unset", "pwd", "echo", "cd", "exit"};
 
 int	is_builtin(char *cmd)
 {
@@ -94,7 +95,8 @@ int	is_builtin(char *cmd)
 		return (-1);
 	while (i < 7)
 	{
-		if (!ft_strncmp(g_builtins_mask[i], cmd, len(g_builtins_mask[i])) && len(cmd) == len(g_builtins_mask[i]))
+		if (!ft_strncmp(g_builtins_mask[i], cmd, len(g_builtins_mask[i]))
+			&& len(cmd) == len(g_builtins_mask[i]))
 			return (i);
 		++i;
 	}

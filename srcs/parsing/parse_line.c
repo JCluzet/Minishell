@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:22:49 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 01:29:31 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,14 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 	int			i;
 
 	i = 0;
-	//printf("\ncmd -1>>|%s|\n", line);
 	cmd = init_linkedlist();
 	firstcmd = cmd;
-	mul_cmd = split_the_pipe(line, '|');
+	mul_cmd = split_the_pipe(line);
 	while (i < sdata->nb_of_cmds)
 	{
 		if (i != 0)
 			cmd = insertion_linklist(cmd);
 		fill_cmds(sdata, cmd, mul_cmd[i]);
-		//printf("\ncmd 0>>|%s|\n", mul_cmd[i]);
 		if (cmd->builtin_idx == -1 && cmd->argv[0])
 			cmd->cmd_path = is_cmd_executable(cmd->cmd, sdata);
 		i++;
@@ -54,7 +52,7 @@ int	check_forbidden(char *str)
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int	pipe_check(char *str)
@@ -85,7 +83,7 @@ int	pipe_check(char *str)
 	return (blank);
 }
 
-int		quotes_check(char *str)
+int	quotes_check(char *str)
 {
 	t_quote	qt;
 	int		i;
@@ -122,7 +120,7 @@ int	checkquotes(char c, t_quote *qt)
 	}
 	if (c == '\'')
 	{
-		if (qt->double_q % 2 == 0)	
+		if (qt->double_q % 2 == 0)
 			qt->simple_q++;
 		else
 			qt->simple_q_indouble++;

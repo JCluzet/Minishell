@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:30:45 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 01:13:59 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ char 	*replace_dollars(char *str, t_sdata *sdata);
 char	*is_cmd_executable(char *cmd, t_sdata *sdata);
 //	fill_cmds.c
 void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
-char		**split_the_pipe(char const *s, char c);
+char		**split_the_pipe(char const *s);
 char	**split_arg(char *s);
 //static int	count_words_space(const char *str, char c);
 t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
@@ -223,6 +223,8 @@ int	is_in_set(char c, char const *set);
 char 	*str_x(char *str);
 int		len_x(char const *str, char c);
 int empty_str(char *str);
+int		skip_quotes_arg(char *cmd, int i);
+char 	**skip_quotes_split(const char *s, int i, char **split);
 int	len(const char *str);
 //	ft_atoi.c
 int	ft_atoi(const char *str);
