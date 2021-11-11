@@ -12,7 +12,7 @@ NAME        := minishell
 BIMLX       := OFF
 CC          := clang
 RM		    := rm -f
-CFLAGS      := -Wall -Wextra -Werror -lreadline
+CFLAGS      := -Wall -Werror -Wextra -lreadline -g3
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -20,7 +20,7 @@ CFLAGS      := -Wall -Wextra -Werror -lreadline
 
 SRCS_DIR    := ./
 SUB_DIR     := ./
-INCS        := -I  includes
+INCS        := -I  includes -Wall -Werror -Wextra
 OBJ_DIR 	:=	$(BUILD_DIR)/obj
 DIRS		:=	$(OBJ_DIR) $(addprefix $(OBJ_DIR)/, $(SUB_DIR))
 OBJS 	    :=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -30,7 +30,6 @@ SRCS        :=      srcs/environement/env_parsing.c \
 					srcs/memory/allocate_sdata.c \
 					srcs/memory/free_arr.c \
 					srcs/memory/dealocate_sdata.c \
-					srcs/utils/remove_str_from_arr.c \
 					srcs/utils/str_utils.c \
 					srcs/utils/str_manip.c \
 					srcs/utils/str_quote.c \
@@ -53,9 +52,7 @@ SRCS        :=      srcs/environement/env_parsing.c \
 					srcs/builtins/cd.c \
 					srcs/builtins/echo.c \
 					srcs/execution/dispatcher.c \
-					srcs/execution/redirection_dispatcher.c \
 					srcs/execution/execution_redirection.c \
-					srcs/execution/execution.c \
 					srcs/execution/fd_stack_manage.c \
 					srcs/errors/return_functions.c \
 					srcs/parsing/stockredir.c \
@@ -69,6 +66,9 @@ SRCS        :=      srcs/environement/env_parsing.c \
 					srcs/main/shell_loop.c \
 					srcs/main/minishell.c \
 					srcs/signal/manage_signal.c \
+					srcs/execution/redirection_dispatcher.c \
+					srcs/utils/remove_str_from_arr.c \
+					srcs/execution/execution.c \
 					
 
 ################################################################################

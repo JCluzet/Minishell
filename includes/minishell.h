@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:47:46 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 16:41:50 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
-# define SHOW_PARSE 0
+# define SHOW_PARSE 1
 
 typedef struct s_quote
 {
@@ -35,6 +35,12 @@ typedef struct s_quote
 	int			double_q;
 	int			double_q_insimple;
 }				t_quote;
+
+typedef struct s_skquo
+{
+	int			i;
+	int			size;
+}				t_skquo;
 
 typedef struct s_redir
 {
@@ -109,6 +115,7 @@ int			get_idx_var_in_env(char **env, char *var);
 char		*get_env_var_from_name(t_env_lst *list, char *name);
 char		*get_var_in_env(char **env, char *var);
 char		*get_env_var_name_from_arg(char *arg);
+t_skquo		skip_qu_file(t_skquo skqu, char *cmd, char *file);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/memory/allocate_sdata.c                     */
@@ -157,7 +164,7 @@ char		*ft_substr_free(char *s, unsigned int start,
 int			duoquote(char *cmd, int v);
 int			is_insquote(char *cmd, int v);
 int			skip_quotes_arg(char *cmd, int i);
-char		**skip_quotes_split(const char *s, int i, char **split);
+char		**skip_quotes_split(const char *s, int i, char **split, int j);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/list_utils.c                       */
@@ -404,14 +411,13 @@ int			main(int ac, char **argv, char **env);
 void		handler(int signum);
 void		assign_signals_handler(void);
 
-
 int			dispatch_redir_types(t_cmd_lst *cmds);
-int		open_infile(t_cmd_lst *cmds, char *path, int out);
+int			open_infile(t_cmd_lst *cmds, char *path, int out);
 int			open_outfile(char *path, int in);
-int		manage_heredoc(char *limit, int l_fd_in, int save_stdin);
-int	priority_redir_out(t_cmd_lst *cmds);
-int	priority_redir_in(t_cmd_lst *cmds);
-char	**remove_str_from_arr(char **arr, char *str);
-void	child_handler(int signum);
-int	execute_builtins(t_sdata *sdata, int *fd, int save_stdout);
+int			manage_heredoc(char *limit, int l_fd_in, int save_stdin);
+int			priority_redir_out(t_cmd_lst *cmds);
+int			priority_redir_in(t_cmd_lst *cmds);
+char		**remove_str_from_arr(char **arr, char *str);
+void		child_handler(int signum);
+int			execute_builtins(t_sdata *sdata, int *fd, int save_stdout);
 #endif

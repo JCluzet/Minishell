@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:03:57 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/10 22:48:46 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 16:42:53 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,64 +22,60 @@ int	len_x(char const *str, char c)
 	return (i);
 }
 
-char*	get_file_redir(char *cmd, char *file)
+char	*get_file_redir(char *cmd, char *file)
 {
-	int i;
-	int size;
+	t_skquo	skqu;
+	int		j;
 
-	size = 0;
-	i = 0;
-	//printf("\ncmdf >>|%s|\n", cmd);
-	i = skip_blank(cmd);
-	// while ((duoquote(cmd, i+size) || (cmd[i+size] != ' ' && cmd[i+size] != '\t' && cmd[i+size] != '<' && cmd[i+size] != '>')) && cmd[i+size])
-	// {
-	// 	file[size] = cmd[size + i];
-	// 	size++;
-	// }
-	while (cmd[i])
+	skqu.size = 0;
+	skqu.i = 0;
+	skqu.i = skip_blank(cmd);
+	while (cmd[skqu.i])
 	{
-		if (cmd[i] == '\"')
+		j = skqu.i;
+		skqu = skip_qu_file(skqu, cmd, file);
+		if ((cmd[skqu.i] == ' ' || cmd[skqu.i] == '\t'
+				|| cmd[skqu.i] == '<' || cmd[skqu.i] == '>') && skqu.i == j)
 		{
-			i++;
-			while (cmd[i] != '\"' && cmd[i])
-			{
-				file[size] = cmd[i];
-				size++;
-				i++;
-			}
-			if (cmd[i])
-				i++;
+			file[skqu.size] = '\0';
+			return (file);
 		}
-		else if (cmd[i] == '\'')
-		{
-			i++;
-			while (cmd[i] != '\'' && cmd[i])
-			{
-				file[size] = cmd[i];
-				size++;
-				i++;
-			}
-			if (cmd[i])
-				i++;
-		}
-		else if (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '<' || cmd[i] == '>')
-		{
-			//printf("\ncmd deuxio >> |%s|", cmd);
-			file[size] = '\0';
-			return(file);
-		}
-		else
-		{
-			file[size] = cmd[i];
-			size++;
-			i++;
-		}
+		else if (j == skqu.i)
+			file[skqu.size++] = cmd[skqu.i++];
 	}
-	file[size] = '\0';
-	//printf("\nfile >>|%s|\n", file);
-	if (size == 0)
+	file[skqu.size] = '\0';
+	if (skqu.size == 0)
 		file = NULL;
 	return (file);
+}
+
+t_skquo	skip_qu_file(t_skquo skqu, char *cmd, char *file)
+{
+	if (cmd[skqu.i] == '\"')
+	{
+		skqu.i++;
+		while (cmd[skqu.i] != '\"' && cmd[skqu.i])
+		{
+			file[skqu.size] = cmd[skqu.i];
+			skqu.size++;
+			skqu.i++;
+		}
+		if (cmd[skqu.i])
+			skqu.i++;
+	}
+	else if (cmd[skqu.i] == '\'')
+	{
+		skqu.i++;
+		while (cmd[skqu.i] != '\'' && cmd[skqu.i])
+		{
+			file[skqu.size] = cmd[skqu.i];
+			skqu.size++;
+			skqu.i++;
+		}
+		if (cmd[skqu.i])
+			skqu.i++;
+	}
+	return (skqu);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -104,20 +100,4 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	str[j] = 0;
 	return (str);
-}
-
-void	putstr_err(char *str)
-{
-	if (!str)
-		return ;
-	write(2, str, len(str));
-}
-
-int	is_maj(char c)
-{
-	if ((c > 64) && (c < 91))
-		return (1);
-	if ((c > 96) && (c < 123))
-		return (1);
-	return (0);
 }

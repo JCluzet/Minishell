@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:48:53 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 04:06:15 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 16:13:47 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,29 @@ int	duoquote(char *cmd, int v)
 	return (0);
 }
 
+int	skip_i_qu(char *cmd, int i, int v)
+{
+	if (cmd[i] == '\"')
+	{
+		i++;
+		while (cmd[i++] != '\"')
+			if (i == v)
+				return (-1);
+		if (i == v)
+			return (-1);
+	}
+	if (cmd[i] == '\'')
+	{
+		i++;
+		while (cmd[i++] != '\'')
+			if (i == v)
+				return (-2);
+		if (i == v)
+			return (-2);
+	}
+	return (i);
+}
+
 int	is_insquote(char *cmd, int v)
 {
 	int	i;
@@ -48,30 +71,11 @@ int	is_insquote(char *cmd, int v)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '\"')
-		{
-			i++;
-			while (cmd[i] != '\"')
-			{
-				if (i == v)
-					return (1);
-				i++;
-			}
-			if (i == v)
-				return (1);
-		}
-		if (cmd[i] == '\'')
-		{
-			i++;
-			while (cmd[i] != '\'')
-			{
-				if (i == v)
-					return (0);
-				i++;
-			}
-			if (i == v)
-				return (0);
-		}
+		i = skip_i_qu(cmd, i, v);
+		if (i == -1)
+			return (1);
+		if (i == -2)
+			return (0);
 		i++;
 	}
 	return (1);
@@ -98,13 +102,11 @@ int	skip_quotes_arg(char *cmd, int i)
 	return (i);
 }
 
-char	**skip_quotes_split(const char *s, int i, char **split)
+char	**skip_quotes_split(const char *s, int i, char **split, int j)
 {
 	int		qt[2];
 	int		index;
-	int		j;
 
-	j = 0;
 	index = -1;
 	qt[0] = 0;
 	qt[1] = 0;

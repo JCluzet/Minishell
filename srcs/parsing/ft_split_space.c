@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_space.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:16:03 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 15:46:13 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 16:13:13 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,17 @@ static int	count_words_space(const char *str, char c)
 char	**split_the_pipe(char const *s)
 {
 	size_t	i;
+	int j;
 	char	**split;
 
+	j = 0;
 	if (!s)
 		return (0);
 	split = malloc((count_words_space(s, '|') + 1) * sizeof(char *));
 	if (!split)
 		return (0);
 	i = 0;
-	return (skip_quotes_split(s, i, split));
+	return (skip_quotes_split(s, i, split, j));
 }
 
 int	nb_of_args(char *cmd)
