@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:03:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 16:42:45 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 16:57:03 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,22 @@ void	putstr_err(char *str)
 	if (!str)
 		return ;
 	write(2, str, len(str));
+}
+
+char	*put_int_str(int nb_len, char *cmd, int count, int lrval)
+{
+	if (nb_len == 3)
+	{
+		cmd[count] = (lrval / 100) + 48;
+		cmd[count + 1] = ((lrval / 10) % 10) + 48;
+		cmd[count + 2] = (lrval % 10) + 48;
+	}
+	if (nb_len == 2)
+	{
+		cmd[count] = (lrval / 10) + 48;
+		cmd[count + 1] = (lrval % 10) + 48;
+	}
+	if (nb_len == 1)
+		cmd[count] = lrval + 48;
+	return (cmd);
 }

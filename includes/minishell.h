@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 16:41:50 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 16:59:36 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,24 @@
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
 # define SHOW_PARSE 1
+
+typedef struct s_path
+{
+	int i;
+	int count;
+	char *tmpvar;
+	char *tmp;
+}				t_path;
+
+typedef struct s_doll
+{
+	int i;
+	int j;
+	int count;
+	char *newcmd;
+	char *tmp;
+	char *tmpvar;
+}				t_doll;
 
 typedef struct s_quote
 {

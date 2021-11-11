@@ -6,140 +6,108 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:05:18 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 02:53:51 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 17:11:38 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*str_find_var(char *str)
+t_path	strl_doll(t_path pa, t_sdata *t_sdata, char *str)
 {
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	while (str[i])
+	pa.i++;
+	pa.tmpvar = str_find_var(str + pa.i);
+	pa.tmp = get_env_var_from_name(t_sdata->env_lst, pa.tmpvar);
+	free(pa.tmpvar);
+	if (pa.tmp == NULL)
+		pa.i += skip_var(str + pa.i);
+	else
 	{
-		if (!is_in_set(str[i], ENV_CHAR_LIST))
-			break ;
-		i++;
+		pa.count += len(pa.tmp);
+		pa.i += skip_var(str + pa.i);
 	}
-	if (i == 0)
-		return (NULL);
-	tmp = malloc(sizeof(char *) * (i + 1));
-	return (ft_strncpy(tmp, str, i));
+	return (pa);
 }
 
 int	strlen_pathcmd(t_sdata *t_sdata, char *str)
 {
-	int		i;
-	int		count;
-	char	*tmpvar;
-	char	*tmp;
+	t_path	pa;
 
-	i = 0;
-	count = 0;
-	while (str[i])
+	pa.i = 0;
+	pa.count = 0;
+	while (str[pa.i])
 	{
-		if (str[i] == '$' && (str[i + 1] == '?') && is_insquote(str, i))
+		if (str[pa.i] == '$' && (str[pa.i + 1] == '?')
+			&& is_insquote(str, pa.i))
 		{
-			i += 2;
-			count += int_len(t_sdata->lrval);
+			pa.i += 2;
+			pa.count += int_len(t_sdata->lrval);
 		}
-		else if (str[i] == '$' && is_in_set(str[i + 1],
-				ENV_CHAR_LIST) && is_insquote(str, i))
+		else if (str[pa.i] == '$' && is_in_set(str[pa.i + 1],
+				ENV_CHAR_LIST) && is_insquote(str, pa.i))
+			pa = strl_doll(pa, t_sdata, str);
+		else if (str[pa.i])
 		{
-			i++;
-			tmpvar = str_find_var(str + i);
-			tmp = get_env_var_from_name(t_sdata->env_lst, tmpvar);
-			free(tmpvar);
-			if (tmp == NULL)
-				i += skip_var(str + i);
-			else
-			{
-				count += len(tmp);
-				i += skip_var(str + i);
-			}
-		}
-		else if (str[i])
-		{
-			i++;
-			count++;
+			pa.i++;
+			pa.count++;
 		}
 	}
-	return (count);
+	return (pa.count);
 }
 
-char	*put_int_str(int nb_len, char *cmd, int count, int lrval)
+t_doll	replace_var_doll(t_sdata *sdata, char *old_cmd, t_doll dol)
 {
-	printf("\n\nnb_len > %d\nlrval > %d\ncount > %d\n", nb_len, lrval, count);
-	if (nb_len == 3)
+	dol.i++;
+	dol.tmpvar = str_find_var(old_cmd + dol.i);
+	dol.tmp = get_env_var_from_name(sdata->env_lst, dol.tmpvar);
+	free(dol.tmpvar);
+	if (dol.tmp == NULL)
+		dol.i += skip_var(old_cmd + dol.i);
+	else
 	{
-		cmd[count] = (lrval / 100) + 48;
-		cmd[count + 1] = ((lrval / 10) % 10) + 48;
-		cmd[count + 2] = (lrval % 10) + 48;
+		while (dol.tmp[dol.j])
+		{
+			dol.newcmd[dol.count] = dol.tmp[dol.j];
+			dol.j++;
+			dol.count++;
+		}
+		dol.i += skip_var(old_cmd + dol.i);
+		dol.j = 0;
 	}
-	if (nb_len == 2)
-	{
-		cmd[count] = (lrval / 10) + 48;
-		cmd[count + 1] = (lrval % 10) + 48;
-	}
-	if (nb_len == 1)
-		cmd[count] = lrval + 48;
-	return (cmd);
+	return (dol);
+}
+
+t_doll	replace_var_mark(t_sdata *sdata, t_doll dol)
+{
+	dol.i += 2;
+	dol.newcmd = put_int_str(int_len(sdata->lrval), dol.newcmd,
+			dol.count, sdata->lrval);
+	dol.count += int_len(sdata->lrval);
+	return (dol);
 }
 
 char	*replace_dollars(char *old_cmd, t_sdata *sdata)
 {
-	int		i;
-	int		j;
-	int		count;
-	char	*newcmd;
-	char	*tmp;
-	char	*tmpvar;
+	t_doll	dol;
 
-	j = 0;
-	i = 0;
-	count = 0;
-	newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
-	while (old_cmd[i])
+	dol.j = 0;
+	dol.i = 0;
+	dol.count = 0;
+	dol.newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
+	while (old_cmd[dol.i])
 	{
-		if (old_cmd[i] == '$' && (old_cmd[i + 1] == '?')
-			&& is_insquote(old_cmd, i))
+		if (old_cmd[dol.i] == '$' && (old_cmd[dol.i + 1] == '?')
+			&& is_insquote(old_cmd, dol.i))
+			dol = replace_var_mark(sdata, dol);
+		else if (old_cmd[dol.i] == '$' && is_in_set(old_cmd[dol.i + 1],
+				ENV_CHAR_LIST) && is_insquote(old_cmd, dol.i))
+			dol = replace_var_doll(sdata, old_cmd, dol);
+		else if (old_cmd[dol.i])
 		{
-			i += 2;
-			newcmd = put_int_str(int_len(sdata->lrval), newcmd,
-					count, sdata->lrval);
-			count += int_len(sdata->lrval);
-		}
-		else if (old_cmd[i] == '$' && is_in_set(old_cmd[i + 1],
-				ENV_CHAR_LIST) && is_insquote(old_cmd, i))
-		{
-			i++;
-			tmpvar = str_find_var(old_cmd + i);
-			tmp = get_env_var_from_name(sdata->env_lst, tmpvar);
-			free(tmpvar);
-			if (tmp == NULL)
-				i += skip_var(old_cmd + i);
-			else
-			{
-				while (tmp[j])
-				{
-					newcmd[count] = tmp[j];
-					j++;
-					count++;
-				}
-				i += skip_var(old_cmd + i);
-				j = 0;
-			}
-		}
-		else if (old_cmd[i])
-		{
-			newcmd[count] = old_cmd[i];
-			i++;
-			count++;
+			dol.newcmd[dol.count] = old_cmd[dol.i];
+			dol.i++;
+			dol.count++;
 		}
 	}
-	newcmd[count] = '\0';
-	return (newcmd);
+	dol.newcmd[dol.count] = '\0';
+	return (dol.newcmd);
 }

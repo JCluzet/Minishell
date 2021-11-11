@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_str_from_arr.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:22:43 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:23:06 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 17:11:49 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,22 @@ char	**remove_str_from_arr(char **arr, char *str)
 	free(arr);
 	free(name);
 	return (n_arr);
+}
+
+char	*str_find_var(char *str)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!is_in_set(str[i], ENV_CHAR_LIST))
+			break ;
+		i++;
+	}
+	if (i == 0)
+		return (NULL);
+	tmp = malloc(sizeof(char *) * (i + 1));
+	return (ft_strncpy(tmp, str, i));
 }
