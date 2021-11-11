@@ -23,8 +23,10 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 
-# define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
-# define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
+# define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrst\
+uvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
+# define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyz\
+ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
 # define SHOW_PARSE 1
 

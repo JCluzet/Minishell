@@ -98,11 +98,15 @@ char	**split_arg(char *s)
 	size = 0;
 	size = nb_of_args(s);
 	split = malloc(sizeof(char *) * (size + 1));
+	if (!split)
+		return (NULL);
 	v = 0;
 	while (i < size)
 	{
 		v = find_lenght_file(s + j);
 		split[i] = malloc(sizeof(char *) * (v + 1));
+		if (!split)
+			return (NULL);
 		split[i] = get_file_redir(s + j, split[i]);
 		j += find_lenghtwq(s + j);
 		i++;

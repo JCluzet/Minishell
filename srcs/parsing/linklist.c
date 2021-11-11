@@ -17,6 +17,8 @@ t_cmd_lst	*init_linkedlist(void)
 	t_cmd_lst	*cmds;
 
 	cmds = malloc(sizeof(t_cmd_lst));
+	if (!cmds)
+		return (NULL);
 	cmds->rdr = NULL;
 	cmds->first_rdr = NULL;
 	cmds->last_rdr = NULL;
@@ -42,6 +44,8 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 	t_cmd_lst	*new;
 
 	new = malloc(sizeof(t_cmd_lst));
+	if (!new)
+		return (NULL);
 	new->cmd = NULL;
 	new->argv = NULL;
 	new->first_rdr = NULL;

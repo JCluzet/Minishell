@@ -31,6 +31,8 @@ char	*rmv_rdr_from_cmd(char *cmd)
 
 	count = 0;
 	newcmd = malloc(sizeof(char *) * (strlen_cmd_without_rdr(cmd) + 1));
+	if (!newcmd)
+		return (NULL);
 	newcmd = find_andsupp_rdr(cmd, newcmd, count);
 	free(cmd);
 	return (newcmd);

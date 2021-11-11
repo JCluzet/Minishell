@@ -93,6 +93,8 @@ char	*replace_dollars(char *old_cmd, t_sdata *sdata)
 	dol.i = 0;
 	dol.count = 0;
 	dol.newcmd = malloc(sizeof(char) * (strlen_pathcmd(sdata, old_cmd) + 1));
+	if (!dol.newcmd)
+		return (NULL);
 	while (old_cmd[dol.i])
 	{
 		if (old_cmd[dol.i] == '$' && (old_cmd[dol.i + 1] == '?')

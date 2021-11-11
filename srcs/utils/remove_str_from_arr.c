@@ -68,5 +68,7 @@ char	*str_find_var(char *str)
 	if (i == 0)
 		return (NULL);
 	tmp = malloc(sizeof(char *) * (i + 1));
+	if (!tmp)
+		return (NULL);
 	return (ft_strncpy(tmp, str, i));
 }

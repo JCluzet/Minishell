@@ -30,9 +30,13 @@ char	**malloc_redir_next(t_cmd_lst *cmds, char *cmd, int size, int type)
 
 	i = 0;
 	tab = malloc(sizeof(char *) * (size + 1));
+	if (!tab)
+		return (NULL);
 	while (i < size)
 	{
 		tab[i] = malloc(sizeof(char) * (find_size_rdr(cmd, i + 1, type) + 1));
+		if (!tab)
+			return (NULL);
 		tab[i] = fill_file_rdr(cmd, i + 1, type, tab[i]);
 		cmds->rdr_nb++;
 		if (type == 1)
@@ -65,6 +69,8 @@ t_redir	*initrdr2(void)
 	t_redir	*rdr;
 
 	rdr = malloc(sizeof(t_redir));
+	if (!rdr)
+		return (NULL);
 	rdr->nb_redir_in = 0;
 	rdr->nb_redir_out = 0;
 	rdr->nb_redir_app = 0;
