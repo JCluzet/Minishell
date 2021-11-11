@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 17:05:27 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 17:44:38 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,26 @@ int	check_line(char *line)
 	return (pipe_check(line));
 }
 
+char	rdr_check(char *cmd, int i)
+{
+	if ((cmd[i] == '>' && cmd[i + 1] == '>')
+		|| (cmd[i] == '<' && cmd[i + 1] == '<'))
+	{
+		if (!cmd[skip_blank(cmd + i + 2) + i + 2]
+			|| cmd[skip_blank(cmd + i + 2) + i + 2] == '>'
+			|| cmd[skip_blank(cmd + i + 2) + i + 2] == '<' )
+			return (cmd[i]);
+	}
+	else if ((cmd[i] == '>' || cmd[i] == '<')
+		&& (cmd[skip_blank(cmd + i + 1) + i + 1] == '|'
+			|| cmd[skip_blank(cmd + i + 1) + i + 1] == '<'
+			|| cmd[i + 1] == '<' || cmd[i + 1] == '>'
+			|| cmd[skip_blank(cmd + i + 1) + i + 1] == '>'
+			|| !cmd[skip_blank(cmd + i + 1) + i + 1]))
+		return (cmd[i]);
+	return (0);
+}
+
 int	redir_check(char *cmd)
 {
 	int	i;
@@ -61,23 +81,7 @@ int	redir_check(char *cmd)
 	while (cmd[i])
 	{
 		i = find_quotes(cmd, i, cmd[i]);
-		if ((cmd[i] == '>' && cmd[i + 1] == '>')
-			|| (cmd[i] == '<' && cmd[i + 1] == '<'))
-		{
-			if (!cmd[skip_blank(cmd + i + 2) + i + 2]
-				|| cmd[skip_blank(cmd + i + 2) + i + 2] == '>'
-				|| cmd[skip_blank(cmd + i + 2) + i + 2] == '<' )
-			{
-				printf("ppminishell: parse error near '%c'\n", cmd[i]);
-				return (-1);
-			}
-		}
-		else if ((cmd[i] == '>' || cmd[i] == '<')
-			&& (cmd[skip_blank(cmd + i + 1) + i + 1] == '|'
-				|| cmd[skip_blank(cmd + i + 1) + i + 1] == '<'
-				|| cmd[i + 1] == '<' || cmd[i + 1] == '>'
-				|| cmd[skip_blank(cmd + i + 1) + i + 1] == '>'
-				|| !cmd[skip_blank(cmd + i + 1) + i + 1]))
+		if (rdr_check(cmd, i) != 0)
 		{
 			printf("minishell: parse error near '%c'\n", cmd[i]);
 			return (-1);

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 01:56:38 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 17:39:23 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,86 +115,53 @@ int	find_lenghtwq(char *cmd)
 	return (i);
 }
 
-int	find_lenght_file(char *cmd)
+t_len_file	skip_qu_len(char *cmd, t_len_file fi)
 {
-	int	i;
-	int	size;
-
-	size = 0;
-	i = 0;
-	i = skip_blank(cmd);
-	while (cmd[i])
+	if (cmd[fi.i] == '\"')
 	{
-		if (cmd[i] == '\"')
+		fi.i++;
+		while (cmd[fi.i] != '\"' && cmd[fi.i])
 		{
-			i++;
-			while (cmd[i] != '\"' && cmd[i])
-			{
-				size++;
-				i++;
-			}
-			if (cmd[i])
-				i++;
+			fi.size++;
+			fi.i++;
 		}
-		else if (cmd[i] == '\'')
-		{
-			i++;
-			while (cmd[i] != '\'' && cmd[i])
-			{
-				size++;
-				i++;
-			}
-			if (cmd[i])
-				i++;
-		}
-		else if (cmd[i] == ' ' || cmd[i] == '\t'
-			|| cmd[i] == '<' || cmd[i] == '>')
-		{
-			return (size);
-		}
-		else
-		{
-			size++;
-			i++;
-		}
+		if (cmd[fi.i])
+			fi.i++;
 	}
-	return (i);
+	else if (cmd[fi.i] == '\'')
+	{
+		fi.i++;
+		while (cmd[fi.i] != '\'' && cmd[fi.i])
+		{
+			fi.size++;
+			fi.i++;
+		}
+		if (cmd[fi.i])
+			fi.i++;
+	}
+	return (fi);
 }
 
-void	get_size_redir(t_cmd_lst *cmds, char *cmd)
+int	find_lenght_file(char *cmd)
 {
-	int	i;
+	t_len_file	fi;
+	int			j;
 
-	cmds->rdr = initrdr2();
-	cmds->type_last_rdr_in = 0;
-	cmds->type_last_rdr_out = 0;
-	i = 0;
-	while (cmd[i])
+	fi.size = 0;
+	fi.i = 0;
+	fi.i = skip_blank(cmd);
+	while (cmd[fi.i])
 	{
-		if (cmd[i] == '<' && cmd[i + 1] == '<')
+		j = fi.i;
+		fi = skip_qu_len(cmd, fi);
+		if ((cmd[fi.i] == ' ' || cmd[fi.i] == '\t'
+				|| cmd[fi.i] == '<' || cmd[fi.i] == '>') && fi.i == j)
+			return (fi.size);
+		else if (fi.i == j)
 		{
-			cmds->type_last_rdr_in = 2;
-			cmds->rdr->nb_redir_hdoc++;
-			i++;
+			fi.size++;
+			fi.i++;
 		}
-		else if (cmd[i] == '>' && cmd[i + 1] == '>')
-		{
-			cmds->type_last_rdr_out = 2;
-			cmds->rdr->nb_redir_app++;
-			i++;
-		}
-		else if (cmd[i] == '<')
-		{
-			cmds->rdr->nb_redir_out++;
-			cmds->type_last_rdr_in = 1;
-		}
-		else if (cmd[i] == '>')
-		{
-			cmds->rdr->nb_redir_in++;
-			cmds->type_last_rdr_out = 1;
-		}
-		else
-			i = find_quotes(cmd, i, cmd[i]);
-		i++;
 	}
+	return (fi.i);
 }

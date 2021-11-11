@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 02:34:27 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 17:27:16 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ int	strlen_cmd_without_rdr(char *cmd)
 				i++;
 		}
 		else
-		{
 			count++;
-		}
 		if (cmd[i])
 			i++;
 	}

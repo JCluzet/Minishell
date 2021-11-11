@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:16:03 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 16:13:13 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 17:14:05 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	count_words_space(const char *str, char c)
 char	**split_the_pipe(char const *s)
 {
 	size_t	i;
-	int j;
+	int		j;
 	char	**split;
 
 	j = 0;
