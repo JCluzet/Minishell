@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amine <amine@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:39:17 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 03:01:57 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 21:34:16 by amine            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	shell_exit(t_sdata *sdata)
 		printf("exit\n");
 		exit(sdata->lrval);
 	}
-	if (!is_number(sdata->cmds->argv[1], 0))
+	if (is_number(sdata->cmds->argv[1], 0) != len(sdata->cmds->argv[1]))
 	{
 		printf("exit\nbash: exit: %s: numeric argument required\n",
 			sdata->cmds->argv[0]);
 		exit(255);
 	}
-	if (is_number(sdata->cmds->argv[1], 0))
+	if (is_number(sdata->cmds->argv[1], 0) == len(sdata->cmds->argv[1]))
 	{
 		if (tablen(sdata->cmds->argv) == 2)
 			exit(ft_atoi(sdata->cmds->argv[1]));
