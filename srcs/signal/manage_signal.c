@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:55:18 by amine             #+#    #+#             */
-/*   Updated: 2021/11/10 22:11:50 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 15:35:09 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,16 @@ void	handler(int signum)
 {
 	(void)signum;
 	printf("\n");
-//	rl_replace_line("", 0); 
+	rl_replace_line("", 0); 
 	rl_on_new_line();
 	rl_redisplay();
+}
+
+void	child_handler(int signum)
+{
+	(void)signum;
+	putstr_err("Quit (core dumped)\n");
+	exit(131);
 }
 
 void	assign_signals_handler(void)
