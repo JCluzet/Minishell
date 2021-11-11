@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 18:29:49 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 22:48:49 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,15 @@ uvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyz\
 ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
-# define SHOW_PARSE 1
+# define SHOW_PARSE 0
+
+typedef struct s_split_arg
+{
+	int		size;
+	int		i;
+	int		v;
+	int		j;
+}				t_split_arg;
 
 typedef struct s_len_file
 {
@@ -70,20 +78,20 @@ typedef struct s_skquo
 
 typedef struct s_redir
 {
-	int			nb_redir_in;
-	int			nb_redir_out;
+	int			nri;
+	int			nro;
 	int			nb_redir_app;
 	int			nb_redir_hdoc;
 }				t_redir;
 
-typedef struct	s_fin 
+typedef struct s_fin
 {
 	char	*cmd;
-	int	nb;
-	int	type;
+	int		nb;
+	int		type;
 	char	*file;
-	int	i;
-	int	n;
+	int		i;
+	int		n;
 	t_redir	rdr;
 }				t_fin;
 

@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 17:25:28 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 17:33:54 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 22:42:39 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	get_size_rdr2(t_cmd_lst *cmds, char *cmd, int i)
 	}
 	else if (cmd[i] == '<')
 	{
-		cmds->rdr->nb_redir_out++;
+		cmds->rdr->nro++;
 		cmds->type_last_rdr_in = 1;
 	}
 	return (i);
@@ -49,11 +49,32 @@ void	get_size_redir(t_cmd_lst *cmds, char *cmd)
 		i = get_size_rdr2(cmds, cmd, i);
 		if (cmd[i] == '>' && j == i)
 		{
-			cmds->rdr->nb_redir_in++;
+			cmds->rdr->nri++;
 			cmds->type_last_rdr_out = 1;
 		}
 		else if (j == i)
 			i = find_quotes(cmd, i, cmd[i]);
 		i++;
 	}
+}
+
+int	find_lenghtwq(char *cmd)
+{
+	int	i;
+	int	size;
+	int	temp;
+
+	size = 0;
+	i = skip_blank(cmd);
+	while (cmd[i])
+	{
+		temp = i;
+		i = skip_quotes_arg(cmd, i);
+		if (temp == i && (cmd[i] == ' ' || cmd[i] == '\t'
+				|| cmd[i] == '<' || cmd[i] == '>'))
+			return (i);
+		else if (temp == i)
+			i++;
+	}
+	return (i);
 }

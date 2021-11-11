@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:06:32 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 17:27:16 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 22:41:49 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	malloc_and_stock_redir(t_cmd_lst *c, char *cmd)
 {
 	c->last_rdr = initrdr2();
 	get_size_redir(c, cmd);
-	c->redir_ins = malloc_redir_next(c, cmd, c->rdr->nb_redir_in, 1);
-	c->redir_outs = malloc_redir_next(c, cmd, c->rdr->nb_redir_out, 2);
+	c->redir_ins = malloc_redir_next(c, cmd, c->rdr->nri, 1);
+	c->redir_outs = malloc_redir_next(c, cmd, c->rdr->nro, 2);
 	c->reddir_append = malloc_redir_next(c, cmd, c->rdr->nb_redir_app, 3);
 	c->reddir_heredoc = malloc_redir_next(c, cmd, c->rdr->nb_redir_hdoc, 4);
 	return (0);
@@ -38,9 +38,9 @@ char	**malloc_redir_next(t_cmd_lst *cmds, char *cmd, int size, int type)
 		tab[i] = fill_file_rdr(cmd, i + 1, type, tab[i]);
 		cmds->rdr_nb++;
 		if (type == 1)
-			cmds->rdr->nb_redir_in = cmds->rdr_nb;
+			cmds->rdr->nri = cmds->rdr_nb;
 		else if (type == 2)
-			cmds->rdr->nb_redir_out = cmds->rdr_nb;
+			cmds->rdr->nro = cmds->rdr_nb;
 		else if (type == 3)
 			cmds->rdr->nb_redir_app = cmds->rdr_nb;
 		else
@@ -55,8 +55,8 @@ t_redir	initrdr(void)
 {
 	t_redir	rdr;
 
-	rdr.nb_redir_in = 0;
-	rdr.nb_redir_out = 0;
+	rdr.nri = 0;
+	rdr.nro = 0;
 	rdr.nb_redir_app = 0;
 	rdr.nb_redir_hdoc = 0;
 	return (rdr);
@@ -69,8 +69,8 @@ t_redir	*initrdr2(void)
 	rdr = malloc(sizeof(t_redir));
 	if (!rdr)
 		return (NULL);
-	rdr->nb_redir_in = 0;
-	rdr->nb_redir_out = 0;
+	rdr->nri = 0;
+	rdr->nro = 0;
 	rdr->nb_redir_app = 0;
 	rdr->nb_redir_hdoc = 0;
 	return (rdr);

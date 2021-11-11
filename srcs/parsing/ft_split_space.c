@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_space.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:16:03 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 18:27:08 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 22:47:38 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,31 +87,28 @@ int	nb_of_args(char *cmd)
 
 char	**split_arg(char *s)
 {
-	char	**split;
-	int		size;
-	int		i;
-	int		v;
-	int		j;
+	char		**split;
+	t_split_arg	sp;
 
-	j = 0;
-	i = 0;
-	size = 0;
-	size = nb_of_args(s);
-	split = malloc(sizeof(char *) * (size + 1));
+	sp.j = 0;
+	sp.i = 0;
+	sp.size = 0;
+	sp.size = nb_of_args(s);
+	split = malloc(sizeof(char *) * (sp.size + 1));
 	if (!split)
 		return (NULL);
-	v = 0;
-	while (i < size)
+	sp.v = 0;
+	while (sp.i < sp.size)
 	{
-		v = find_lenght_file(s + j);
-		split[i] = malloc(sizeof(char *) * (v + 1));
+		sp.v = find_lenght_file(s + sp.j);
+		split[sp.i] = malloc(sizeof(char *) * (sp.v + 1));
 		if (!split)
 			return (NULL);
-		split[i] = get_file_redir(s + j, split[i]);
-		j += find_lenghtwq(s + j);
-		i++;
+		split[sp.i] = get_file_redir(s + sp.j, split[sp.i]);
+		sp.j += find_lenghtwq(s + sp.j);
+		sp.i++;
 	}
-	split[i] = NULL;
+	split[sp.i] = NULL;
 	free(s);
 	return (split);
 }
