@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:43:16 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 17:05:27 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	redir_check(char *cmd)
 				|| cmd[skip_blank(cmd + i + 2) + i + 2] == '>'
 				|| cmd[skip_blank(cmd + i + 2) + i + 2] == '<' )
 			{
-				printf("minishell: parse error near '%c'\n", cmd[i]);
+				printf("ppminishell: parse error near '%c'\n", cmd[i]);
 				return (-1);
 			}
 		}
@@ -77,7 +77,7 @@ int	redir_check(char *cmd)
 				|| cmd[skip_blank(cmd + i + 1) + i + 1] == '<'
 				|| cmd[i + 1] == '<' || cmd[i + 1] == '>'
 				|| cmd[skip_blank(cmd + i + 1) + i + 1] == '>'
-				|| !cmd[skip_blank(cmd + i + 1) + 1]))
+				|| !cmd[skip_blank(cmd + i + 1) + i + 1]))
 		{
 			printf("minishell: parse error near '%c'\n", cmd[i]);
 			return (-1);
