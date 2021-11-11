@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linklist.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/11 03:02:28 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 18:38:23 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ t_cmd_lst	*init_linkedlist(void)
 	t_cmd_lst	*cmds;
 
 	cmds = malloc(sizeof(t_cmd_lst));
+	cmds->rdr = NULL;
+	cmds->first_rdr = NULL;
+	cmds->last_rdr = NULL;
 	cmds->cmd = NULL;
 	cmds->argv = NULL;
 	cmds->cmd_path = NULL;
@@ -41,6 +44,9 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 	new = malloc(sizeof(t_cmd_lst));
 	new->cmd = NULL;
 	new->argv = NULL;
+	new->first_rdr = NULL;
+	new->last_rdr = NULL;
+	new->rdr = NULL;
 	new->cmd_path = NULL;
 	new->fd_nbr = 0;
 	new->fd_stack = NULL;

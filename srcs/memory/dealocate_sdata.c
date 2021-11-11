@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:58:36 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 18:30:54 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:42:37 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	deallocate_cmd_elem(t_cmd_lst *elem)
 	free(elem->last_rdr);
 	free(elem->first_rdr);
 	clear_fd_stack(elem);
+	free(elem);
 }
 
 void	deallocate_cmd_list(t_cmd_lst *cmds)
