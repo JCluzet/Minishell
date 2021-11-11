@@ -6,13 +6,13 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:36:15 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/09 15:23:09 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 15:08:14 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int			*extend_fd_stack(int *fd_stack, int fd_len, int fd)
+int	*extend_fd_stack(int *fd_stack, int fd_len, int fd)
 {
 	int		i;
 	int		*nfd_stack;
@@ -30,7 +30,7 @@ int			*extend_fd_stack(int *fd_stack, int fd_len, int fd)
 	return (nfd_stack);
 }
 
-void		add_fd_to_stack(t_cmd_lst *cmds, int fd)
+void	add_fd_to_stack(t_cmd_lst *cmds, int fd)
 {
 	if (!cmds->fd_stack)
 	{
@@ -55,7 +55,7 @@ void		add_fd_to_stack(t_cmd_lst *cmds, int fd)
 	}
 }
 
-void		clear_fd_stack(t_cmd_lst *cmds)
+void	clear_fd_stack(t_cmd_lst *cmds)
 {
 	int		i;
 

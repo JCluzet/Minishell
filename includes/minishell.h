@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 03:49:07 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 15:23:22 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,5 +403,14 @@ int			main(int ac, char **argv, char **env);
 /* -------------------------------------------------------------------------- */
 void		handler(int signum);
 void		assign_signals_handler(void);
+
+
+int			dispatch_redir_types(t_cmd_lst *cmds);
+int		open_infile(t_cmd_lst *cmds, char *path, int out);
+int			open_outfile(char *path, int in);
+int		manage_heredoc(char *limit, int l_fd_in, int save_stdin);
+int	priority_redir_out(t_cmd_lst *cmds);
+int	priority_redir_in(t_cmd_lst *cmds);
+char	**remove_str_from_arr(char **arr, char *str);
 
 #endif

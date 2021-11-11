@@ -66,6 +66,7 @@ SRCS        :=      srcs/environement/env_parsing.c \
 					srcs/main/shell_loop.c \
 					srcs/main/minishell.c \
 					srcs/signal/manage_signal.c \
+					srcs/execution/redirection_dispatcher.c \
 					
 
 ################################################################################
