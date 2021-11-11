@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 17:28:43 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 18:29:49 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_split_var
 
 typedef struct s_shell_data
 {
+	t_cmd_lst		*f_cmds;
 	t_cmd_lst		*cmds;
 	char			**env;
 	t_env_lst		*env_lst;

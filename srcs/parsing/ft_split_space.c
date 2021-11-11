@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_space.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 00:16:03 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 17:14:05 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 18:27:08 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char	**split_arg(char *s)
 		i++;
 	}
 	split[i] = NULL;
+	free(s);
 	return (split);
 }
 

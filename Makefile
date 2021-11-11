@@ -69,7 +69,7 @@ SRCS        :=      srcs/environement/env_parsing.c \
 					srcs/main/shell_loop.c \
 					srcs/main/minishell.c \
 					srcs/signal/manage_signal.c \
-					
+					srcs/parsing/find_rdr.c \
 
 ################################################################################
 #                                  Makefile  objs                              #

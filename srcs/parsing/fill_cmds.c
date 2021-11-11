@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 17:58:41 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:57:51 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 18:26:14 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*rmv_rdr_from_cmd(char *cmd)
 	count = 0;
 	newcmd = malloc(sizeof(char *) * (strlen_cmd_without_rdr(cmd) + 1));
 	newcmd = find_andsupp_rdr(cmd, newcmd, count);
+	free(cmd);
 	return (newcmd);
 }
 

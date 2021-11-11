@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 17:44:38 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 18:30:28 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int	shell_loop(t_sdata *sdata)
 		if (line[0] == 0 || empty_str(line) || check_line(line) == -1)
 			continue ;
 		sdata->nb_of_cmds = check_line(line);
-		sdata->cmds = parse_line(sdata, line);
+		sdata->f_cmds = parse_line(sdata, line);
+		sdata->cmds = sdata->f_cmds;
 		if (!sdata->cmds->cmd)
 			continue ;
 		execution_dispatcher(sdata);
-		deallocate_cmd_list(sdata->cmds);
+		deallocate_cmd_list(sdata->f_cmds);
 		sdata->cmds = NULL;
+		sdata->f_cmds = NULL;
 		free(line);
 	}
 	return (sdata->lrval);
