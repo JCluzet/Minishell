@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 15:44:55 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 14:37:50 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 19:14:08 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**single_line_arr(char *line)
 	arr = malloc(sizeof(char *) * 3);
 	if (!arr)
 		return (NULL);
-	arr[0] = line;
+	arr[0] = ft_strdup_free(line, 0);
 	arr[1] = NULL;
 	arr[2] = NULL;
 	return (arr);
