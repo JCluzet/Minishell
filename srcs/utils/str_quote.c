@@ -6,17 +6,17 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:48:53 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 01:13:46 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 04:06:15 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		duoquote(char *cmd, int v)
+int	duoquote(char *cmd, int v)
 {
-	int i;
-	int s;
-	int j;
+	int	i;
+	int	s;
+	int	j;
 
 	j = 0;
 	s = 0;
@@ -32,22 +32,21 @@ int		duoquote(char *cmd, int v)
 			if (s % 2 == 0 && j % 2 == 0)
 				return (0);
 			else
-				return(1);
+				return (1);
 		}
 		i++;
 	}
 	return (0);
 }
 
-int		is_insquote(char *cmd, int v)
+int	is_insquote(char *cmd, int v)
 {
-	int i;
-	int s;
+	int	i;
+	int	s;
 
 	s = 0;
 	i = 0;
-
-	while(cmd[i])
+	while (cmd[i])
 	{
 		if (cmd[i] == '\"')
 		{
@@ -61,7 +60,7 @@ int		is_insquote(char *cmd, int v)
 			if (i == v)
 				return (1);
 		}
-		if(cmd[i] == '\'')
+		if (cmd[i] == '\'')
 		{
 			i++;
 			while (cmd[i] != '\'')
@@ -99,13 +98,13 @@ int	skip_quotes_arg(char *cmd, int i)
 	return (i);
 }
 
-char 	**skip_quotes_split(const char *s, int i, char **split)
+char	**skip_quotes_split(const char *s, int i, char **split)
 {
 	int		qt[2];
 	int		index;
 	int		j;
-	
-	j	= 0;
+
+	j = 0;
 	index = -1;
 	qt[0] = 0;
 	qt[1] = 0;

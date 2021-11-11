@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:26:09 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:29:54 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 04:07:48 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ char	*put_word_in_arr(char *av, int i, int j, int save)
 {
 	char	*str;
 
-	(void)j;		// rajout pour le flag -wall
 	str = malloc(sizeof(char) * (i - save + 1));
 	if (!str)
 		return (NULL);
 	str = ft_strncpy(str, av + save, i - save);
-	return(NULL); // jai add ca 
 }
 
 char	**str_to_word_arr(char *av, char sep)
