@@ -6,11 +6,19 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:01:28 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 18:30:28 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:58:44 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	send_to_exec(t_sdata *sdata)
+{
+	execution_dispatcher(sdata);
+	deallocate_cmd_list(sdata->f_cmds);
+	sdata->cmds = NULL;
+	sdata->f_cmds = NULL;
+}
 
 int	shell_loop(t_sdata *sdata)
 {
@@ -33,10 +41,7 @@ int	shell_loop(t_sdata *sdata)
 		sdata->cmds = sdata->f_cmds;
 		if (!sdata->cmds->cmd)
 			continue ;
-		execution_dispatcher(sdata);
-		deallocate_cmd_list(sdata->f_cmds);
-		sdata->cmds = NULL;
-		sdata->f_cmds = NULL;
+		send_to_exec(sdata);
 		free(line);
 	}
 	return (sdata->lrval);

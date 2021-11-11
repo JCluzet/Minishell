@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:32:54 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:47:17 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 18:59:34 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	execute_binary(t_sdata *sdata, int *fd)
 		sdata->lrval = 1;
 		sdata->cmds = sdata->cmds->next;
 		if (!pid)
-			error_print_free(0, NULL, sdata);
+			exit(1);
 		return (1);
 	}
 	if (!pid)
