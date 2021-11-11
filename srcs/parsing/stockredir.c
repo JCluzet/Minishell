@@ -30,8 +30,6 @@ char	**malloc_redir_next(t_cmd_lst *cmds, char *cmd, int size, int type)
 
 	i = 0;
 	tab = malloc(sizeof(char *) * (size + 1));
-	if (!tab)
-		return (NULL);
 	while (i < size)
 	{
 		tab[i] = malloc(sizeof(char) * (find_size_rdr(cmd, i + 1, type) + 1));
