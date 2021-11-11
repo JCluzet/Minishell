@@ -6,53 +6,60 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 21:51:25 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 17:39:23 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	grate_ligne(t_fin *f)
+{
+	if (f->cmd[f->i] == '<' && f->cmd[f->i + 1] == '<')
+	{
+		f->rdr.nb_redir_hdoc++;
+		if (f->type == 4 && f->rdr.nb_redir_hdoc == f->nb)
+			return (2);
+		f->i++;
+	}
+	else if (f->cmd[f->i] == '>' && f->cmd[f->i + 1] == '>')
+	{
+		f->rdr.nb_redir_app++;
+		if (f->type == 3 && f->rdr.nb_redir_app == f->nb)
+			return (2);
+		f->i++;
+	}
+	else if (f->cmd[f->i] == '<' || f->cmd[f->i] == '>')
+	{
+		if (f->cmd[f->i] == '<')
+			f->rdr.nb_redir_out++;
+		if (f->cmd[f->i] == '<')
+			f->rdr.nb_redir_in++;
+		if ((f->type == 2 && f->rdr.nb_redir_out == f->nb && f->cmd[f->i] == '<')
+		|| (f->type == 1 && f->rdr.nb_redir_in == f->nb && f->cmd[f->i] == '>'))
+			return (1);
+	}
+	return (0);
+}
 
 char	*fill_file_rdr(char *cmd, int nb, int type, char *file)
 {
-	int		i;
-	t_redir	rdr;
-	t_rdrfind	fin;
+	t_fin	f;
+	f.i = 0;
+	f.rdr = initrdr();
+	f.cmd = cmd;
+	f.nb = nb;
+	f.type = type;
+	f.file = file;
 
-	fin.type = type;
-	// fim.nb = nb;
-	i = 0;
-	rdr = initrdr();
-	while (cmd[i])
+	while (f.cmd[f.i])
 	{
-		i = find_quotes(cmd, i, cmd[i]);
-		if (cmd[i] == '<' && cmd[i + 1] == '<')
-		{
-			rdr.nb_redir_hdoc++;
-			if (type == 4 && rdr.nb_redir_hdoc == nb)
-				return (get_file_redir(cmd + i + 2, file));
-			i++;
-		}
-		else if (cmd[i] == '>' && cmd[i + 1] == '>')
-		{
-			rdr.nb_redir_app++;
-			if (type == 3 && rdr.nb_redir_app == nb)
-				return (get_file_redir(cmd + i + 2, file));
-			i++;
-		}
-		else if (cmd[i] == '<')
-		{
-			rdr.nb_redir_out++;
-			if (type == 2 && rdr.nb_redir_out == nb)
-				return (get_file_redir(cmd + i + 1, file));
-		}
-		else if (cmd[i] == '>')
-		{
-			rdr.nb_redir_in++;
-			if (type == 1 && rdr.nb_redir_in == nb)
-				return (get_file_redir(cmd + i + 1, file));
-		}
-		i++;
+		f.i = find_quotes(f.cmd, f.i, f.cmd[f.i]);
+		f.n = grate_ligne(&f);
+		if (f.n == 1)
+			return (get_file_redir(f.cmd + f.i + 1, f.file));
+		if (f.n == 2)
+			return (get_file_redir(f.cmd + f.i + 2, f.file));
+		f.i++;
 	}
 	return (NULL);
 }
