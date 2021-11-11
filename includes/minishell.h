@@ -6,21 +6,21 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 02:51:09 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 03:49:07 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdio.h>
+# include <stdio.h>
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <signal.h>
-#include <fcntl.h>
+# include <fcntl.h>
 # include <sys/wait.h>
 
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
@@ -28,54 +28,50 @@
 # define BUFFER_SIZE 4096
 # define SHOW_PARSE 0
 
-typedef struct  s_quote
+typedef struct s_quote
 {
-		int simple_q;
-		int simple_q_indouble;
-		int double_q;
-		int double_q_insimple;
+	int			simple_q;
+	int			simple_q_indouble;
+	int			double_q;
+	int			double_q_insimple;
 }				t_quote;
 
-typedef struct	s_redir
+typedef struct s_redir
 {
-	int			nb_redir_in; // 1    >
-	int			nb_redir_out; // 2   <
-	int			nb_redir_app; // 3   >>
-	int			nb_redir_hdoc; // 4  <<
+	int			nb_redir_in;
+	int			nb_redir_out;
+	int			nb_redir_app;
+	int			nb_redir_hdoc;
 }				t_redir;
 
-typedef struct	s_command_list
+typedef struct s_command_list
 {
-	char		*cmd;//		trimmed cmd name                                     >> nom de la commande tapé
-	char		**argv;//	Nullterminated arg of cmd                           >> arguments que prennent la commande ou NULL si sans argument
-	char		*cmd_path;// Valid bath to executable file, set to NULL if none  >> path vers l'executable (si existant)
-	int			builtin_idx; // if > 7 is a builtin, if == 7 is not              >> le numero du builtin ( 7 si non existant )
-	t_redir		*rdr;
-	char	**redir_ins; // REDIR_IN c'est les redirections a gauche '<' pour une cmd qui va contenir genre les nom des fichiers in 
-	char	**redir_outs; // REDIR_OUT c'est les redirections a droite '>'
-	char	**reddir_append; // APPEND c'est les double redir a droite '>>'
-	char	**reddir_heredoc; // HEREDOC c'est les double redir a gauche '<<'
-
-	t_redir		*last_rdr;
-	int		type_last_rdr_out;
-	int		type_last_rdr_in;
-	int		rdr_nb;
-
-	t_redir *first_rdr;
-
-	int			*fd_stack;
-	int			fd_nbr;
-	int			last_fd_in;
-	int			save_stdin;
-
 	struct s_command_list	*next;
+	t_redir					*rdr;
+	t_redir					*first_rdr;
+	t_redir					*last_rdr;
+	char					*cmd;
+	char					**argv;
+	char					*cmd_path;
+	int						builtin_idx;
+	char					**redir_ins;
+	char					**redir_outs;
+	char					**reddir_append;
+	char					**reddir_heredoc;
+	int						type_last_rdr_out;
+	int						type_last_rdr_in;
+	int						rdr_nb;
+	int						*fd_stack;
+	int						fd_nbr;
+	int						last_fd_in;
+	int						save_stdin;
 }				t_cmd_lst;
 
 typedef struct s_environement_list
 {
-	char	*name;
-	char	*var;
 	struct s_environement_list	*next;
+	char						*name;
+	char						*var;
 }				t_env_lst;
 
 typedef struct s_split_var
@@ -85,189 +81,327 @@ typedef struct s_split_var
 	int	save;
 }				t_split_var;
 
-typedef struct	s_shell_data                   // structure envoyé a chaque fonction
+typedef struct s_shell_data
 {
-	t_cmd_lst	*cmds;//	Linked list of every cmd waiting for execution
-	char		**env;
-	t_env_lst	*env_lst;
-	char		**bin_paths;//	Path to all binary folder from ENV
-	unsigned char	lrval;// Last return value of launched cmd
-	int			cmd_idx;
-	int			nb_of_cmds;
-	int			cmd_nbr;
-	int			save_stdin;
-	int			save_stdout;
+	t_cmd_lst		*cmds;
+	char			**env;
+	t_env_lst		*env_lst;
+	char			**bin_paths;
+	unsigned char	lrval;
+	int				cmd_idx;
+	int				nb_of_cmds;
+	int				cmd_nbr;
+	int				save_stdin;
+	int				save_stdout;
 }				t_sdata;
 
-// Testing
-void	print_cmds(t_cmd_lst *cmds, int v, int i);
+/* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/environement/env_parsing.c                   */
+/* -------------------------------------------------------------------------- */
+int			env_var_additional_parsing(char *arg, int is_unset);
+int			is_env_var_valid(char *arg, int is_unset);
+int			does_env_var_exist(t_env_lst *env, char *var);
+int			get_idx_var_in_env(char **env, char *var);
 
-//		Main
-//	shell_loop.c
-int	shell_loop(t_sdata *sdata);
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/environement/env_utils.c                    */
+/* -------------------------------------------------------------------------- */
+char		*get_env_var_from_name(t_env_lst *list, char *name);
+char		*get_var_in_env(char **env, char *var);
+char		*get_env_var_name_from_arg(char *arg);
 
-//		Parsing
-//	parse_line
-int	skip_var(char *str);
-int	int_len(int i);
-int	strlen_cmd_without_rdr(char *cmd);
-int		is_maj(char c);
-int		pipe_check(char *str);
-int		stock_redir(t_cmd_lst *cmds, char *cmd);
-char		**split_thepipe(char const *s, char c);
-int		stock_redir(t_cmd_lst *cmds, char *cmd);
-char	*word_dup(const char *str, int start, int finish);
-int issep(char c);
-int		check_line(char *line);
-int is_double_redir(char c, char c1);
-int		strlen_pathcmd(t_sdata *t_sdata, char *str);
-int	isspace_behind(char *str, int i);
-
-
-// static int	count_words(const char *str);
-
-t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
-t_cmd_lst	*init_linkedlist(void);
-
-t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds);
-void			printf_linked_list(t_cmd_lst *cmd);
-int		check_error(t_cmd_lst *cmd);
-int	is_builtin(char *cmd);
-int		quotes_check(char *str);
-int		checkquotes(char c, t_quote *qt);
-int		find_lenghtwq(char *cmd);
-char 	*replace_dollars(char *str, t_sdata *sdata);
-
-//	check_cmd_executable.c
-char	*is_cmd_executable(char *cmd, t_sdata *sdata);
-//	fill_cmds.c
-void	fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
-char		**split_the_pipe(char const *s);
-char	**split_arg(char *s);
-//static int	count_words_space(const char *str, char c);
-t_cmd_lst	*split_cmds(char *cmd, t_cmd_lst *cmds);
-int		duoquote(char *cmd, int v);
-//		Execution
-//	dispatcher.c
-void	execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds);
-
-//		Environement
-//	env_parsing.c
-char	*get_env_var_from_name(t_env_lst *list, char *name);
-int	does_env_var_exist(t_env_lst *env, char *var);
-char	*get_env_var_name_from_arg(char *arg);
-int	is_env_var_valid(char *arg, int is_unset);
-int	check_forbidden(char *str);
-int	get_idx_var_in_env(char **env, char *var);
-char	*get_var_in_env(char **env, char *var);
-
-//		Builtins
-//	env.c
-void	display_env(t_sdata *sdata);
-//	unset.c
-void	shell_unset(t_sdata *sdata);
-//	export.c
-void	usage_export_replace_var(t_sdata *sdata, char *arg);
-void	shell_export(t_sdata *sdata);
-void	export_display(t_sdata *sdata);
-//	pwd.c
-void	pwd(t_sdata *sdata);
-//	echo.c
-void	echo(t_sdata *sdata);
-//	cd.c
-void	shell_cd(t_sdata *sdata);
-//	exit.c
-void	shell_exit(t_sdata *sdata);
-int	usage_exit(char **argv);
-
-//		Allocation
-//	allocate_sdata.c
-void	allocate_sdata(t_sdata *sdata, char **env);
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/memory/allocate_sdata.c                     */
+/* -------------------------------------------------------------------------- */
 t_cmd_lst	*allocate_cmd_elem(void);
 t_env_lst	*allocate_env_lst_elem(char **line);
+int			allocate_env_lst(t_sdata *sdata, char **env);
+void		allocate_sdata(t_sdata *sdata, char **env);
 
-//		Deallocation
-//	deallocate_sdata.c
-void	deallocate_env_lst_elem(t_env_lst *elem);
-void	free_arr(char **arr);
-void	deallocate_sdata(t_sdata *sdata);
-void	deallocate_cmd_list(t_cmd_lst *cmd);
-int	deallocate_env_lst(t_env_lst *list);
-//		Utils
-//	general_utils.c
-void	*ft_bzero(size_t n);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-int		find_quotes(char *cmd, int i, char c);
-int	nbr_of_word(char *av, char sep);
-char	**str_to_word_arr(char *av, char sep);
-//	str_arr_utils.c
-char	**remove_str_from_arr(char **arr, char *str);
-char	**cncat_arr(char **arr, char *str);
-char	**dup_arr(char **arr);
-//	str_manip
-int		find_squotes(char *cmd, int i);
-char	*ft_strncpy(char *dest, char *src, int n);
-char	*find_andsupp_rdr(char *cmd, char *newcmd, int count);
-char	*ft_strncat(char *dest, char *src, unsigned int nb);
-char	*cncat(char *str1, char *str2, int ifree1, int ifree2);
-char	*ft_strdup_free(char *src, int ifree);
-char	*ft_substr_free(char *s, unsigned int start, size_t lenght, int ifree);
-//	get_next_line.c
-int	get_next_line(int fd, char **line);
-//	str_utils
-char		**split_env(char *line, char sep);
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/memory/free_arr.c                        */
+/* -------------------------------------------------------------------------- */
+void		free_arr(char **arr);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/memory/dealocate_sdata.c                    */
+/* -------------------------------------------------------------------------- */
+void		deallocate_cmd_elem(t_cmd_lst *elem);
+void		deallocate_cmd_list(t_cmd_lst *cmds);
+void		deallocate_env_lst_elem(t_env_lst *elem);
+int			deallocate_env_lst(t_env_lst *list);
+void		deallocate_sdata(t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/str_utils.c                        */
+/* -------------------------------------------------------------------------- */
+int			tablen(char **tab);
+int			ft_isdigit(int c);
+int			is_number(char const *str, int i);
+int			is_in_set(char c, char const *set);
+int			len(const char *str);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/str_manip.c                        */
+/* -------------------------------------------------------------------------- */
+char		*ft_strncpy(char *dest, char *src, int n);
+char		*ft_strncat(char *dest, char *src, unsigned int nb);
+char		*cncat(char *str1, char *str2, int ifree1, int ifree2);
+char		*ft_strdup_free(char *src, int ifree);
+char		*ft_substr_free(char *s, unsigned int start,
+				size_t lenght, int ifree);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/str_quote.c                        */
+/* -------------------------------------------------------------------------- */
+int			duoquote(char *cmd, int v);
+int			is_insquote(char *cmd, int v);
+int			skip_quotes_arg(char *cmd, int i);
+char		**skip_quotes_split(const char *s, int i, char **split);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/list_utils.c                       */
+/* -------------------------------------------------------------------------- */
+int			lenequal(char *str);
+
+/* -------------------------------------------------------------------------- */
+/*                  FILE = srcs/utils/even_more_str_utils.c                   */
+/* -------------------------------------------------------------------------- */
+int			len_x(char const *str, char c);
+char		*get_file_redir(char *cmd, char *file);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		putstr_err(char *str);
-int	tablen(char **tab);
-int		is_insquote(char *cmd, int v);
-int		is_indquote(char *cmd, int v);
-int		nb_of_cmds(char *cmd);
-int	ft_isdigit(int c);
-int	is_number(char const *str, int i);
-int	is_in_set(char c, char const *set);
-char 	*str_x(char *str);
-int		len_x(char const *str, char c);
-int empty_str(char *str);
-int		skip_quotes_arg(char *cmd, int i);
-char 	**skip_quotes_split(const char *s, int i, char **split);
-int	len(const char *str);
-//	ft_atoi.c
-int	ft_atoi(const char *str);
-//	list_utils.c
-int	lenequal(char *str);
+int			is_maj(char c);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/utils/dollars_utils.c                      */
+/* -------------------------------------------------------------------------- */
+int			skip_var(char *str);
+int			int_len(int i);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/utils/get_next_line.c                      */
+/* -------------------------------------------------------------------------- */
+size_t		lennewline(char *str);
+int			read_fd(int fd, char **str);
+int			is_there_save(char **str, char **save);
+int			cut_line(char **save, char **str);
+int			get_next_line(int fd, char **line);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/utils/more_str_utils.c                     */
+/* -------------------------------------------------------------------------- */
+int			empty_str(char *str);
+int			skip_blank(char *cmd);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/utils/env_lst_utils.c                      */
+/* -------------------------------------------------------------------------- */
+t_env_lst	*remove_first_elem(t_env_lst *list, char *arg);
+void		remove_last_elem(t_env_lst *list, t_env_lst *tmp, char *arg);
 t_env_lst	*remove_elem(t_env_lst *list, char *arg);
 t_env_lst	*add_elem(t_env_lst *list, char *arg);
-char	**list_to_arr(t_env_lst *list);
-int		error_print_free(int rval, char *str, t_sdata *sdata);
+int			does_elem_exists(t_env_lst *list, char *arg);
 
-//	Signal
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/utils/general_utils.c                      */
+/* -------------------------------------------------------------------------- */
+void		*ft_bzero(size_t n);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			nbr_of_word(char *av, char sep);
+int			find_quotes(char *cmd, int i, char c);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/utils/str_arr_utils.c                      */
+/* -------------------------------------------------------------------------- */
+char		**new_arr(char *str);
+char		**extend_arr(char **arr, char *str);
+char		**cncat_arr(char **arr, char *str);
+char		**remove_str_from_arr(char **arr, char *str);
+char		**dup_arr(char **arr);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/utils/str_to_word_arr.c                     */
+/* -------------------------------------------------------------------------- */
+void		skip_sep_char(char *av, char sep, int *i);
+char		*put_word_in_arr(char *av, int i, int j, int save);
+char		**str_to_word_arr(char *av, char sep);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/split_env.c                        */
+/* -------------------------------------------------------------------------- */
+char		**set_word_in_tab(char **arr, char *line, int i);
+char		**split_env(char *line, char sep);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/utils/ft_atoi.c                         */
+/* -------------------------------------------------------------------------- */
+int			ft_atoi(const char *str);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/builtins/exit.c                         */
+/* -------------------------------------------------------------------------- */
+void		shell_exit(t_sdata *sdata);
+int			usage_exit(char **argv);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/builtins/unset.c                        */
+/* -------------------------------------------------------------------------- */
+void		shell_unset(t_sdata *sdata);
+int			usage_unset(char ***env, char *var);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/builtins/env.c                         */
+/* -------------------------------------------------------------------------- */
+void		display_env(t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/builtins/pwd.c                         */
+/* -------------------------------------------------------------------------- */
+void		pwd(t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/builtins/export.c                        */
+/* -------------------------------------------------------------------------- */
+void		export_display(t_sdata *sdata);
+void		usage_export_replace_var(t_sdata *sdata, char *arg);
+void		export_replace_var(t_sdata *sdata);
+void		shell_export(t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/builtins/cd.c                          */
+/* -------------------------------------------------------------------------- */
+void		update_env_cd(t_sdata *sdata, char *old_pwd);
+char		*get_abs_path(char *path, int free_path);
+void		change_directory_home(t_sdata *sdata);
+void		shell_cd(t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/builtins/echo.c                         */
+/* -------------------------------------------------------------------------- */
+void		putstr_skipquotes(char *str);
+void		putstr_quoteless(char *str);
+void		display_every_arg(char **argv, int start);
+int			is_dash_n_option(char *option);
+void		echo(t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/execution/dispatcher.c                     */
+/* -------------------------------------------------------------------------- */
+int			manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd);
+void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds);
+int			execute_builtins(t_sdata *sdata, int *fd, int save_stdout);
+int			execute_binary(t_sdata *sdata, int *fd, int save_stdin);
+void		invalid_cmd_path_error(t_sdata *sdata);
+void		execution_dispatcher(t_sdata *sdata, t_cmd_lst *cmds);
+
+/* -------------------------------------------------------------------------- */
+/*               FILE = srcs/execution/execution_redirection.c                */
+/* -------------------------------------------------------------------------- */
+int			heredoc_error(char *limit);
+int			manage_heredoc(char *limit, int l_fd_in, int save_stdin);
+int			open_outfile(char *path, int in);
+int			open_infile(t_cmd_lst *cmds, char *path, int out);
+int			manage_redir_fd(t_cmd_lst *cmd, char **paths, int in, int out);
+int			priority_redir_in(t_cmd_lst *cmds);
+int			priority_redir_out(t_cmd_lst *cmds);
+int			dispatch_redir_types(t_cmd_lst *cmds);
+
+/* -------------------------------------------------------------------------- */
+/*                  FILE = srcs/execution/fd_stack_manage.c                   */
+/* -------------------------------------------------------------------------- */
+int			*extend_fd_stack(int *fd_stack, int fd_len, int fd);
+void		add_fd_to_stack(t_cmd_lst *cmds, int fd);
+void		clear_fd_stack(t_cmd_lst *cmds);
+
+/* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/errors/return_functions.c                    */
+/* -------------------------------------------------------------------------- */
+int			error_print_free(int rval, char *str, t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/parsing/stockredir.c                      */
+/* -------------------------------------------------------------------------- */
+int			malloc_and_stock_redir(t_cmd_lst *c, char *cmd);
+char		**malloc_redir_next(t_cmd_lst *cmds, char *cmd, int size, int type);
+t_redir		initrdr(void);
+t_redir		*initrdr2(void);
+int			strlen_cmd_without_rdr(char *cmd);
+
+/* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/parsing/replace_dollars.c                    */
+/* -------------------------------------------------------------------------- */
+char		*str_find_var(char *str);
+int			strlen_pathcmd(t_sdata *t_sdata, char *str);
+char		*put_int_str(int nb_len, char *cmd, int count, int lrval);
+char		*replace_dollars(char *old_cmd, t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/parsing/linklist.c                       */
+/* -------------------------------------------------------------------------- */
+t_cmd_lst	*init_linkedlist(void);
+t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds);
+void		printf_linked_list(t_cmd_lst *cmd);
+void		print_cmds(t_cmd_lst *cmds, int v, int i);
+
+/* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/parsing/parse_line.c                      */
+/* -------------------------------------------------------------------------- */
+t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
+int			check_forbidden(char *str);
+int			pipe_check(char *str);
+int			quotes_check(char *str);
+int			checkquotes(char c, t_quote *qt);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/parsing/redir.c                         */
+/* -------------------------------------------------------------------------- */
+char		*fill_file_rdr(char *cmd, int nb, int type, char *file);
+int			find_size_rdr(char *cmd, int nb, int type);
+int			find_lenghtwq(char *cmd);
+int			find_lenght_file(char *cmd);
+void		get_size_redir(t_cmd_lst *cmds, char *cmd);
+
+/* -------------------------------------------------------------------------- */
+/*                 FILE = srcs/parsing/check_cmd_executable.c                 */
+/* -------------------------------------------------------------------------- */
+char		**get_paths_from_env(t_env_lst *env);
+char		*is_cmd_in_path(char *cmd, char **paths);
+char		*does_binary_file_exists(char *cmd);
+char		*is_cmd_executable(char *cmd, t_sdata *sdata);
+int			is_builtin(char *cmd);
+
+/* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/parsing/fill_cmds.c                       */
+/* -------------------------------------------------------------------------- */
+void		fill_cmds(t_sdata *data, t_cmd_lst *cmds, char *cmd);
+char		*rmv_rdr_from_cmd(char *cmd);
+char		*find_andsupp_rdr(char *cmd, char *newcmd, int count);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/parsing/ft_split_space.c                    */
+/* -------------------------------------------------------------------------- */
+char		**split_the_pipe(char const *s);
+int			nb_of_args(char *cmd);
+char		**split_arg(char *s);
+char		*word_dup(const char *str, int start, int finish);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/main/shell_loop.c                        */
+/* -------------------------------------------------------------------------- */
+int			shell_loop(t_sdata *sdata);
+int			check_line(char *line);
+int			redir_check(char *cmd);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/main/minishell.c                        */
+/* -------------------------------------------------------------------------- */
+int			main(int ac, char **argv, char **env);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/signal/manage_signal.c                     */
+/* -------------------------------------------------------------------------- */
+void		handler(int signum);
 void		assign_signals_handler(void);
 
-// REDIR TESTING
-
-t_redir	initrdr(void);
-void get_size_redir(t_cmd_lst *cmds, char *cmd);
-char		*fill_file_rdr(char *cmd, int nb, int type, char *file);
-int		get_first_rdr_idx(char *cmd);
-int		get_last_rdr_idx(char *cmd);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*rmv_rdr_from_cmd(char *cmd);
-int		is_cmd_after_file(char *cmd, int nb);
-char	*ft_strdup(char *src);
-int		cut_first_redir(char *line, t_cmd_lst *cmd);
-char*	get_file_redir(char *cmd, char *file);
-t_redir	*initrdr2(void);
-char	*rmv_quotes_from_cmd(char *cmd);
-int		skip_blank(char *cmd);
-int		find_lenght_file(char *cmd);
-int		find_size_rdr(char *cmd, int nb, int type);
-char	**malloc_redir_next(t_cmd_lst *cmds,char *cmd, int size, int type);
-int	malloc_and_stock_redir(t_cmd_lst *cmds, char *cmd);
-int		stock_redir(t_cmd_lst *cmds, char *cmd);
-int	end_first_rdr(char *cmd);
-int		redir_check(char *cmd);
-int		is_insquote(char *cmd, int v);
-
-void		clear_fd_stack(t_cmd_lst *cmds);
-void		add_fd_to_stack(t_cmd_lst *cmds, int fd);
-int			dispatch_redir_types(t_cmd_lst *cmds);
 #endif
