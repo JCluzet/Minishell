@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_arr_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:07:24 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:27:49 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 14:33:06 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ char	**remove_str_from_arr(char **arr, char *str)
 	int		i;
 	int		j;
 
-	i = -1;
+	i = 0;
 	j = -1;
 	name = get_env_var_name_from_arg(str);
 	n_arr = malloc(sizeof(char *) * (tablen(arr) + 1));
 	if (!n_arr)
 		return (NULL);
-	while (arr[++i])
+	while (arr[i])
 	{
 		if (!ft_strncmp(name, arr[i], len(name))
 			&& len(name) == lenequal(arr[i]))
@@ -77,6 +77,7 @@ char	**remove_str_from_arr(char **arr, char *str)
 			continue ;
 		}
 		n_arr[++j] = ft_strdup_free(arr[i], 1);
+		++i;
 	}
 	free(arr);
 	n_arr[j] = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 15:44:55 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 00:26:47 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 14:37:50 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,37 @@ char	**set_word_in_tab(char **arr, char *line, int i)
 	return (arr);
 }
 
+char	**single_line_arr(char *line)
+{
+	char	**arr;
+
+	arr = malloc(sizeof(char *) * 3);
+	if (!arr)
+		return (NULL);
+	arr[0] = line;
+	arr[1] = NULL;
+	arr[2] = NULL;
+	return (arr);
+}
+
 char	**split_env(char *line, char sep)
 {
 	char	**arr;
 	int		i;
 
 	i = 0;
-	arr = malloc(sizeof(char *) * 3);
-	if (!arr)
-		return (NULL);
 	while (line[i])
 	{
 		if (line[i] == sep)
 		{
+			arr = malloc(sizeof(char *) * 3);
+			if (!arr)
+				return (NULL);
 			arr = set_word_in_tab(arr, line, i);
 			return (arr);
 		}
 		else
 			++i;
 	}
-	return (NULL);
+	return (single_line_arr(line));
 }

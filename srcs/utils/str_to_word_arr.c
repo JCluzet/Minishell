@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_to_word_arr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:26:09 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 04:07:48 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 14:21:30 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*put_word_in_arr(char *av, int i, int j, int save)
 	if (!str)
 		return (NULL);
 	str = ft_strncpy(str, av + save, i - save);
+	return (str);
 }
 
 char	**str_to_word_arr(char *av, char sep)
