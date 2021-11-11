@@ -6,13 +6,13 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 22:42:34 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 23:19:50 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	grate_ligne(t_fin *f)
+int	get_rdr_of_f(t_fin *f)
 {
 	if (f->cmd[f->i] == '<' && f->cmd[f->i + 1] == '<')
 	{
@@ -54,7 +54,7 @@ char	*fill_file_rdr(char *cmd, int nb, int type, char *file)
 	while (f.cmd[f.i])
 	{
 		f.i = find_quotes(f.cmd, f.i, f.cmd[f.i]);
-		f.n = grate_ligne(&f);
+		f.n = get_rdr_of_f(&f);
 		if (f.n == 1)
 			return (get_file_redir(f.cmd + f.i + 1, f.file));
 		if (f.n == 2)
