@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 22:48:49 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/12 00:06:35 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@
 # include <sys/wait.h>
 
 # define FIRST_ENV_CHAR_LIST "abcdefghijklmnopqrst\
-uvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
+	uvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyz\
-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
-# define SHOW_PARSE 0
 
 typedef struct s_split_arg
 {
@@ -161,7 +160,6 @@ int			get_idx_var_in_env(char **env, char *var);
 char		*get_env_var_from_name(t_env_lst *list, char *name);
 char		*get_var_in_env(char **env, char *var);
 char		*get_env_var_name_from_arg(char *arg);
-t_skquo		skip_qu_file(t_skquo skqu, char *cmd, char *file);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/memory/allocate_sdata.c                     */
@@ -186,6 +184,13 @@ int			deallocate_env_lst(t_env_lst *list);
 void		deallocate_sdata(t_sdata *sdata);
 
 /* -------------------------------------------------------------------------- */
+/*                  FILE = srcs/utils/remove_str_from_arr.c                   */
+/* -------------------------------------------------------------------------- */
+void		transfer_arr(char **arr, char **n_arr, char *name);
+char		**remove_str_from_arr(char **arr, char *str);
+char		*str_find_var(char *str);
+
+/* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/str_utils.c                        */
 /* -------------------------------------------------------------------------- */
 int			tablen(char **tab);
@@ -201,13 +206,14 @@ char		*ft_strncpy(char *dest, char *src, int n);
 char		*ft_strncat(char *dest, char *src, unsigned int nb);
 char		*cncat(char *str1, char *str2, int ifree1, int ifree2);
 char		*ft_strdup_free(char *src, int ifree);
-char		*ft_substr_free(char *s, unsigned int start,
-				size_t lenght, int ifree);
+char		*ft_substr_free(char *s, unsigned int start, size_t lenght,
+				int ifree);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/str_quote.c                        */
 /* -------------------------------------------------------------------------- */
 int			duoquote(char *cmd, int v);
+int			skip_i_qu(char *cmd, int i, int v);
 int			is_insquote(char *cmd, int v);
 int			skip_quotes_arg(char *cmd, int i);
 char		**skip_quotes_split(const char *s, int i, char **split, int j);
@@ -222,9 +228,8 @@ int			lenequal(char *str);
 /* -------------------------------------------------------------------------- */
 int			len_x(char const *str, char c);
 char		*get_file_redir(char *cmd, char *file);
+t_skquo		skip_qu_file(t_skquo skqu, char *cmd, char *file);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-void		putstr_err(char *str);
-int			is_maj(char c);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/utils/dollars_utils.c                      */
@@ -246,6 +251,9 @@ int			get_next_line(int fd, char **line);
 /* -------------------------------------------------------------------------- */
 int			empty_str(char *str);
 int			skip_blank(char *cmd);
+int			is_maj(char c);
+void		putstr_err(char *str);
+char		*put_int_str(int nb_len, char *cmd, int count, int lrval);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/utils/env_lst_utils.c                      */
@@ -270,7 +278,6 @@ int			find_quotes(char *cmd, int i, char c);
 char		**new_arr(char *str);
 char		**extend_arr(char **arr, char *str);
 char		**cncat_arr(char **arr, char *str);
-char		**remove_str_from_arr(char **arr, char *str);
 char		**dup_arr(char **arr);
 
 /* -------------------------------------------------------------------------- */
@@ -284,6 +291,7 @@ char		**str_to_word_arr(char *av, char sep);
 /*                       FILE = srcs/utils/split_env.c                        */
 /* -------------------------------------------------------------------------- */
 char		**set_word_in_tab(char **arr, char *line, int i);
+char		**single_line_arr(char *line);
 char		**split_env(char *line, char sep);
 
 /* -------------------------------------------------------------------------- */
@@ -332,8 +340,6 @@ void		shell_cd(t_sdata *sdata);
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/builtins/echo.c                         */
 /* -------------------------------------------------------------------------- */
-void		putstr_skipquotes(char *str);
-void		putstr_quoteless(char *str);
 void		display_every_arg(char **argv, int start);
 int			is_dash_n_option(char *option);
 void		echo(t_sdata *sdata);
@@ -342,23 +348,34 @@ void		echo(t_sdata *sdata);
 /*                     FILE = srcs/execution/dispatcher.c                     */
 /* -------------------------------------------------------------------------- */
 int			manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd);
-void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds);
-int			execute_builtins(t_sdata *sdata, int *fd, int save_stdout);
-int			execute_binary(t_sdata *sdata, int *fd);
 void		invalid_cmd_path_error(t_sdata *sdata);
+int			valid_cmd_dispatch(t_sdata *sdata, int *fd);
 void		execution_dispatcher(t_sdata *sdata);
+
+/* -------------------------------------------------------------------------- */
+/*               FILE = srcs/execution/redirection_dispatcher.c               */
+/* -------------------------------------------------------------------------- */
+int			call_outfile(t_cmd_lst *cmd, char **paths, int out, int i);
+int			call_infile(t_cmd_lst *cmd, char **paths, int in, int i);
+int			manage_redir_fd(t_cmd_lst *cmd, char **paths, int in, int out);
+int			priority_redir_in(t_cmd_lst *cmds);
+int			priority_redir_out(t_cmd_lst *cmds);
 
 /* -------------------------------------------------------------------------- */
 /*               FILE = srcs/execution/execution_redirection.c                */
 /* -------------------------------------------------------------------------- */
-int			heredoc_error(char *limit);
 int			manage_heredoc(char *limit, int l_fd_in, int save_stdin);
 int			open_outfile(char *path, int in);
 int			open_infile(t_cmd_lst *cmds, char *path, int out);
-int			manage_redir_fd(t_cmd_lst *cmd, char **paths, int in, int out);
-int			priority_redir_in(t_cmd_lst *cmds);
-int			priority_redir_out(t_cmd_lst *cmds);
 int			dispatch_redir_types(t_cmd_lst *cmds);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/execution/execution.c                      */
+/* -------------------------------------------------------------------------- */
+void		invalid_cmd(t_sdata *sdata, t_cmd_lst *cmds);
+int			execute_builtins(t_sdata *sdata, int *fd, int save_stdout);
+void		get_child_return_value(t_sdata *sdata, int status);
+int			execute_binary(t_sdata *sdata, int *fd);
 
 /* -------------------------------------------------------------------------- */
 /*                  FILE = srcs/execution/fd_stack_manage.c                   */
@@ -384,9 +401,10 @@ int			strlen_cmd_without_rdr(char *cmd);
 /* -------------------------------------------------------------------------- */
 /*                   FILE = srcs/parsing/replace_dollars.c                    */
 /* -------------------------------------------------------------------------- */
-char		*str_find_var(char *str);
+t_path		strl_doll(t_path pa, t_sdata *t_sdata, char *str);
 int			strlen_pathcmd(t_sdata *t_sdata, char *str);
-char		*put_int_str(int nb_len, char *cmd, int count, int lrval);
+t_doll		replace_var_doll(t_sdata *sdata, char *old_cmd, t_doll dol);
+t_doll		replace_var_mark(t_sdata *sdata, t_doll dol);
 char		*replace_dollars(char *old_cmd, t_sdata *sdata);
 
 /* -------------------------------------------------------------------------- */
@@ -394,8 +412,13 @@ char		*replace_dollars(char *old_cmd, t_sdata *sdata);
 /* -------------------------------------------------------------------------- */
 t_cmd_lst	*init_linkedlist(void);
 t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds);
-void		printf_linked_list(t_cmd_lst *cmd);
-void		print_cmds(t_cmd_lst *cmds, int v, int i);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/parsing/find_rdr.c                       */
+/* -------------------------------------------------------------------------- */
+int			get_size_rdr2(t_cmd_lst *cmds, char *cmd, int i);
+void		get_size_redir(t_cmd_lst *cmds, char *cmd);
+int			find_lenghtwq(char *cmd);
 
 /* -------------------------------------------------------------------------- */
 /*                      FILE = srcs/parsing/parse_line.c                      */
@@ -409,11 +432,11 @@ int			checkquotes(char c, t_quote *qt);
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/parsing/redir.c                         */
 /* -------------------------------------------------------------------------- */
+int			get_rdr_of_f(t_fin *f);
 char		*fill_file_rdr(char *cmd, int nb, int type, char *file);
 int			find_size_rdr(char *cmd, int nb, int type);
-int			find_lenghtwq(char *cmd);
+t_len_file	skip_qu_len(char *cmd, t_len_file fi);
 int			find_lenght_file(char *cmd);
-void		get_size_redir(t_cmd_lst *cmds, char *cmd);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/parsing/check_cmd_executable.c                 */
@@ -442,8 +465,10 @@ char		*word_dup(const char *str, int start, int finish);
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/main/shell_loop.c                        */
 /* -------------------------------------------------------------------------- */
+void		send_to_exec(t_sdata *sdata);
 int			shell_loop(t_sdata *sdata);
 int			check_line(char *line);
+char		rdr_check(char *cmd, int i);
 int			redir_check(char *cmd);
 
 /* -------------------------------------------------------------------------- */
@@ -455,15 +480,7 @@ int			main(int ac, char **argv, char **env);
 /*                     FILE = srcs/signal/manage_signal.c                     */
 /* -------------------------------------------------------------------------- */
 void		handler(int signum);
+void		child_handler(int signum);
 void		assign_signals_handler(void);
 
-int			dispatch_redir_types(t_cmd_lst *cmds);
-int			open_infile(t_cmd_lst *cmds, char *path, int out);
-int			open_outfile(char *path, int in);
-int			manage_heredoc(char *limit, int l_fd_in, int save_stdin);
-int			priority_redir_out(t_cmd_lst *cmds);
-int			priority_redir_in(t_cmd_lst *cmds);
-char		**remove_str_from_arr(char **arr, char *str);
-void		child_handler(int signum);
-int			execute_builtins(t_sdata *sdata, int *fd, int save_stdout);
 #endif
