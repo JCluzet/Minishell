@@ -12,7 +12,7 @@ NAME        := minishell
 BIMLX       := OFF
 CC          := clang
 RM		    := rm -f
-CFLAGS      := -lreadline -g3
+CFLAGS      := -Wall -Werror -Wextra -lreadline -g3
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
