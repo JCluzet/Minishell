@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/11 01:34:26 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 03:02:28 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ t_cmd_lst	*insertion_linklist(t_cmd_lst *cmds)
 	cmds->next = new;
 	return (new);
 }
+
+/*
+** 2 functions to print parsing
+*/
 
 void	printf_linked_list(t_cmd_lst *cmd)
 {
