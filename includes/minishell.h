@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 18:29:49 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 21:07:30 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ uvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_/"
 ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
 # define SHOW_PARSE 1
+
+typedef struct s_rdrfind
+{
+	int nb;
+	int type;
+}				t_rdrfind;
 
 typedef struct s_len_file
 {

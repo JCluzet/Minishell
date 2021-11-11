@@ -1,0 +1,55 @@
+includes/minishell.h: Error!
+Error: SPACE_REPLACE_TAB    (line:  35, col:   8):	Found space when expecting tab
+Error: SPACE_REPLACE_TAB    (line:  36, col:   8):	Found space when expecting tab
+srcs/environement/env_parsing.c: OK!
+srcs/environement/env_utils.c: OK!
+srcs/memory/allocate_sdata.c: OK!
+srcs/memory/free_arr.c: OK!
+srcs/memory/dealocate_sdata.c: OK!
+srcs/utils/remove_str_from_arr.c: OK!
+srcs/utils/str_utils.c: OK!
+srcs/utils/str_manip.c: OK!
+srcs/utils/str_quote.c: OK!
+srcs/utils/list_utils.c: OK!
+srcs/utils/even_more_str_utils.c: OK!
+srcs/utils/dollars_utils.c: OK!
+srcs/utils/get_next_line.c: OK!
+srcs/utils/more_str_utils.c: OK!
+srcs/utils/env_lst_utils.c: OK!
+srcs/utils/general_utils.c: OK!
+srcs/utils/str_arr_utils.c: OK!
+srcs/utils/str_to_word_arr.c: OK!
+srcs/utils/split_env.c: OK!
+srcs/utils/ft_atoi.c: OK!
+srcs/builtins/exit.c: OK!
+srcs/builtins/unset.c: OK!
+srcs/builtins/env.c: OK!
+srcs/builtins/pwd.c: OK!
+srcs/builtins/export.c: OK!
+srcs/builtins/cd.c: OK!
+srcs/builtins/echo.c: OK!
+srcs/execution/dispatcher.c: OK!
+srcs/execution/redirection_dispatcher.c: OK!
+srcs/execution/execution_redirection.c: OK!
+srcs/execution/execution.c: OK!
+srcs/execution/fd_stack_manage.c: OK!
+srcs/errors/return_functions.c: OK!
+srcs/parsing/stockredir.c: OK!
+srcs/parsing/replace_dollars.c: OK!
+srcs/parsing/linklist.c: Error!
+Error: TOO_MANY_LINES       (line: 133, col:   1):	Function has more than 25 lines
+srcs/parsing/find_rdr.c: OK!
+srcs/parsing/parse_line.c: OK!
+srcs/parsing/redir.c: Error!
+Error: CONSECUTIVE_NEWLINES (line:  15, col:   1):	Consecutive newlines
+Error: MISALIGNED_VAR_DECL  (line:  43, col:  17):	Misaligned variable declaration
+Error: TOO_MANY_LINES       (line:  81, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_LINES       (line: 122, col:   1):	Function has more than 25 lines
+srcs/parsing/check_cmd_executable.c: OK!
+srcs/parsing/fill_cmds.c: OK!
+srcs/parsing/ft_split_space.c: Error!
+Error: TOO_MANY_LINES       (line: 117, col:   1):	Function has more than 25 lines
+srcs/main/shell_loop.c: OK!
+srcs/main/minishell.c: OK!
+srcs/signal/manage_signal.c: Error!
+Error: WRONG_SCOPE_COMMENT  (line:  19, col:   5):	Comment is invalid in this scope

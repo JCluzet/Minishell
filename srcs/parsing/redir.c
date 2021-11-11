@@ -6,17 +6,21 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 17:39:23 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 21:51:25 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+
 char	*fill_file_rdr(char *cmd, int nb, int type, char *file)
 {
 	int		i;
 	t_redir	rdr;
+	t_rdrfind	fin;
 
+	fin.type = type;
+	// fim.nb = nb;
 	i = 0;
 	rdr = initrdr();
 	while (cmd[i])
