@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:36:18 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:37:52 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 17:38:25 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ void	allocate_sdata(t_sdata *sdata, char **env)
 	sdata->lrval = 0;
 	sdata->env = dup_arr(env);
 	if (allocate_env_lst(sdata, sdata->env) == EXIT_FAILURE)
-	{
 		sdata->env_lst = NULL;
-		return ;
-	}
 	sdata->lrval = 0;
 	sdata->save_stdin = dup(0);
 	sdata->save_stdout = dup(1);
