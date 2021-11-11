@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:08:47 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 18:28:17 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/11 23:51:53 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ t_cmd_lst	*parse_line(t_sdata *sdata, char *line)
 		i++;
 	}
 	free_arr(mul_cmd);
-	if (SHOW_PARSE)
-		printf_linked_list(firstcmd);
 	return (firstcmd);
 }
 

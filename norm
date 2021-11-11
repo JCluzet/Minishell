@@ -1,0 +1,135 @@
+includes/minishell.h: Error!
+Error: MISALIGNED_FUNC_DECL (line: 160, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 161, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 162, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 167, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 168, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 170, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 175, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 180, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 181, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 182, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 184, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 189, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 190, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 191, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 205, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 206, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 207, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 208, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 209, col:  14):	Misaligned function declaration
+Error: LINE_TOO_LONG        (line: 209, col:  82):	line too long
+Error: MISALIGNED_FUNC_DECL (line: 218, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 229, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 230, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 231, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 242, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 254, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 255, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 260, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 261, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 262, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 263, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 269, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 277, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 278, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 279, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 280, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 285, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 286, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 287, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 292, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 293, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 294, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 304, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 310, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 316, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 321, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 326, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 327, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 328, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 329, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 334, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 335, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 336, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 337, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 342, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 344, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 350, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 352, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 374, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 376, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 383, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 384, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 395, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 396, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 397, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 403, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 405, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 406, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 407, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 412, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 413, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 419, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 425, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 435, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 437, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 443, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 444, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 445, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 446, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 452, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 453, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 454, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 459, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 461, col:  15):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 462, col:  14):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 467, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 470, col:  13):	Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 481, col:  13):	Misaligned function declaration
+Error: CONSECUTIVE_NEWLINES (line: 485, col:   1):	Consecutive newlines
+srcs/environement/env_parsing.c: OK!
+srcs/environement/env_utils.c: OK!
+srcs/memory/allocate_sdata.c: OK!
+srcs/memory/free_arr.c: OK!
+srcs/memory/dealocate_sdata.c: OK!
+srcs/utils/remove_str_from_arr.c: OK!
+srcs/utils/str_utils.c: OK!
+srcs/utils/str_manip.c: OK!
+srcs/utils/str_quote.c: OK!
+srcs/utils/list_utils.c: OK!
+srcs/utils/even_more_str_utils.c: OK!
+srcs/utils/dollars_utils.c: OK!
+srcs/utils/get_next_line.c: OK!
+srcs/utils/more_str_utils.c: OK!
+srcs/utils/env_lst_utils.c: OK!
+srcs/utils/general_utils.c: OK!
+srcs/utils/str_arr_utils.c: OK!
+srcs/utils/str_to_word_arr.c: OK!
+srcs/utils/split_env.c: OK!
+srcs/utils/ft_atoi.c: OK!
+srcs/builtins/exit.c: OK!
+srcs/builtins/unset.c: OK!
+srcs/builtins/env.c: OK!
+srcs/builtins/pwd.c: OK!
+srcs/builtins/export.c: OK!
+srcs/builtins/cd.c: OK!
+srcs/builtins/echo.c: OK!
+srcs/execution/dispatcher.c: OK!
+srcs/execution/redirection_dispatcher.c: OK!
+srcs/execution/execution_redirection.c: OK!
+srcs/execution/execution.c: OK!
+srcs/execution/fd_stack_manage.c: OK!
+srcs/errors/return_functions.c: OK!
+srcs/parsing/stockredir.c: OK!
+srcs/parsing/replace_dollars.c: OK!
+srcs/parsing/linklist.c: OK!
+srcs/parsing/find_rdr.c: OK!
+srcs/parsing/parse_line.c: OK!
+srcs/parsing/redir.c: OK!
+srcs/parsing/check_cmd_executable.c: OK!
+srcs/parsing/fill_cmds.c: OK!
+srcs/parsing/ft_split_space.c: OK!
+srcs/main/shell_loop.c: OK!
+srcs/main/minishell.c: OK!
+srcs/signal/manage_signal.c: OK!

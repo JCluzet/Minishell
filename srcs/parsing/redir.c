@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:17:46 by jcluzet           #+#    #+#             */
-/*   Updated: 2021/11/11 23:19:50 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/11 23:50:09 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,41 +66,20 @@ char	*fill_file_rdr(char *cmd, int nb, int type, char *file)
 
 int	find_size_rdr(char *cmd, int nb, int type)
 {
-	int		i;
-	t_redir	rdr;
+	t_fin	f;
 
-	i = 0;
-	rdr = initrdr();
-	while (cmd[i])
+	f.i = 0;
+	f.rdr = initrdr();
+	f.cmd = cmd;
+	f.nb = nb;
+	f.type = type;
+	while (f.cmd[f.i])
 	{
-		i = find_quotes(cmd, i, cmd[i]);
-		if (cmd[i] == '<' && cmd[i + 1] == '<')
-		{
-			rdr.nb_redir_hdoc++;
-			if (type == 4 && rdr.nb_redir_hdoc == nb)
-				return (find_lenght_file(cmd + i + 2));
-			i++;
-		}
-		else if (cmd[i] == '>' && cmd[i + 1] == '>')
-		{
-			rdr.nb_redir_app++;
-			if (type == 3 && rdr.nb_redir_app == nb)
-				return (find_lenght_file(cmd + i + 2));
-			i++;
-		}
-		else if (cmd[i] == '<')
-		{
-			rdr.nro++;
-			if (type == 2 && rdr.nro == nb)
-				return (find_lenght_file(cmd + i + 1));
-		}
-		else if (cmd[i] == '>')
-		{
-			rdr.nri++;
-			if (type == 1 && rdr.nri == nb)
-				return (find_lenght_file(cmd + i + 1));
-		}
-		i++;
+		f.i = find_quotes(f.cmd, f.i, f.cmd[f.i]);
+		f.n = get_rdr_of_f(&f);
+		if (f.n)
+			return (find_lenght_file(f.cmd + f.i + f.n));
+		f.i++;
 	}
 	return (0);
 }
