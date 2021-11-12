@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:24:10 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 01:27:29 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/12 02:05:16 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,6 @@ char	*is_cmd_executable(char *cmd, t_sdata *sdata)
 	free_arr(paths);
 	return (abs_cmd);
 }
-
-// void	(*builtins[7])(t_sdata *) = {display_env,
-// shell_export, shell_unset, pwd,
-// echo, shell_cd, shell_exit};
 
 static const char	*g_builtins_mask[7] = {"env", "export",
 	"unset", "pwd", "echo", "cd", "exit"};

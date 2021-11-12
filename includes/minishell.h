@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/12 00:06:35 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/12 02:10:28 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -424,7 +424,6 @@ int			find_lenghtwq(char *cmd);
 /*                      FILE = srcs/parsing/parse_line.c                      */
 /* -------------------------------------------------------------------------- */
 t_cmd_lst	*parse_line(t_sdata *sdata, char *line);
-int			check_forbidden(char *str);
 int			pipe_check(char *str);
 int			quotes_check(char *str);
 int			checkquotes(char c, t_quote *qt);
