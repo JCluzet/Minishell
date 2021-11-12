@@ -6,7 +6,7 @@
 /*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:48:53 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 16:13:47 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/12 02:00:48 by jcluzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	skip_i_qu(char *cmd, int i, int v)
 	if (cmd[i] == '\"')
 	{
 		i++;
-		while (cmd[i++] != '\"')
-			if (i == v)
+		while (cmd[i] != '\"')
+			if (i++ == v)
 				return (-1);
 		if (i == v)
 			return (-1);
@@ -53,8 +53,8 @@ int	skip_i_qu(char *cmd, int i, int v)
 	if (cmd[i] == '\'')
 	{
 		i++;
-		while (cmd[i++] != '\'')
-			if (i == v)
+		while (cmd[i] != '\'')
+			if (i++ == v)
 				return (-2);
 		if (i == v)
 			return (-2);
