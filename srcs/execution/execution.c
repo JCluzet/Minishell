@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:32:54 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 18:59:34 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/13 14:53:30 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ int	execute_builtins(t_sdata *sdata, int *fd, int save_stdout)
 		return (1);
 	}
 	(builtins_array)[sdata->cmds->builtin_idx](sdata);
+//	if (sdata->cmds->next)
+	close(fd[1]);
 	dup2(save_stdout, 1);
-	if (sdata->cmds->next)
-	{
-		close(fd[1]);
-	}
 	clear_fd_stack(sdata->cmds);
 	return (0);
 }

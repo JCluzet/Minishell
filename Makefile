@@ -20,7 +20,7 @@ CFLAGS      := -Wall -Wextra -Werror -lreadline
 
 SRCS_DIR    := ./
 SUB_DIR     := ./
-INCS        := -I  includes
+INCS        := -I  includes -g3
 OBJ_DIR 	:=	$(BUILD_DIR)/obj
 DIRS		:=	$(OBJ_DIR) $(addprefix $(OBJ_DIR)/, $(SUB_DIR))
 OBJS 	    :=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
