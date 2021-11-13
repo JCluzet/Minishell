@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 19:11:06 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/13 14:46:05 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/13 15:15:29 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	manage_pipe_dups(t_cmd_lst *cmds, pid_t pid, int *fd)
 	{
 		if (!pid)
 		{
-//			close(fd[0]);
 			dup2(fd[1], 1);
 		}
 	}

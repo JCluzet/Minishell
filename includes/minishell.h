@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcluzet <jcluzet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/12 02:10:28 by jcluzet          ###   ########.fr       */
+/*   Updated: 2021/11/13 15:15:12 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyz\
 	ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
+# define SHOW_PARSE 0
 
 typedef struct s_split_arg
 {
@@ -145,6 +146,14 @@ typedef struct s_shell_data
 	int				save_stdin;
 	int				save_stdout;
 }				t_sdata;
+
+/* -------------------------------------------------------------------------- */
+/*                   FILE = linklist.c > Check Parse                          */
+/* -------------------------------------------------------------------------- */
+
+void		printf_linked_list(t_cmd_lst *cmd);
+void		print_cmds(t_cmd_lst *cmds, int v, int i);
+void		print_cmd2(t_cmd_lst *cmds);
 
 /* -------------------------------------------------------------------------- */
 /*                   FILE = srcs/environement/env_parsing.c                   */
