@@ -12,7 +12,7 @@ NAME        := minishell
 BIMLX       := OFF
 CC          := clang
 RM		    := rm -f
-CFLAGS      := -Wall -Wextra -Werror -lreadline -g3 -fsanitize=address
+CFLAGS      := -Wall -Wextra -Werror -lreadline
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -20,7 +20,7 @@ CFLAGS      := -Wall -Wextra -Werror -lreadline -g3 -fsanitize=address
 
 SRCS_DIR    := ./
 SUB_DIR     := ./
-INCS        := -I  includes -g3
+INCS        := -I  includes -g3 -fsanitize=address
 OBJ_DIR 	:=	$(BUILD_DIR)/obj
 DIRS		:=	$(OBJ_DIR) $(addprefix $(OBJ_DIR)/, $(SUB_DIR))
 OBJS 	    :=	$(SRCS:%.c=$(OBJ_DIR)/%.o)

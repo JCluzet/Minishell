@@ -6,7 +6,7 @@
 /*   By: ambelkac <ambelkac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 18:48:50 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/11 15:38:33 by ambelkac         ###   ########.fr       */
+/*   Updated: 2021/11/13 16:37:26 by ambelkac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ char	*ft_strdup_free(char *src, int ifree)
 	char		*dest;
 	size_t		i;
 
+	if (!src)
+		return (NULL);
 	dest = malloc(sizeof(char) * (len(src) + 1));
 	if (!dest)
 		return (NULL);
