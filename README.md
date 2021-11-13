@@ -1,6 +1,6 @@
 # Minishell 
-## Made by Vigorate (Amine Belkacem) & JCluzet
-## Compatible LINUX & MacOS (need to remove rl_replace_line from srcs/signal/manage_signal.c) 100% ✅
+####r Made by Vigorate (Amine Belkacem) & JCluzet
+## Compatible LINUX & MacOS (need to remove rl_replace_line from srcs/signal/manage_signal.c) 101% ✅
 ### This project teaches how to recreate a bash
 The project consists in making X Philosophers live at the same time as a thread, each one has to eat, think and sleep.
 
