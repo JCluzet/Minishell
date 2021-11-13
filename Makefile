@@ -12,7 +12,7 @@ NAME        := minishell
 BIMLX       := OFF
 CC          := clang
 RM		    := rm -f
-CFLAGS      := -Wall -Wextra -Werror -lreadline
+CFLAGS      := -Wall -Wextra -Werror -lreadline -g3 -fsanitize=address
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #

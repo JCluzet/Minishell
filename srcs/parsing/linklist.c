@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 01:16:17 by jo                #+#    #+#             */
-/*   Updated: 2021/11/13 15:16:04 by jo               ###   ########.fr       */
+/*   Updated: 2021/11/13 15:51:30 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	print_cmd2(t_cmd_lst *cmds)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	while (cmds->redir_ins[++i])
 		printf("redir_in %d = %s\n", i + 1, cmds->redir_ins[i]);
 	i = -1;

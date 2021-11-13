@@ -6,7 +6,7 @@
 /*   By: jo <jo@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:27:14 by ambelkac          #+#    #+#             */
-/*   Updated: 2021/11/13 15:15:12 by jo               ###   ########.fr       */
+/*   Updated: 2021/11/13 15:18:17 by jo               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define ENV_CHAR_LIST "abcdefghijklmnopqrstuvwxyz\
 	ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_=/+"
 # define BUFFER_SIZE 4096
-# define SHOW_PARSE 0
+# define SHOW_PARSE 1
 
 typedef struct s_split_arg
 {
