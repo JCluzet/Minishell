@@ -12,7 +12,7 @@ The project consists in making X Philosophers live at the same time as a thread,
 You need to make first.
 Then run ./minishell without arguments.
 
-## How to launch ? r
+## How to launch ?
 
 Just do ./make
 and execute with ./minishell
